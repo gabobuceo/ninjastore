@@ -13,6 +13,17 @@ require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo control, puntual para esta pagina (Como la sesion).*/
 /*-----------------------------------------------------------------------------------------------------------*/
+if (isset($_POST['search'])) {
+	$_SESSION['buscar']=$_POST['search'];
+	$datos_publicaciones = require_once('../logica/procesarCargaPubliBuscar.php');
+}elseif (isset($_GET['categoria'])){
+	$_SESSION['buscar']=$_GET['categoria'];
+	$datos_publicaciones = require_once('../logica/procesarCargaPubliBuscarCat.php');
+	$_SESSION['buscar']=$datos_publicaciones[0]['CATTITULO'];
+}else{
+	$_SESSION['buscar']="";
+	$datos_publicaciones = require_once('../logica/procesarCargaPubliBuscar.php');
+}
 require('header.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo el contenido de esta pagina aqui.*/
@@ -27,12 +38,7 @@ and (C.TITULO LIKE "%ubl%" or C.TITULO LIKE "%cion%" or C.TITULO LIKE "%Cama%")
 order by locate('ubl', TITULO) asc, locate('cion', TITULO) asc, locate('Cama', TITULO) asc, TITULO asc
 */
 
-if (isset($_POST['search'])) {
-	$_SESSION['buscar']=$_POST['search'];
-}else{
-	$_SESSION['buscar']="";
-}
-$datos_publicaciones = require_once('../logica/procesarCargaPubliBuscar.php');
+
 /*var_dump($datos_publicaciones);*/
 ?>
 <!--
@@ -104,7 +110,7 @@ $datos_publicaciones = require_once('../logica/procesarCargaPubliBuscar.php');
 							<div class="superdeals-slider currentBox active">
 								<div class="trend-ads">
 									<?php
-									if (!isset($datos_publicaciones['this'])) {
+									if (!isset($datos_publicaciones['this']) && ($datos_publicaciones[0]['ID']!=null)) {
 										for ($i=0; $i < count($datos_publicaciones); $i++) { 
 											?>
 											<div class="col-md-3 biseller-column">

@@ -314,6 +314,12 @@ class Publicacion
 		$datos= $pp->consPubliBusc($this,$conex);
 		return $datos;
 	}
+	public function consultaPublicacionesBuscarCategoria($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consPubliBuscCat($this,$conex);
+		return $datos;
+	}
 }
 
 ?>
