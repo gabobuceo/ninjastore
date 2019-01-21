@@ -278,6 +278,17 @@ class PersistenciaPublicacion
 		$resultados=$result->fetchAll();
 		return $resultados;
 	}
+	public function consPubliBuscCat($obj, $conex)
+	{
+		$id= trim($obj->getIdCategoria());
+		$sql = "SELECT * FROM DATOS_BUSQUEDA_CATEGORIA WHERE CATID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
+
+		return $resultados;
+	}
 }
 
 ?>
