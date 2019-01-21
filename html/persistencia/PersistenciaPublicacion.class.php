@@ -289,6 +289,17 @@ class PersistenciaPublicacion
 
 		return $resultados;
 	}
+	public function consPubliVend($obj, $conex)
+	{
+		$id= trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_PRODUCTO_INDEX WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
+
+		return $resultados;
+	}
 }
 
 ?>

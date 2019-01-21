@@ -320,6 +320,12 @@ class Publicacion
 		$datos= $pp->consPubliBuscCat($this,$conex);
 		return $datos;
 	}
+	public function consultaPublicacionesVendedor($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consPubliVend($this,$conex);
+		return $datos;
+	}
 }
 
 ?>
