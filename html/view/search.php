@@ -91,7 +91,7 @@ order by locate('ubl', TITULO) asc, locate('cion', TITULO) asc, locate('Cama', T
 									$d=count($c);
 									for ($j=0; $j < $d; $j++) { 
 										?>
-										<a href="/view/search.php?categoria=<?php echo $c[$j]['ID'] ?>"><li><?php echo $c[$j]['TITULO'] ?></li></a>
+										<a href="../view/search.php?categoria=<?php echo $c[$j]['ID'] ?>"><li><?php echo $c[$j]['TITULO'] ?></li></a>
 										<?php
 									}
 									echo "</ul></div>";	
