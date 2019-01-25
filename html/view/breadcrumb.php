@@ -4,11 +4,11 @@
 	<?php
 		if (isset($datos_categoria['0']['ID'])){
 		?>
-			<li class="active"><a href="/view/search.php?categoria=<?php echo $datos_categoria['0']['ID'] ?>"><?php echo $datos_categoria['0']['TITULO'] ?></a></li>
+			<li class="active"><a href="../view/search.php?categoria=<?php echo $datos_categoria['0']['ID'] ?>"><?php echo $datos_categoria['0']['TITULO'] ?></a></li>
 		<?php	
 		}else if(isset($_GET['categoria'])){
 			?>
-			<li class="active"><a href="/view/search.php?categoria=<?php echo $_GET['categoria'] ?>"><?php echo $_SESSION['buscar'] ?></a></li>
+			<li class="active"><a href="../view/search.php?categoria=<?php echo $_GET['categoria'] ?>"><?php echo $_SESSION['buscar'] ?></a></li>
 		<?php
 		}else if(isset($_SESSION['buscar'])){
 			?>
