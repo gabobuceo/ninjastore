@@ -1,6 +1,6 @@
 <ol class="breadcrumb" style="margin-bottom: 5px;">
-	<li><a href="/view/index.php">Volver a Inicio</a></li>
-	<li><a href="/view/categories.php">Todas las Categorias</a></li>
+	<li><a href="../view/index.php">Volver a Inicio</a></li>
+	<li><a href="../view/categories.php">Todas las Categorias</a></li>
 	<?php
 		if (isset($datos_categoria['0']['ID'])){
 		?>
