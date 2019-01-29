@@ -10,7 +10,8 @@
         'bdhost' => 'localhost',
         'bdport' => '',
         'bduser' => 'root',
-        'bdpass' => 'Insercom01',
+        /*'bdpass' => 'Insercom01',*/
+        'bdpass' => '',
         'bdname' => 'ninjadatos',
         'app_info' => array(
             'appName'=>"Ninja Store",
