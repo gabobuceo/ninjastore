@@ -1,16 +1,13 @@
 <?php
     return (object) array(
-/*      
-        'bdhost' => '162.216.19.206',
-        'bdport' => '443',
-        'bduser' => 'gfernandez',
-        'bdpass' => 'cVG1F57f1Ls9F5D',
-        'bdname' => 'proyecto_gfernandez',
-*/        
         'bdhost' => 'localhost',
         'bdport' => '',
         'bduser' => 'root',
-        'bdpass' => 'Insercom01',
+<<<<<<< HEAD
+=======
+        /*'bdpass' => 'Insercom01',*/
+>>>>>>> origin/HotFix-ErrorsWithoutSession
+        'bdpass' => '',
         'bdname' => 'ninjadatos',
         'app_info' => array(
             'appName'=>"Ninja Store",

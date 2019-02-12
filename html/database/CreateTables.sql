@@ -12,7 +12,6 @@ DROPS
 
 -----------------------------------------------
 */
-
 DROP TABLE IF EXISTS HIJO;
 DROP TABLE IF EXISTS CONTIENE;
 DROP TABLE IF EXISTS CREA;
@@ -358,36 +357,3 @@ PROCEDIMIENTOS ALMACENADOS
 
 /* 
 -----------------------------------------------
-
-INSERTS DE PRUEBAS
-
-10 USUARIOS - 5 COMUNES 2 VIP 2 MODERADORES 1 ADMINISTRADOR
-25 CATEGORIAS - 5 CATEGORIAS - 5 HIJO X PADRE
-125 PRODUCTOS - 5 X CATEGORIA - 3 NUEVOS - 2 USADOS
------------------------------------------------
-*/
-INSERT INTO USUARIO(ID, CEDULA, USUARIO, PASSWORD, PASSWORDADM, PNOMBRE, SNOMBRE, PAPELLIDO, SAPELLIDO, FNACIMIENTO, EMAIL, CALLE, NUMERO, ESQUINA, CPOSTAL, LOCALIDAD, DEPARTAMENTO, TIPO, ESTADO, ACTIVACION, ROL, BAJA) VALUES 
-(6, '51652357', 'gabobuceo', '4e4800c9e622ec10c62c4bf2ca9aa88136d88bdf', NULL, 'Gabriel', NULL, 'Fernandez', NULL, '1990-11-28 00:00:00', 'emgabo@gmail.com', NULL, NULL, NULL, 0, NULL, NULL, 'COMUN', 'RECUPERAR', '37c55379bdf99df28c82e96e6ba62d49d0644680', 'CLIENTE', 0),
-
-INSERT INTO USUARIO(CEDULA,PNOMBRE,PAPELLIDO,EMAIL,FNACIMIENTO,CALLE, NUMERO, ESQUINA,CPOSTAL, LOCALIDAD, DEPARTAMENTO, GEOX, GEOY, USUARIO, PASSWORD, PASSWORDADM,TIPO, ESTADO, ACTIVACION, ROL)VALUES 
-("53373886","Rinah","Mathis","erat.eget.tincidunt@feugiat.org","1997-07-08","Magariños Cervantes","1930","Florencio Varela","11600","Parque Batlle","Montevideo","-34.890201","-56.140479","rmathis","f7c3bc1d808e04732adf679965ccc34ca7ae3441","f7c3bc1d808e04732adf679965ccc34ca7ae3441","COMUN","ACTIVADO",0,"MODERADOR"),
-("53367920","Hope","Goodman","velit.Quisque.varius@luctussit.ca","1994-07-22","Guadalupe","1798","José L. Terra","11800","Goes","Montevideo","-34.879479","-56.180132","hgoodman","f7c3bc1d808e04732adf679965ccc34ca7ae3441","f7c3bc1d808e04732adf679965ccc34ca7ae3441","VIP","ACTIVADO",0,"MODERADOR"),
-("52789056","Idola","Ford","nec.leo@CurabiturdictumPhasellus.com","1997-03-06","Paraguay","1104","Durazno","11100","Barrio Sur","Montevideo","-34.910560","-56.191877","iford","f7c3bc1d808e04732adf679965ccc34ca7ae3441","f7c3bc1d808e04732adf679965ccc34ca7ae3441","VIP","ACTIVADO",0,"ADMINISTRADOR"),
-("52651081","Tanisha","Sexton","felis.purus@tellus.net","1992-06-04","Charcas","2752","Costa de Marfil","12800","Casabó","Montevideo","-34.886466","-56.271236","tsexton","f7c3bc1d808e04732adf679965ccc34ca7ae3441",NULL,"COMUN","ACTIVADO",0,"CLIENTE"),
-("52562268","Dillon","Church","eget.lacus@placerat.org","1994-03-06","Dr Adolfo Pedralbes","2351","Dr Luis Arcos Ferrand","11400","Malvin Alto","Montevideo","-34.874336","-56.112215","dchurch","f7c3bc1d808e04732adf679965ccc34ca7ae3441",NULL,"COMUN","ACTIVADO",0,"CLIENTE"),
-("52393922","Blair","Brady","magna.Nam@Nullamvitaediam.ca","1996-05-19","Río de Janeiro","4032","Calle Las Canoas","12800","Ciudad de la Costa","Departamento de Canelones","-34.837539","-55.984290","bbrady","f7c3bc1d808e04732adf679965ccc34ca7ae3441",NULL,"COMUN","ACTIVADO",0,"CLIENTE"),
-("52152922","Howard","Summers","elit.facilisi@nullaCras.net","1990-05-07","Calle 2","20","Calle 3","80500","Ciudad del Plata","Departamento de San José","-34.752014","-56.423861","hsummers","f7c3bc1d808e04732adf679965ccc34ca7ae3441",NULL,"COMUN","ACTIVADO",0,"CLIENTE"),
-("51860497","Tanya","Hubbard","sapien@loremtristique.com","1990-10-18","Av. Capitán Leal de Ibarra","5545","Capitán Pedro de Mesa y Castro","12800","Pajas Blancas","Montevideo","-34.866848","-56.335528","thubbard","f7c3bc1d808e04732adf679965ccc34ca7ae3441",NULL,"COMUN","ACTIVADO",0,"CLIENTE"),
-("51716911","Harriet","Gibbs","vitae.dolor@dolornonummy.co.uk","1992-07-07","Juan Russi","331","Javier de Viana","15900","La Paz","Departamento de Canelones","-34.760102","-56.235463","hgibbs","f7c3bc1d808e04732adf679965ccc34ca7ae3441",NULL,"VIP","ACTIVADO",0,"CLIENTE"),
-("51712727","Scarlet","Knox","Nunc@euaccumsan.net","1996-02-07","Pasaje F","1425","Pasaje E","12400","Asentamiento 21 de Enero","Montevideo","-34.799185","-56.171684","sknox","f7c3bc1d808e04732adf679965ccc34ca7ae3441",NULL,"VIP","ACTIVADO",0,"CLIENTE");
-
-/* 
------------------------------------------------
-
-CONSULTAS SQL GENERICAS
-
------------------------------------------------
-*/
-
-INSERT INTO USUARIO(ID, CEDULA, USUARIO, PASSWORD, PASSWORDADM, PNOMBRE, SNOMBRE, PAPELLIDO, SAPELLIDO, FNACIMIENTO, EMAIL, CALLE, NUMERO, ESQUINA, CPOSTAL, LOCALIDAD, DEPARTAMENTO, TIPO, ESTADO, ACTIVACION, ROL, BAJA) VALUES ()
-UPDATE USUARIO SET ID=,CEDULA=,USUARIO=,PASSWORD=,PASSWORDADM=,PNOMBRE=,SNOMBRE=,PAPELLIDO=,SAPELLIDO=,FNACIMIENTO=,EMAIL=,CALLE=,NUMERO=,ESQUINA=,CPOSTAL=,LOCALIDAD=,DEPARTAMENTO=,TIPO=,ESTADO=,ACTIVACION=,ROL=,BAJA= WHERE 1
