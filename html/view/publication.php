@@ -176,23 +176,21 @@ require('header.php');
 								<h4>Lo quieres?</h4>
 								<?php
 								echo "<img src='../imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' /><br />";
-								if ($_SESSION['id']!=$datos_vendedor['0']['ID']) {
-									if (isset($_GET['perm'])) {
+								if ((isset($_SESSION['id'])) AND ($_SESSION['id']!=$datos_vendedor['0']['ID']) AND (isset($_GET['perm']))) {
 							//es permuta
-										?>
-										<div class="buy-in-form">
-											<input type="submit" value="Comprar" data-toggle="modal" data-target="#product_view">
-											<input type="submit" value="Permutar" data-toggle="modal" data-target="#exchange_view">
-										</div>
-										<?php
-									}else{
+									?>
+									<div class="buy-in-form">
+										<input type="submit" value="Comprar" data-toggle="modal" data-target="#product_view">
+										<input type="submit" value="Permutar" data-toggle="modal" data-target="#exchange_view">
+									</div>
+									<?php
+								}else{
 							//no se admite permuta
-										?>
-										<div class="buy-in-form">
-											<input type="submit" value="LO QUIERO!" data-toggle="modal" data-target="#product_view">
-										</div>
-										<?php
-									}
+									?>
+									<div class="buy-in-form">
+										<input type="submit" value="LO QUIERO!" data-toggle="modal" data-target="#product_view">
+									</div>
+									<?php
 								}
 								?>
 							</div>
@@ -312,7 +310,7 @@ require('header.php');
 									</ul>
 									<?php
 								}
-								if ($_SESSION['id']!=$datos_vendedor['0']['ID']) {
+								if ((!isset($_SESSION['id'])) OR ($_SESSION['id']!=$datos_vendedor['0']['ID'])) {
 									?>
 									<div class="bottom_wrapper clearfix">
 										<form name="hola" action="../logica/procesarAltaPregunta.php?idpublicacion=<?php echo $datos_publicacion['0']['ID']; ?>" method="POST">
