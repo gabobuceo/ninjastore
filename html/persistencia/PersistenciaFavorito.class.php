@@ -29,7 +29,7 @@ class PersistenciaFavorito
     }
     public function consTodos($obj, $conex){
         $idUsuario= trim($obj->getIdUsuario());
-        $sql = "CALL PROFAVORITOS (:IDUSUARIO)";
+        $sql = "SELECT FAVORITO.IDPUBLICACION,PUBLICACION.TITULO,PUBLICACION.IMGDEFAULT,PUBLICACION.PRECIO FROM FAVORITO, PUBLICACION WHERE FAVORITO.IDPUBLICACION=PUBLICACION.ID AND FAVORITO.IDUSUARIO=:IDUSUARIO";
         $result = $conex->prepare($sql);
         $result->execute(array(":IDUSUARIO" => $idUsuario));
         $resultados=$result->fetchAll();

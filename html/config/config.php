@@ -3,10 +3,6 @@
         'bdhost' => 'localhost',
         'bdport' => '',
         'bduser' => 'root',
-<<<<<<< HEAD
-=======
-        /*'bdpass' => 'Insercom01',*/
->>>>>>> origin/HotFix-ErrorsWithoutSession
         'bdpass' => '',
         'bdname' => 'ninjadatos',
         'app_info' => array(
