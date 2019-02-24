@@ -1,21 +1,18 @@
 <?php
 require_once('../logica/funciones.php');
-require_once('../clases/Categoria.class.php');
-$config = include('../config/config.php');
+require_once('../clases/Favorito.class.php');
 // -------- GET DATA ----
-$idcategoria = $_SESSION['CatID'];
-
+$idpublicacion = $_SESSION['PubID'];
 try {          
-  $conex = conectar();			
-  $co= new Categoria($idcategoria);
-  $datos_co=$co->consultaUno($conex);
-  if (!empty($datos_co)){
-    return $datos_co;
+  $conex = conectar();      
+  $c= new Favorito('',$idpublicacion);
+  $datos_c=$c->consultaTodos($conex);
+  if (!empty($datos_c)){
+    return true; 
   }else{
-    return array('this'=>'No existe la publicacion');
+    return false;
   }
 } catch (PDOException $e) {
-  return "Error: ".$e->getMessage();
-  exit();
+  return $e;
 }
 ?>

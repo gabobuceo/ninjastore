@@ -1,103 +1,129 @@
-<!-- 	-->
-<p>ESTE SITIO ES UN SITIO DE PRUEBA</p>
-<p>Deploy de POST</p>
 <?php
-	session_start();
-	print_r($_POST);
-	echo '<pre>';
-		echo htmlspecialchars($_POST['editor1']);
-	echo '</pre>';
+require('definitions.php');
 ?>
-<p>Deploy de SESION</p>
-<?php
-	print_r($_SESSION);
-?>
-<p>Deploy de SERVER</p>
-<?php
-	print_r($_SERVER);
-?>
-<p>Browser</p>
-<?php
-function getBrowser() { 
-  $u_agent = $_SERVER['HTTP_USER_AGENT'];
-  $bname = 'Unknown';
-  $platform = 'Unknown';
-  $version= "";
+<!------ Include the above in your HEAD tag ---------->
+<style type="text/css">
+  ul.dropdown-cart{
+    min-width:250px;
+}
+ul.dropdown-cart li .item{
+    display:block;
+    padding:3px 10px;
+    margin: 3px 0;
+}
+ul.dropdown-cart li .item:hover{
+    background-color:#f3f3f3;
+}
+ul.dropdown-cart li .item:after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
 
-  //First get the platform?
-  if (preg_match('/linux/i', $u_agent)) {
-    $platform = 'linux';
-  }elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
-    $platform = 'mac';
-  }elseif (preg_match('/windows|win32/i', $u_agent)) {
-    $platform = 'windows';
-  }
+ul.dropdown-cart li .item-left{
+    float:left;
+}
+ul.dropdown-cart li .item-left img,
+ul.dropdown-cart li .item-left span.item-info{
+    float:left;
+}
+ul.dropdown-cart li .item-left span.item-info{
+    margin-left:10px;   
+}
+ul.dropdown-cart li .item-left span.item-info span{
+    display:block;
+}
+ul.dropdown-cart li .item-right{
+    float:right;
+}
+ul.dropdown-cart li .item-right button{
+    margin-top:14px;
+}
+</style>
 
-  // Next get the name of the useragent yes seperately and for good reason
-  if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)){
-    $bname = 'Internet Explorer';
-    $ub = "MSIE";
-  }elseif(preg_match('/Firefox/i',$u_agent)){
-    $bname = 'Mozilla Firefox';
-    $ub = "Firefox";
-  }elseif(preg_match('/OPR/i',$u_agent)){
-    $bname = 'Opera';
-    $ub = "Opera";
-  }elseif(preg_match('/Chrome/i',$u_agent) && !preg_match('/Edge/i',$u_agent)){
-    $bname = 'Google Chrome';
-    $ub = "Chrome";
-  }elseif(preg_match('/Safari/i',$u_agent) && !preg_match('/Edge/i',$u_agent)){
-    $bname = 'Apple Safari';
-    $ub = "Safari";
-  }elseif(preg_match('/Netscape/i',$u_agent)){
-    $bname = 'Netscape';
-    $ub = "Netscape";
-  }elseif(preg_match('/Edge/i',$u_agent)){
-    $bname = 'Edge';
-    $ub = "Edge";
-  }elseif(preg_match('/Trident/i',$u_agent)){
-    $bname = 'Internet Explorer';
-    $ub = "MSIE";
-  }
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">You Shop Name</a>
+    </div>
 
-  // finally get the correct version number
-  $known = array('Version', $ub, 'other');
-  $pattern = '#(?<browser>' . join('|', $known) .
-')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
-  if (!preg_match_all($pattern, $u_agent, $matches)) {
-    // we have no matching number just continue
-  }
-  // see how many we have
-  $i = count($matches['browser']);
-  if ($i != 1) {
-    //we will have two since we are not using 'other' argument yet
-    //see if version is before or after the name
-    if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
-        $version= $matches['version'][0];
-    }else {
-        $version= $matches['version'][1];
-    }
-  }else {
-    $version= $matches['version'][0];
-  }
-
-  // check if we have a number
-  if ($version==null || $version=="") {$version="?";}
-
-  return array(
-    'userAgent' => $u_agent,
-    'name'      => $bname,
-    'version'   => $version,
-    'platform'  => $platform,
-    'pattern'    => $pattern
-  );
-} 
-
-// now try it
-$ua=getBrowser();
-$yourbrowser= "Your browser: " . $ua['name'] . " " . $ua['version'] . " on " .$ua['platform'] . " reports: <br >" . $ua['userAgent'];
-print_r($yourbrowser);
-?>
-
-
-<!-- 	-->
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> 7 - Items<span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-cart" role="menu">
+              <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+              <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+              <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+              <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+              <li class="divider"></li>
+              <li><a class="text-center" href="">View Cart</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
