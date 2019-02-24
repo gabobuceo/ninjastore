@@ -809,6 +809,17 @@ span.price:after {
   margin:0 auto;
   width:100%;
 }
+.buy-in-form button{
+  margin: 10px;
+  
+  font-size: 2em;
+}
+.btm-nofavs{
+  color:white;
+}
+.btm-favs{
+  color:red;
+}
 .sign-in-wrapper{
 
   background:#f9f9f9;
@@ -2287,34 +2298,82 @@ PRICING STYLES
 /****************************************************************************/
 /****************************************************************************/
 .radio-icon {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
-    
+
 .radio-icon ~ label:before {
-    font-family: FontAwesome;
-    display: inline-block;
-    content: "\f1db";
-    letter-spacing: 10px;
-    font-size: 1.2em;
-    color: #535353;
-    width: 1.4em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f1db";
+  letter-spacing: 10px;
+  font-size: 1.2em;
+  color: #535353;
+  width: 1.4em;
 }
 
 .radio-icon:checked ~ label:before  {
-    content: "\f00c";
-    font-size: 1.2em;
-    color: darkgreen;
-    letter-spacing: 5px;
+  content: "\f00c";
+  font-size: 1.2em;
+  color: darkgreen;
+  letter-spacing: 5px;
 }
 .radio-icon:focus ~ label:before,
 .radio-icon:focus ~ label
 {                
-    color: green;
+  color: green;
+}
+ul.dropdown-cart{
+  min-width:250px;
+}
+ul.dropdown-cart li .item{
+  display:block;
+  padding:3px 10px;
+  margin: 3px 0;
+}
+ul.dropdown-cart li .item:hover{
+  /*background-color:#f3f3f3;*/
+  background-color:var(--Terciario);
+}
+ul.dropdown-cart li .item:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+ul.dropdown-cart li .item-left{
+  float:left;
+  color:black;
+}
+ul.dropdown-cart li .item-left img{
+  width: 50px;
+}
+ul.dropdown-cart li .item-left img,
+ul.dropdown-cart li .item-left span.item-info{
+  float:left;
+}
+ul.dropdown-cart li .item-left span.item-info{
+  margin-left:10px;   
+  max-width: 145px;
+}
+ul.dropdown-cart li .item-left span.item-info span{
+  display:block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ul.dropdown-cart li .item-right{
+  float:right;
+}
+ul.dropdown-cart li .item-right button{
+  margin-top:14px;
 }

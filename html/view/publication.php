@@ -97,7 +97,11 @@ require('header.php');
 		$datos_productossimilares = require_once ('../logica/procesarCargaProductosSimilares.php');
 		/*var_dump($datos_productossimilares);
 		echo "<br><br>";*/
-
+		if (isset($_SESSION['usu'])) {
+			$datos_productofavorito = require_once ('../logica/procesarCargaProductoFavorito.php');
+			/*var_dump($datos_productofavorito);
+			echo "<br><br>";*/
+		}
 		obtenerFechaSistema();
 		?>
 		<div class="single-page main-grid-border">
@@ -172,23 +176,61 @@ require('header.php');
 									<div class="clearfix"></div>
 								</div>
 							</div>
-							<div class="interested text-center">
+							<div class="interested text-center" name="pachamama" >
 								<h4>Lo quieres?</h4>
 								<?php
-								echo "<img src='../imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' /><br />";
+								if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="publication.php"){
+									echo "<div class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+									<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+									unset($_SESSION['mobjetivo']);
+									unset($_SESSION['mtipo']);
+									unset($_SESSION['mtexto']);	
+									unset($_SESSION['debugeame']);				
+								}
+								echo "<img src='../imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' style='border: 1px black solid;' /><br />";
 								if ((isset($_SESSION['id'])) AND ($_SESSION['id']!=$datos_vendedor['0']['ID']) AND (isset($_GET['perm']))) {
 							//es permuta
 									?>
 									<div class="buy-in-form">
 										<input type="submit" value="Comprar" data-toggle="modal" data-target="#product_view">
 										<input type="submit" value="Permutar" data-toggle="modal" data-target="#exchange_view">
+										<button type="submit" class="btn btn-success">
+											<i class="fa fa-arrow-circle-right fa-lg"></i> Next
+										</button>
 									</div>
 									<?php
 								}else{
 							//no se admite permuta
 									?>
 									<div class="buy-in-form">
-										<input type="submit" value="LO QUIERO!" data-toggle="modal" data-target="#product_view">
+										<form action="../logica/procesarCompraOfavorito.php" method="POST">
+											<button name="boton" type="submit" class="btn btn-success" value="comprar">
+												<i class="fa fa-shopping-cart"></i> Comprar
+											</button>
+											<?php
+											if (isset($_SESSION['usu'])) {
+												if ($datos_productofavorito==false) {
+													?>
+													<button name="boton" type="submit" class="btn btm-nofavs" value="favorito">
+														<i class="fa fa-heart"></i>
+													</button>
+													<?php
+												}else{
+													?>
+													<button name="boton" type="submit" class="btn btm-favs" value="desfavorito">
+														<i class="fa fa-heart"></i>
+													</button>
+													<?php	
+												}
+											}else{
+												?>
+												<button name="boton" class="btn btm-nofavs" value="favorito">
+													<i class="fa fa-heart"></i>
+												</button>
+												<?php
+											}
+											?>
+										</form>
 									</div>
 									<?php
 								}
@@ -569,6 +611,9 @@ require('header.php');
 							<div class="buy-in-form">
 								<input type="submit" value="Comprar" data-toggle="modal" data-target="#product_view">
 								<input type="submit" value="Permutar" data-toggle="modal" data-target="#exchange_view">
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-arrow-circle-right fa-lg"></i> Next
+								</button>
 							</div>
 							<?php
 						}else{
@@ -576,6 +621,9 @@ require('header.php');
 							?>
 							<div class="buy-in-form">
 								<input type="submit" value="LO QUIERO!" data-toggle="modal" data-target="#product_view">
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-arrow-circle-right fa-lg"></i> Next
+								</button>
 							</div>
 							<?php
 						}
