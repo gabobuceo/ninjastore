@@ -1648,6 +1648,7 @@ h4.rate {
 @media (min-width: 1220px){
   .affix-row{
     overflow: hidden;
+    background-color: white;1
   }
   .affix-content{
     overflow: auto;
@@ -2370,6 +2371,9 @@ ul.dropdown-cart li .item-left span.item-info span{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+ul.dropdown-cart li .item-left span.item-info-2 span{
+  display:block;
 }
 ul.dropdown-cart li .item-right{
   float:right;

@@ -168,4 +168,14 @@ function textovalido($texto){
   }
 }
 
+function cargarimgtn($imagen){
+  echo "<img src='../imagenes/".$imagen."_tn.".$_SESSION['EXT']."' onerror=this.onerror=null;this.src='../static/img/noimage_tn.".$_SESSION['EXT']."' />";
+}
+function cargarimgdi($imagen){
+  echo "<img src='../imagenes/".$imagen."_di.".$_SESSION['EXT']."' onerror=this.onerror=null;this.src='../static/img/noimage_di.".$_SESSION['EXT']."' />";
+}
+function cargarimg($imagen){
+  echo "<img src='../imagenes/".$imagen.".".$_SESSION['EXT']."' onerror=this.onerror=null;this.src='../static/img/noimage.".$_SESSION['EXT']."' />";
+}
+
 ?>    
