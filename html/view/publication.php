@@ -128,6 +128,9 @@ require('header.php');
 								$start=0;
 							}
 							for ($i=0; $i < count($datos_publicacionimg); $i++) { 
+								if (!file_exists("../imagenes/".$datos_publicacionimg[$i]['IMAGENES'])){
+									$datos_publicacionimg[$i]['IMAGENES']='noimage';
+								}
 								if ($start==0){
 									echo "
 									<a href='../imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp'>

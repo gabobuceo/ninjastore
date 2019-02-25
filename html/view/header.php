@@ -39,39 +39,54 @@
 										<li><a href="logout.php"><i class="icon-off"></i> Cerrar Sesión</a></li>
 									</ul>
 								</li>
-								<!-- ------------------------------- FAVORITOS VIEJAAAAAAAAAAAAAAAAAAAAA -------------------------------------->
 								<li class="pull-left dropdown">
-									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-heart" aria-hidden="true"></i></a>								
+									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									<ul class="dropdown-menu dropdown-cart" role="menu">
 										<?php
-										for ($i=0; $i < count($datos_favoritos); $i++) { 
+										if (isset($datos_favoritos["this"])) {
 											?>
-											<form action="../logica/procesarBajaFavoritos.php" method="POST">
-												<li>
-													<span class="item">
-														<span class="item-left">
-															<img src="../imagenes/<?php echo $datos_favoritos[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
-															<span class="item-info">
-																<span><?php echo $datos_favoritos[$i]['TITULO']; ?></span>
-																<span>$ <?php echo $datos_favoritos[$i]['PRECIO']; ?></span>
-															</span>
-														</span>
-														<span class="item-right">
-															<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos[$i]['IDPUBLICACION']; ?>">
-																<i class="fa fa-trash"></i>
-															</button>
+											<li>
+												<span class="item">
+													<span class="item-left">
+														<span class="item-info-2">
+															<span>No tienen favoritos.<br>Agrega tus favoritos y síguelos desde acá.</span>
 														</span>
 													</span>
-												</li>
-											</form>
+												</span>
+											</li>
+											<?php
+										}else{
+											for ($i=0; $i < count($datos_favoritos); $i++) { 
+												?>
+												<form action="../logica/procesarBajaFavoritos.php" method="POST">
+													<li>
+														<span class="item">
+															<span class="item-left">
+																<img src="../imagenes/<?php echo $datos_favoritos[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																<span class="item-info">
+																	<span><?php echo $datos_favoritos[$i]['TITULO']; ?></span>
+																	<span>$ <?php echo $datos_favoritos[$i]['PRECIO']; ?></span>
+																</span>
+															</span>
+															<span class="item-right">
+																<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos[$i]['IDPUBLICACION']; ?>">
+																	<i class="fa fa-trash"></i>
+																</button>
+															</span>
+														</span>
+													</li>
+												</form>
+												<?php
+											}
+											?>
+											<li class="divider"></li>
+											<li><a class="text-center" href="../view/myfavorites.php">Ver todos tus Favoritos</a></li>
 											<?php
 										}
 										?>
-										<li class="divider"></li>
-										<li><a class="text-center" href="">Ver todos tus Favoritos</a></li>
+										
 									</ul>
 								</li>
-								<!-- ------------------------------- FAVORITOS VIEJAAAAAAAAAAAAAAAAAAAAA -------------------------------------->
 								<li class="pull-left">
 									<a class="store-main-button" href="javascript:void(0)"><i class="fa fa-bell" aria-hidden="true"></i></a>
 								</li>
