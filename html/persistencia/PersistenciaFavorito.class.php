@@ -35,6 +35,14 @@ class PersistenciaFavorito
         $resultados=$result->fetchAll();
         return $resultados;
     }
+    public function consCinco($obj, $conex){
+        $idUsuario= trim($obj->getIdUsuario());
+        $sql = "SELECT FAVORITO.IDPUBLICACION,PUBLICACION.TITULO,PUBLICACION.IMGDEFAULT,PUBLICACION.PRECIO FROM FAVORITO, PUBLICACION WHERE FAVORITO.IDPUBLICACION=PUBLICACION.ID AND FAVORITO.IDUSUARIO=:IDUSUARIO LIMIT 5";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":IDUSUARIO" => $idUsuario));
+        $resultados=$result->fetchAll();
+        return $resultados;
+    }
     public function consUno($obj, $conex){
         $idUsuario= trim($obj->getIdUsuario());
         $idPublicacion= trim($obj->getIdPublicacion());

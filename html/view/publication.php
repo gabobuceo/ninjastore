@@ -128,9 +128,9 @@ require('header.php');
 								$start=0;
 							}
 							for ($i=0; $i < count($datos_publicacionimg); $i++) { 
-								if (!file_exists("../imagenes/".$datos_publicacionimg[$i]['IMAGENES'])){
+								/*if (!file_exists("../imagenes/".$datos_publicacionimg[$i]['IMAGENES'])){
 									$datos_publicacionimg[$i]['IMAGENES']='noimage';
-								}
+								}*/
 								if ($start==0){
 									echo "
 									<a href='../imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp'>
@@ -191,19 +191,44 @@ require('header.php');
 									unset($_SESSION['debugeame']);				
 								}
 								echo "<img src='../imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' style='border: 1px black solid;' /><br />";
-								if ((isset($_SESSION['id'])) AND ($_SESSION['id']!=$datos_vendedor['0']['ID']) AND (isset($_GET['perm']))) {
-							//es permuta
+								if ((isset($_SESSION['id'])) AND ($_SESSION['id']!=$datos_vendedor['0']['ID'])){
+									if ($datos_publicacion['0']['ESTADOA']=="USADO") {
 									?>
 									<div class="buy-in-form">
-										<input type="submit" value="Comprar" data-toggle="modal" data-target="#product_view">
-										<input type="submit" value="Permutar" data-toggle="modal" data-target="#exchange_view">
-										<button type="submit" class="btn btn-success">
-											<i class="fa fa-arrow-circle-right fa-lg"></i> Next
-										</button>
+										<form action="../logica/procesarCompraOfavorito.php" method="POST">
+											<button name="boton" type="submit" class="btn btn-success" value="comprar">
+												<i class="fa fa-shopping-cart"></i> Comprar
+											</button>
+											<?php
+											if (isset($_SESSION['usu'])) {
+												if ($datos_productofavorito==false) {
+													?>
+													<button name="boton" type="submit" class="btn btm-nofavs" value="favorito">
+														<i class="fa fa-heart"></i>
+													</button>
+													<?php
+												}else{
+													?>
+													<button name="boton" type="submit" class="btn btm-favs" value="desfavorito">
+														<i class="fa fa-heart"></i>
+													</button>
+													<?php	
+												}
+											}else{
+												?>
+												<button name="boton" class="btn btm-nofavs" value="favorito">
+													<i class="fa fa-heart"></i>
+												</button>
+												<?php
+											}
+											?>
+											<button name="boton" type="submit" class="btn btn-warning" value="permuta">
+												<i class="fa fa-handshake-o"></i> Permutar
+											</button>
+										</form>
 									</div>
 									<?php
-								}else{
-							//no se admite permuta
+									}else{
 									?>
 									<div class="buy-in-form">
 										<form action="../logica/procesarCompraOfavorito.php" method="POST">
@@ -236,6 +261,7 @@ require('header.php');
 										</form>
 									</div>
 									<?php
+									}
 								}
 								?>
 							</div>
@@ -246,13 +272,13 @@ require('header.php');
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-xs-4">
+									<div class="col-xs-3">
 										<p>
 											<b>Vistas</b><br />
 											<?php echo $datos_publicacion['0']['VISTO']; ?>
 										</p>
 									</div>
-									<div class="col-xs-4">
+									<div class="col-xs-3">
 										<p>
 											<b>Vendidos</b><br />
 											<?php 
@@ -264,7 +290,7 @@ require('header.php');
 											?>
 										</p>
 									</div>
-									<div class="col-xs-4">
+									<div class="col-xs-3">
 										<p>
 											<b>Preguntas</b><br />
 											<?php 
@@ -272,6 +298,18 @@ require('header.php');
 												echo "0";
 											}else{
 												echo $datos_producto['0']['PREGUNTAS']; 
+											}
+											?>
+										</p>
+									</div>
+									<div class="col-xs-3">
+										<p>
+											<b>Favoritos</b><br />
+											<?php 
+											if ($datos_publicacion['0']['FAV']=="") {
+												echo "0";
+											}else{
+												echo $datos_publicacion['0']['FAV']; 
 											}
 											?>
 										</p>
@@ -285,7 +323,7 @@ require('header.php');
 									</div>
 									<div class="col-xs-6">
 										<p>
-											<b>Gabriel Fernandez</b><br />
+											<b><?php echo $datos_vendedor['0']['PNOMBRE'].' '.$datos_vendedor['0']['PAPELLIDO'] ?></b><br />
 											<?php
 											for ($i=0; $i < 5; $i++) { 
 												if ($i<$datos_vendedor['0']['NOTA']) {
@@ -308,13 +346,25 @@ require('header.php');
 									<div class="col-xs-4">
 										<p>
 											<b>Ventas</b><br />
-											<?php echo $datos_vendedor['0']['VENTAS']; ?>
+											<?php 
+											if ($datos_vendedor['0']['VENTAS']==NULL) {
+												echo "0";
+											}else{
+												echo $datos_vendedor['0']['VENTAS']; 
+											}
+											?>
 										</p>
 									</div>
 									<div class="col-xs-4">
 										<p>
 											<b>Calificaciones</b><br />
-											<?php echo $datos_vendedor['0']['CALIFICACION']; ?>
+											<?php 
+											if ($datos_vendedor['0']['CALIFICACION']==NULL) {
+												echo "0";
+											}else{
+												echo $datos_vendedor['0']['CALIFICACION']; 
+											}
+											?>
 										</p>
 									</div>
 								</div>

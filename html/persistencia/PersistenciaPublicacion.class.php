@@ -109,7 +109,7 @@ class PersistenciaPublicacion
 	public function consUno($obj, $conex)
 	{
 		$id= trim($obj->getId());
-		$sql = "SELECT * FROM PUBLICACION WHERE ID=:ID";
+		$sql = "SELECT * FROM DATOS_PUBLICACIONES WHERE ID=:ID";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();

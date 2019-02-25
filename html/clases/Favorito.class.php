@@ -46,6 +46,11 @@ class Favorito
 		$datos= $pu->consTodos($this,$conex);
 		return $datos;
 	}
+	public function consultaCinco($conex){
+		$pu=new PersistenciaFavorito;
+		$datos= $pu->consCinco($this,$conex);
+		return $datos;
+	}
 	public function consultaUno($conex){
 		$pu=new PersistenciaFavorito;
 		$datos= $pu->consUno($this,$conex);

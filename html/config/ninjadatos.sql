@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.4
+-- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 12-02-2019 a las 23:37:00
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.23
+-- Servidor: localhost
+-- Tiempo de generación: 25-02-2019 a las 23:34:37
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,11 +27,11 @@ USE `ninjadatos`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
+-- Estructura de tabla para la tabla `CATEGORIA`
 --
 
-DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE `categoria` (
+DROP TABLE IF EXISTS `CATEGORIA`;
+CREATE TABLE `CATEGORIA` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `TITULO` varchar(50) NOT NULL,
   `PADRE` bigint(20) UNSIGNED NOT NULL,
@@ -37,10 +39,10 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `categoria`
+-- Volcado de datos para la tabla `CATEGORIA`
 --
 
-INSERT INTO `categoria` (`ID`, `TITULO`, `PADRE`, `BAJA`) VALUES
+INSERT INTO `CATEGORIA` (`ID`, `TITULO`, `PADRE`, `BAJA`) VALUES
 (1, 'Dispositivos Moviles', 0, 0),
 (2, 'Electronica y Electrodomesticos', 0, 0),
 (3, 'Celulares', 1, 0),
@@ -72,11 +74,11 @@ INSERT INTO `categoria` (`ID`, `TITULO`, `PADRE`, `BAJA`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `compra`
+-- Estructura de tabla para la tabla `COMPRA`
 --
 
-DROP TABLE IF EXISTS `compra`;
-CREATE TABLE `compra` (
+DROP TABLE IF EXISTS `COMPRA`;
+CREATE TABLE `COMPRA` (
   `IDUSUARIO` bigint(20) UNSIGNED NOT NULL,
   `IDPUBLICACION` bigint(20) UNSIGNED NOT NULL,
   `FECHACOMPRA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -90,10 +92,10 @@ CREATE TABLE `compra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `compra`
+-- Volcado de datos para la tabla `COMPRA`
 --
 
-INSERT INTO `compra` (`IDUSUARIO`, `IDPUBLICACION`, `FECHACOMPRA`, `CONCRETADO`, `FECHACONCRETADO`, `CANTIDAD`, `TOTAL`, `COMISION`, `CALIFICACION`, `BAJA`) VALUES
+INSERT INTO `COMPRA` (`IDUSUARIO`, `IDPUBLICACION`, `FECHACOMPRA`, `CONCRETADO`, `FECHACONCRETADO`, `CANTIDAD`, `TOTAL`, `COMISION`, `CALIFICACION`, `BAJA`) VALUES
 (6, 6, '2018-10-04 02:23:45', 0, NULL, 20, 1.00, 0.00, 1, 0),
 (6, 7, '2018-10-04 02:13:47', 0, NULL, 4, 34000.00, 0.00, 1, 0),
 (9, 7, '2018-10-04 02:14:20', 0, NULL, 10, 17000.00, 0.00, 2, 0),
@@ -102,11 +104,11 @@ INSERT INTO `compra` (`IDUSUARIO`, `IDPUBLICACION`, `FECHACOMPRA`, `CONCRETADO`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `contiene`
+-- Estructura de tabla para la tabla `CONTIENE`
 --
 
-DROP TABLE IF EXISTS `contiene`;
-CREATE TABLE `contiene` (
+DROP TABLE IF EXISTS `CONTIENE`;
+CREATE TABLE `CONTIENE` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `IDPUBLICACION` bigint(20) UNSIGNED NOT NULL,
   `IDCATEGORIA` bigint(20) UNSIGNED NOT NULL,
@@ -116,11 +118,11 @@ CREATE TABLE `contiene` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `crea`
+-- Estructura de tabla para la tabla `CREA`
 --
 
-DROP TABLE IF EXISTS `crea`;
-CREATE TABLE `crea` (
+DROP TABLE IF EXISTS `CREA`;
+CREATE TABLE `CREA` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `IDUSUARIO` bigint(20) UNSIGNED NOT NULL,
   `IDPUBLICACION` bigint(20) UNSIGNED NOT NULL,
@@ -129,10 +131,10 @@ CREATE TABLE `crea` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `crea`
+-- Volcado de datos para la tabla `CREA`
 --
 
-INSERT INTO `crea` (`ID`, `IDUSUARIO`, `IDPUBLICACION`, `FECHA`, `BAJA`) VALUES
+INSERT INTO `CREA` (`ID`, `IDUSUARIO`, `IDPUBLICACION`, `FECHA`, `BAJA`) VALUES
 (1, 6, 1, '2018-08-20 23:37:23', 0),
 (2, 6, 2, '2018-08-21 00:21:43', 0),
 (3, 6, 3, '2018-09-07 23:03:03', 0),
@@ -171,11 +173,14 @@ INSERT INTO `crea` (`ID`, `IDUSUARIO`, `IDPUBLICACION`, `FECHA`, `BAJA`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_busqueda_categoria`
+-- Estructura Stand-in para la vista `DATOS_BUSQUEDA_CATEGORIA`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_busqueda_categoria`;
-CREATE TABLE `datos_busqueda_categoria` (
+DROP VIEW IF EXISTS `DATOS_BUSQUEDA_CATEGORIA`;
+CREATE TABLE `DATOS_BUSQUEDA_CATEGORIA` (
 `USUARIO` bigint(20) unsigned
+,`PNOMBRE` varchar(20)
+,`PAPELLIDO` varchar(20)
 ,`ID` bigint(20) unsigned
 ,`TIPO` varchar(10)
 ,`IMGDEFAULT` varchar(50)
@@ -190,11 +195,14 @@ CREATE TABLE `datos_busqueda_categoria` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_busqueda_categoria_aux01`
+-- Estructura Stand-in para la vista `DATOS_BUSQUEDA_CATEGORIA_AUX01`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_busqueda_categoria_aux01`;
-CREATE TABLE `datos_busqueda_categoria_aux01` (
+DROP VIEW IF EXISTS `DATOS_BUSQUEDA_CATEGORIA_AUX01`;
+CREATE TABLE `DATOS_BUSQUEDA_CATEGORIA_AUX01` (
 `USUARIO` bigint(20) unsigned
+,`PNOMBRE` varchar(20)
+,`PAPELLIDO` varchar(20)
 ,`ID` bigint(20) unsigned
 ,`TIPO` varchar(10)
 ,`IMGDEFAULT` varchar(50)
@@ -207,11 +215,14 @@ CREATE TABLE `datos_busqueda_categoria_aux01` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_persona`
+-- Estructura Stand-in para la vista `DATOS_PERSONA`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_persona`;
-CREATE TABLE `datos_persona` (
+DROP VIEW IF EXISTS `DATOS_PERSONA`;
+CREATE TABLE `DATOS_PERSONA` (
 `ID` bigint(20) unsigned
+,`PNOMBRE` varchar(20)
+,`PAPELLIDO` varchar(20)
 ,`PUBLICACIONES` bigint(21)
 ,`VENTAS` decimal(32,0)
 ,`CALIFICACION` bigint(21)
@@ -221,10 +232,11 @@ CREATE TABLE `datos_persona` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_persona_aux01`
+-- Estructura Stand-in para la vista `DATOS_PERSONA_AUX01`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_persona_aux01`;
-CREATE TABLE `datos_persona_aux01` (
+DROP VIEW IF EXISTS `DATOS_PERSONA_AUX01`;
+CREATE TABLE `DATOS_PERSONA_AUX01` (
 `ID` bigint(20) unsigned
 ,`VENTAS` decimal(32,0)
 );
@@ -232,10 +244,11 @@ CREATE TABLE `datos_persona_aux01` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_persona_aux02`
+-- Estructura Stand-in para la vista `DATOS_PERSONA_AUX02`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_persona_aux02`;
-CREATE TABLE `datos_persona_aux02` (
+DROP VIEW IF EXISTS `DATOS_PERSONA_AUX02`;
+CREATE TABLE `DATOS_PERSONA_AUX02` (
 `IDUSUARIO` bigint(20) unsigned
 ,`NOTA` decimal(11,0)
 ,`CALIFICACION` bigint(21)
@@ -244,10 +257,11 @@ CREATE TABLE `datos_persona_aux02` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_persona_aux03`
+-- Estructura Stand-in para la vista `DATOS_PERSONA_AUX03`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_persona_aux03`;
-CREATE TABLE `datos_persona_aux03` (
+DROP VIEW IF EXISTS `DATOS_PERSONA_AUX03`;
+CREATE TABLE `DATOS_PERSONA_AUX03` (
 `ID` bigint(20) unsigned
 ,`CALIFICACION` bigint(21)
 ,`NOTA` decimal(11,0)
@@ -256,10 +270,11 @@ CREATE TABLE `datos_persona_aux03` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_producto`
+-- Estructura Stand-in para la vista `DATOS_PRODUCTO`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_producto`;
-CREATE TABLE `datos_producto` (
+DROP VIEW IF EXISTS `DATOS_PRODUCTO`;
+CREATE TABLE `DATOS_PRODUCTO` (
 `ID` bigint(20) unsigned
 ,`VISTO` int(11)
 ,`VENTAS` decimal(32,0)
@@ -269,10 +284,11 @@ CREATE TABLE `datos_producto` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_producto_aux01`
+-- Estructura Stand-in para la vista `DATOS_PRODUCTO_AUX01`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_producto_aux01`;
-CREATE TABLE `datos_producto_aux01` (
+DROP VIEW IF EXISTS `DATOS_PRODUCTO_AUX01`;
+CREATE TABLE `DATOS_PRODUCTO_AUX01` (
 `IDPUBLICACION` bigint(20) unsigned
 ,`PREGUNTAS` bigint(21)
 );
@@ -280,11 +296,14 @@ CREATE TABLE `datos_producto_aux01` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_producto_index`
+-- Estructura Stand-in para la vista `DATOS_PRODUCTO_INDEX`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_producto_index`;
-CREATE TABLE `datos_producto_index` (
+DROP VIEW IF EXISTS `DATOS_PRODUCTO_INDEX`;
+CREATE TABLE `DATOS_PRODUCTO_INDEX` (
 `USUARIO` bigint(20) unsigned
+,`PNOMBRE` varchar(20)
+,`PAPELLIDO` varchar(20)
 ,`ID` bigint(20) unsigned
 ,`TIPO` varchar(10)
 ,`IMGDEFAULT` varchar(50)
@@ -296,10 +315,11 @@ CREATE TABLE `datos_producto_index` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_producto_oferta`
+-- Estructura Stand-in para la vista `DATOS_PRODUCTO_OFERTA`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_producto_oferta`;
-CREATE TABLE `datos_producto_oferta` (
+DROP VIEW IF EXISTS `DATOS_PRODUCTO_OFERTA`;
+CREATE TABLE `DATOS_PRODUCTO_OFERTA` (
 `ID` bigint(20) unsigned
 ,`IMGDEFAULT` varchar(50)
 ,`PRECIO` double(10,2)
@@ -310,10 +330,11 @@ CREATE TABLE `datos_producto_oferta` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `datos_producto_vip`
+-- Estructura Stand-in para la vista `DATOS_PRODUCTO_VIP`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `datos_producto_vip`;
-CREATE TABLE `datos_producto_vip` (
+DROP VIEW IF EXISTS `DATOS_PRODUCTO_VIP`;
+CREATE TABLE `DATOS_PRODUCTO_VIP` (
 `USUARIO` bigint(20) unsigned
 ,`ID` bigint(20) unsigned
 ,`IDCATEGORIA` bigint(20) unsigned
@@ -335,11 +356,49 @@ CREATE TABLE `datos_producto_vip` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `denuncia`
+-- Estructura Stand-in para la vista `DATOS_PUBLICACIONES`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `DATOS_PUBLICACIONES`;
+CREATE TABLE `DATOS_PUBLICACIONES` (
+`ID` bigint(20) unsigned
+,`IDCATEGORIA` bigint(20) unsigned
+,`TITULO` varchar(50)
+,`DESCRIPCION` text
+,`IMGDEFAULT` varchar(50)
+,`PRECIO` double(10,2)
+,`OFERTA` tinyint(1)
+,`DESCUENTO` int(11)
+,`FOFERTA` datetime
+,`ESTADOP` varchar(10)
+,`ESTADOA` varchar(10)
+,`CANTIDAD` int(11)
+,`PREGUNTAS` int(11)
+,`VISTO` int(11)
+,`BAJA` tinyint(1)
+,`FAV` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `DATOS_PUBLICACIONES_AUX01`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `DATOS_PUBLICACIONES_AUX01`;
+CREATE TABLE `DATOS_PUBLICACIONES_AUX01` (
+`IDPUBLICACION` bigint(20) unsigned
+,`FAV` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `DENUNCIA`
 --
 
-DROP TABLE IF EXISTS `denuncia`;
-CREATE TABLE `denuncia` (
+DROP TABLE IF EXISTS `DENUNCIA`;
+CREATE TABLE `DENUNCIA` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `FECHA` datetime NOT NULL,
   `TIPO` varchar(15) NOT NULL,
@@ -352,11 +411,11 @@ CREATE TABLE `denuncia` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `factura`
+-- Estructura de tabla para la tabla `FACTURA`
 --
 
-DROP TABLE IF EXISTS `factura`;
-CREATE TABLE `factura` (
+DROP TABLE IF EXISTS `FACTURA`;
+CREATE TABLE `FACTURA` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `IDCOMPRA` bigint(20) UNSIGNED NOT NULL,
   `FECHAC` datetime NOT NULL,
@@ -369,24 +428,38 @@ CREATE TABLE `factura` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `favorito`
+-- Estructura de tabla para la tabla `FAVORITO`
 --
 
-DROP TABLE IF EXISTS `favorito`;
-CREATE TABLE `favorito` (
+DROP TABLE IF EXISTS `FAVORITO`;
+CREATE TABLE `FAVORITO` (
   `IDUSUARIO` bigint(20) UNSIGNED NOT NULL,
   `IDPUBLICACION` bigint(20) UNSIGNED NOT NULL,
   `BAJA` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `FAVORITO`
+--
+
+INSERT INTO `FAVORITO` (`IDUSUARIO`, `IDPUBLICACION`, `BAJA`) VALUES
+(6, 13, 0),
+(6, 14, 0),
+(6, 15, 0),
+(6, 16, 0),
+(6, 17, 0),
+(6, 18, 0),
+(6, 20, 0),
+(6, 23, 0);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `gestiona`
+-- Estructura de tabla para la tabla `GESTIONA`
 --
 
-DROP TABLE IF EXISTS `gestiona`;
-CREATE TABLE `gestiona` (
+DROP TABLE IF EXISTS `GESTIONA`;
+CREATE TABLE `GESTIONA` (
   `IDUSUARIO` bigint(20) UNSIGNED NOT NULL,
   `IDDENUNCIA` bigint(20) UNSIGNED NOT NULL,
   `FECHA` datetime NOT NULL,
@@ -398,11 +471,11 @@ CREATE TABLE `gestiona` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historial`
+-- Estructura de tabla para la tabla `HISTORIAL`
 --
 
-DROP TABLE IF EXISTS `historial`;
-CREATE TABLE `historial` (
+DROP TABLE IF EXISTS `HISTORIAL`;
+CREATE TABLE `HISTORIAL` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `USUARIO` varchar(15) NOT NULL,
   `ACCION` varchar(15) NOT NULL,
@@ -413,11 +486,11 @@ CREATE TABLE `historial` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `permuta`
+-- Estructura de tabla para la tabla `PERMUTA`
 --
 
-DROP TABLE IF EXISTS `permuta`;
-CREATE TABLE `permuta` (
+DROP TABLE IF EXISTS `PERMUTA`;
+CREATE TABLE `PERMUTA` (
   `IDUSUARIO` bigint(20) UNSIGNED NOT NULL,
   `IDPUBLICACION` bigint(20) UNSIGNED NOT NULL,
   `ESTADO` varchar(15) DEFAULT 'ACTIVA',
@@ -430,11 +503,11 @@ CREATE TABLE `permuta` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pregunta`
+-- Estructura de tabla para la tabla `PREGUNTA`
 --
 
-DROP TABLE IF EXISTS `pregunta`;
-CREATE TABLE `pregunta` (
+DROP TABLE IF EXISTS `PREGUNTA`;
+CREATE TABLE `PREGUNTA` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `IDUSUARIO` bigint(20) UNSIGNED NOT NULL,
   `IDPUBLICACION` bigint(20) UNSIGNED NOT NULL,
@@ -447,10 +520,10 @@ CREATE TABLE `pregunta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `pregunta`
+-- Volcado de datos para la tabla `PREGUNTA`
 --
 
-INSERT INTO `pregunta` (`ID`, `IDUSUARIO`, `IDPUBLICACION`, `MENSAJE`, `FECHAM`, `RESPUESTA`, `FECHAR`, `ESTADO`, `BAJA`) VALUES
+INSERT INTO `PREGUNTA` (`ID`, `IDUSUARIO`, `IDPUBLICACION`, `MENSAJE`, `FECHAM`, `RESPUESTA`, `FECHAR`, `ESTADO`, `BAJA`) VALUES
 (1, 13, 7, 'Hola, realizan cubre asientos para Hiunday grand I10? Cuál sería su precio? Gracias. ', '2018-10-15 18:19:40', NULL, NULL, 'ACTIVO', 0),
 (2, 14, 7, 'me pasas la direccion exacta para ir a ver los modelos. Ademas te consulto , tiene tambien para cubrir el volante? gracias', '2018-10-15 18:19:40', 'Te comentamos que por cuestiones de las políticas de MercadoLibre, no podemos facilitarte esa información! - PARIS FUNDAS', '2018-10-15 14:03:00', 'ACTIVO', 0),
 (3, 15, 7, 'Buenas noches , colocan fundas en eco-cuero a un kia rio sedan , y por favor cuanto es el costo ? muchas gracias.', '2018-10-15 18:19:40', NULL, NULL, 'ACTIVO', 0),
@@ -477,10 +550,11 @@ INSERT INTO `pregunta` (`ID`, `IDUSUARIO`, `IDPUBLICACION`, `MENSAJE`, `FECHAM`,
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `prueba`
+-- Estructura Stand-in para la vista `PRUEBA`
+-- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `prueba`;
-CREATE TABLE `prueba` (
+DROP VIEW IF EXISTS `PRUEBA`;
+CREATE TABLE `PRUEBA` (
 `ID` bigint(20) unsigned
 ,`IDCATEGORIA` bigint(20) unsigned
 ,`TITULO` varchar(50)
@@ -501,11 +575,11 @@ CREATE TABLE `prueba` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `publicacion`
+-- Estructura de tabla para la tabla `PUBLICACION`
 --
 
-DROP TABLE IF EXISTS `publicacion`;
-CREATE TABLE `publicacion` (
+DROP TABLE IF EXISTS `PUBLICACION`;
+CREATE TABLE `PUBLICACION` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `IDCATEGORIA` bigint(20) UNSIGNED NOT NULL,
   `TITULO` varchar(50) NOT NULL,
@@ -524,37 +598,37 @@ CREATE TABLE `publicacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `publicacion`
+-- Volcado de datos para la tabla `PUBLICACION`
 --
 
-INSERT INTO `publicacion` (`ID`, `IDCATEGORIA`, `TITULO`, `DESCRIPCION`, `IMGDEFAULT`, `PRECIO`, `OFERTA`, `DESCUENTO`, `FOFERTA`, `ESTADOP`, `ESTADOA`, `CANTIDAD`, `PREGUNTAS`, `VISTO`, `BAJA`) VALUES
+INSERT INTO `PUBLICACION` (`ID`, `IDCATEGORIA`, `TITULO`, `DESCRIPCION`, `IMGDEFAULT`, `PRECIO`, `OFERTA`, `DESCUENTO`, `FOFERTA`, `ESTADOP`, `ESTADOA`, `CANTIDAD`, `PREGUNTAS`, `VISTO`, `BAJA`) VALUES
 (1, 3, 'Publicacion 1', '&lt;p&gt;dasdasdas&amp;nbsp;&lt;strong&gt;sdasdsadsa&lt;/strong&gt;&amp;nbsp;sadasdsa&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n\r\n&lt;p&gt;dasdsadsa&lt;/p&gt;\r\n', 'noimage', 1.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 2, 0),
 (2, 7, 'Publicacion 1', '&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;ccedil;lk&amp;ntilde;ohujk&lt;/p&gt;\r\n', 'noimage', 1.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 2, 0),
 (3, 7, 'Publicacion 2', '&lt;p&gt;soy una publicacion&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;strong&gt;CON Negrita&lt;/strong&gt;&lt;/p&gt;\r\n', 'noimage', 9000.00, 0, 0, NULL, 'BORRADOR', 'NUEVO', 1, 0, 11, 0),
-(4, 3, 'Publicacion 8', '&lt;p&gt;ss&lt;/p&gt;\r\n', 'noimage', 1.00, 1, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 20, 0),
+(4, 3, 'Publicacion 8', '&lt;p&gt;ss&lt;/p&gt;\r\n', 'noimage', 1.00, 1, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 22, 0),
 (5, 6, 'Publicacion prueba img def', '&lt;p&gt;Ficha t&amp;eacute;cnica&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;&lt;strong&gt;A&amp;ntilde;o&lt;/strong&gt;2004&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Kil&amp;oacute;metros&lt;/strong&gt;143.000 km&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Marca&lt;/strong&gt;Peugeot&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Modelo&lt;/strong&gt;206&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Versi&amp;oacute;n&lt;/strong&gt;1.4 Xr Confort&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Tipo&lt;/strong&gt;Hatchback&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Motor&lt;/strong&gt;1.4&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Potencia&lt;/strong&gt;75hp&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Transmisi&amp;oacute;n&lt;/strong&gt;Manual&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Color&lt;/strong&gt;Gris claro&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Tipo de combustible&lt;/strong&gt;Nafta&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Puertas&lt;/strong&gt;5&lt;/li&gt;\r\n	&lt;li&gt;&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Dimensiones y capacidades&lt;/p&gt;\r\n\r\n&lt;p&gt;Descripci&amp;oacute;n&lt;/p&gt;\r\n\r\n&lt;p&gt;Se vende Peugeot 206 1.4 XR Confort a&amp;ntilde;o 2004&lt;br /&gt;\r\n&lt;br /&gt;\r\nPapeles al d&amp;iacute;a pronto para transferir&lt;br /&gt;\r\n&lt;br /&gt;\r\nUltimo servicie a los 142.000 KMs:&lt;br /&gt;\r\nCambio de silenciador por catalizador&amp;nbsp;&lt;br /&gt;\r\nCambio de aceite sint&amp;eacute;tico (para 10.000km)&lt;br /&gt;\r\nCambio de rotulas y parrillas delanteras&lt;br /&gt;\r\nAlineaci&amp;oacute;n y balanceo&amp;nbsp;&lt;br /&gt;\r\n&lt;br /&gt;\r\nSe puede ver, probar y verlo con mec&amp;aacute;nico.&lt;br /&gt;\r\n&lt;br /&gt;\r\nPatente paga hasta 2019&lt;br /&gt;\r\n&lt;br /&gt;\r\nAuto en perfecto estado, se vende por problemas econ&amp;oacute;micos.&lt;/p&gt;\r\n\r\n&lt;p&gt;Peugeot 206 1.4 Xr Confort&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n&lt;/ul&gt;\r\n', 'noimage', 8500.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 3, 0),
-(6, 6, 'Publicacion prueba imag def', '&lt;p&gt;Ficha t&amp;eacute;cnica&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;&lt;strong&gt;A&amp;ntilde;o&lt;/strong&gt;2004&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Kil&amp;oacute;metros&lt;/strong&gt;143.000 km&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Marca&lt;/strong&gt;Peugeot&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Modelo&lt;/strong&gt;206&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Versi&amp;oacute;n&lt;/strong&gt;1.4 Xr Confort&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Tipo&lt;/strong&gt;Hatchback&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Motor&lt;/strong&gt;1.4&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Potencia&lt;/strong&gt;75hp&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Transmisi&amp;oacute;n&lt;/strong&gt;Manual&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Color&lt;/strong&gt;Gris claro&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Tipo de combustible&lt;/strong&gt;Nafta&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Puertas&lt;/strong&gt;5&lt;/li&gt;\r\n	&lt;li&gt;&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Dimensiones y capacidades&lt;/p&gt;\r\n\r\n&lt;p&gt;Descripci&amp;oacute;n&lt;/p&gt;\r\n\r\n&lt;p&gt;Se vende Peugeot 206 1.4 XR Confort a&amp;ntilde;o 2004&lt;br /&gt;\r\n&lt;br /&gt;\r\nPapeles al d&amp;iacute;a pronto para transferir&lt;br /&gt;\r\n&lt;br /&gt;\r\nUltimo servicie a los 142.000 KMs:&lt;br /&gt;\r\nCambio de silenciador por catalizador&amp;nbsp;&lt;br /&gt;\r\nCambio de aceite sint&amp;eacute;tico (para 10.000km)&lt;br /&gt;\r\nCambio de rotulas y parrillas delanteras&lt;br /&gt;\r\nAlineaci&amp;oacute;n y balanceo&amp;nbsp;&lt;br /&gt;\r\n&lt;br /&gt;\r\nSe puede ver, probar y verlo con mec&amp;aacute;nico.&lt;br /&gt;\r\n&lt;br /&gt;\r\nPatente paga hasta 2019&lt;br /&gt;\r\n&lt;br /&gt;\r\nAuto en perfecto estado, se vende por problemas econ&amp;oacute;micos.&lt;/p&gt;\r\n\r\n&lt;p&gt;Peugeot 206 1.4 Xr Confort&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n&lt;/ul&gt;\r\n', 'cac52a444949121a2aafe68112507527', 8500.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 5, 0),
+(6, 6, 'Publicacion prueba imag def', '&lt;p&gt;Ficha t&amp;eacute;cnica&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;&lt;strong&gt;A&amp;ntilde;o&lt;/strong&gt;2004&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Kil&amp;oacute;metros&lt;/strong&gt;143.000 km&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Marca&lt;/strong&gt;Peugeot&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Modelo&lt;/strong&gt;206&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Versi&amp;oacute;n&lt;/strong&gt;1.4 Xr Confort&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Tipo&lt;/strong&gt;Hatchback&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Motor&lt;/strong&gt;1.4&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Potencia&lt;/strong&gt;75hp&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Transmisi&amp;oacute;n&lt;/strong&gt;Manual&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Color&lt;/strong&gt;Gris claro&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Tipo de combustible&lt;/strong&gt;Nafta&lt;/li&gt;\r\n	&lt;li&gt;&lt;strong&gt;Puertas&lt;/strong&gt;5&lt;/li&gt;\r\n	&lt;li&gt;&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Dimensiones y capacidades&lt;/p&gt;\r\n\r\n&lt;p&gt;Descripci&amp;oacute;n&lt;/p&gt;\r\n\r\n&lt;p&gt;Se vende Peugeot 206 1.4 XR Confort a&amp;ntilde;o 2004&lt;br /&gt;\r\n&lt;br /&gt;\r\nPapeles al d&amp;iacute;a pronto para transferir&lt;br /&gt;\r\n&lt;br /&gt;\r\nUltimo servicie a los 142.000 KMs:&lt;br /&gt;\r\nCambio de silenciador por catalizador&amp;nbsp;&lt;br /&gt;\r\nCambio de aceite sint&amp;eacute;tico (para 10.000km)&lt;br /&gt;\r\nCambio de rotulas y parrillas delanteras&lt;br /&gt;\r\nAlineaci&amp;oacute;n y balanceo&amp;nbsp;&lt;br /&gt;\r\n&lt;br /&gt;\r\nSe puede ver, probar y verlo con mec&amp;aacute;nico.&lt;br /&gt;\r\n&lt;br /&gt;\r\nPatente paga hasta 2019&lt;br /&gt;\r\n&lt;br /&gt;\r\nAuto en perfecto estado, se vende por problemas econ&amp;oacute;micos.&lt;/p&gt;\r\n\r\n&lt;p&gt;Peugeot 206 1.4 Xr Confort&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n&lt;/ul&gt;\r\n', 'cac52a444949121a2aafe68112507527', 8500.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 6, 0),
 (7, 6, 'Peugeot 206', '&lt;p&gt;das&amp;ntilde;ldjasodjasf&lt;/p&gt;\r\n\r\n&lt;p&gt;sfjas&lt;/p&gt;\r\n\r\n&lt;p&gt;dfjlasdfj&lt;/p&gt;\r\n\r\n&lt;p&gt;asfasj&lt;/p&gt;\r\n\r\n&lt;p&gt;df&amp;ntilde;asd&amp;ntilde;f&lt;/p&gt;\r\n\r\n&lt;p&gt;sda&lt;/p&gt;\r\n', '88f7e8168033eeb1ba581a05a84d0a9f', 8500.00, 1, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 202, 0),
 (8, 7, 'viagra', '&lt;p&gt;comete&amp;nbsp;&lt;strong&gt;ESTA&lt;/strong&gt; :D&lt;/p&gt;\r\n', '4ddffe797674bc65c838c845fef1a62d', 20.00, 0, 0, NULL, 'BORRADOR', 'NUEVO', 255, 0, 18, 0),
 (9, 3, 'EL ale', '&lt;p&gt;hola&amp;nbsp;&lt;strong&gt;como&lt;/strong&gt; andas&lt;/p&gt;\r\n', '64d3a8943a67892111bb80d10d42cc33', 1.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 5, 0),
 (10, 8, 'esae', '&lt;p&gt;esae&lt;/p&gt;\r\n', '9f50d6cb6511f9ec399aae66b731130e', 1.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 3, 0),
 (11, 3, '1', '&lt;p&gt;1&lt;/p&gt;\r\n', '4067b5e3bdbe1485de2c23bf691c7373', 1.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 3, 0),
-(12, 3, 'test123', '&lt;p&gt;soy una prueba&lt;/p&gt;\r\n', '9e09171baa4e2c812a9f66f08644ba9c', 1.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 9, 0),
-(13, 9, 'Pelota Nike', '&lt;p&gt;Pelota de futbol nike, varios modelos disponibles.&lt;/p&gt;\r\n', '0461780ca0c86780ce13c17dbf5134f4', 1600.00, 0, 0, NULL, 'BORRADOR', 'NUEVO', 30, 0, 4, 0),
-(14, 3, 'Banco de pecho', '&lt;p&gt;banco de pecho, incluye barra&amp;nbsp; y 50 kg en discos.&lt;/p&gt;\r\n', '7881634fe45554fdee79088c3c82c90e', 3900.00, 0, 0, NULL, 'BORRADOR', 'USADO', 2, 0, 6, 0),
-(15, 14, 'Taladro inalambrico', '&lt;p&gt;Taladro inalambrico&amp;nbsp;marca slender.&lt;/p&gt;\r\n', '0ba52d7d3cb2577a2624474ce45c9132', 980.00, 0, 0, NULL, 'PUBLICADA', 'USADO', 1, 0, 1, 0),
-(16, 14, 'Destorillador inalambrico', '&lt;p&gt;Destorillador inalambrico marca makita&lt;/p&gt;\r\n', '2566405112ac52452064d2b855953e7a', 1320.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 1, 0),
-(17, 17, 'Guantes ejercicio', '&lt;p&gt;Guantes para entrenamiento, pesas.&lt;/p&gt;\r\n', 'b6d3a6aea8a57b8cfaebbf44037ec2b3', 730.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 6, 0, 3, 0),
-(18, 17, 'Guantes levantamiento de pesas', '&lt;p&gt;guantes reforzados.&amp;nbsp;&lt;/p&gt;\r\n', 'bd080a019f66158ac22335f0661f191f', 1200.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 20, 0, 1, 0),
+(12, 3, 'test123', '&lt;p&gt;soy una prueba&lt;/p&gt;\r\n', '9e09171baa4e2c812a9f66f08644ba9c', 1.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 30, 0),
+(13, 9, 'Pelota Nike', '&lt;p&gt;Pelota de futbol nike, varios modelos disponibles.&lt;/p&gt;\r\n', '0461780ca0c86780ce13c17dbf5134f4', 1600.00, 0, 0, NULL, 'BORRADOR', 'NUEVO', 30, 0, 6, 0),
+(14, 3, 'Banco de pecho', '&lt;p&gt;banco de pecho, incluye barra&amp;nbsp; y 50 kg en discos.&lt;/p&gt;\r\n', '7881634fe45554fdee79088c3c82c90e', 3900.00, 0, 0, NULL, 'BORRADOR', 'USADO', 2, 0, 8, 0),
+(15, 14, 'Taladro inalambrico', '&lt;p&gt;Taladro inalambrico&amp;nbsp;marca slender.&lt;/p&gt;\r\n', '0ba52d7d3cb2577a2624474ce45c9132', 980.00, 0, 0, NULL, 'PUBLICADA', 'USADO', 1, 0, 36, 0),
+(16, 14, 'Destorillador inalambrico', '&lt;p&gt;Destorillador inalambrico marca makita&lt;/p&gt;\r\n', '2566405112ac52452064d2b855953e7a', 1320.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 10, 0),
+(17, 17, 'Guantes ejercicio', '&lt;p&gt;Guantes para entrenamiento, pesas.&lt;/p&gt;\r\n', 'b6d3a6aea8a57b8cfaebbf44037ec2b3', 730.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 6, 0, 6, 0),
+(18, 17, 'Guantes levantamiento de pesas', '&lt;p&gt;guantes reforzados.&amp;nbsp;&lt;/p&gt;\r\n', 'bd080a019f66158ac22335f0661f191f', 1200.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 20, 0, 4, 0),
 (19, 17, 'Mancuernas', '&lt;p&gt;varias tipos y pesos disponibles.&lt;/p&gt;\r\n\r\n&lt;p&gt;El precio publicado es por el pack de seis, incluye seis mancuernas, dos de 1kg, dos de 2kg y dos de 4kg.&lt;/p&gt;\r\n', '664ba67a36d3b30c2b62cabfc621b8f3', 1340.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 30, 0, 3, 0),
-(20, 15, 'Guitarra Electrica Ibanez Rg370', '&lt;p&gt;Guitarra Electrica Ibanez Rg370, nueva de paquete.&lt;/p&gt;\r\n', 'bd1c4184672232f3ded498d126de1cf7', 35500.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 4, 0),
+(20, 15, 'Guitarra Electrica Ibanez Rg370', '&lt;p&gt;Guitarra Electrica Ibanez Rg370, nueva de paquete.&lt;/p&gt;\r\n', 'bd1c4184672232f3ded498d126de1cf7', 35500.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 7, 0),
 (21, 15, 'Pedalera guitarra Boss me 70', '&lt;p&gt;Pedalera guitarra Boss me 70&lt;/p&gt;\r\n', 'bd1c4184672232f3ded498d126de1cf7', 5000.00, 0, 0, NULL, 'PUBLICADA', 'USADO', 1, 0, 3, 0),
 (22, 15, 'Pedalera guitarra Boss me 70', '&lt;p&gt;Usada a toda prueba.&lt;/p&gt;\r\n', '158901d56f9917a9821a1dfe4a122650', 6500.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 5, 0),
-(23, 15, 'Pedalera Line 6 ', '&lt;p&gt;Pedalera para guitarra, nueva.&lt;/p&gt;\r\n', '573576b22051066d8a557fc5f0ae0acb', 27000.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 2, 0),
+(23, 15, 'Pedalera Line 6 ', '&lt;p&gt;Pedalera para guitarra, nueva.&lt;/p&gt;\r\n', '573576b22051066d8a557fc5f0ae0acb', 27000.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 4, 0),
 (24, 15, 'Guitarra Fender Cd 60ce', '&lt;p&gt;Fender electroacustica&lt;/p&gt;\r\n', 'e7f6161d6872fef735454dd5261562f0', 15200.00, 0, 0, NULL, 'PUBLICADA', 'USADO', 1, 0, 4, 0),
 (25, 14, 'Linterna ', '&lt;p&gt;Led&amp;nbsp; potencia&amp;nbsp;&lt;/p&gt;\r\n', '864fb3cca4125829a6c40f8d807eec72', 150.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 0, 2, 0),
 (26, 15, 'Paleta', '&lt;p&gt;Hshsh&lt;/p&gt;\r\n', '40d3695a8bc9d01d0940a76d40cf8f72', 900.00, 0, 0, NULL, 'PUBLICADA', 'USADO', 1, 0, 1, 0),
-(27, 6, 'Se venden motos', '&lt;p&gt;se venden motos&lt;/p&gt;\r\n\r\n&lt;p&gt;las que quieras&lt;/p&gt;\r\n\r\n&lt;p&gt;contactame yaaaaa&lt;/p&gt;\r\n', '008e09b6f99a8fa9fefe6bfc923b9f1f', 30000.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 10, 0, 6, 0),
+(27, 6, 'Se venden motos', '&lt;p&gt;se venden motos&lt;/p&gt;\r\n\r\n&lt;p&gt;las que quieras&lt;/p&gt;\r\n\r\n&lt;p&gt;contactame yaaaaa&lt;/p&gt;\r\n', '008e09b6f99a8fa9fefe6bfc923b9f1f', 30000.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 10, 0, 8, 0),
 (28, 9, 'Play Station 4', '&lt;p&gt;Play Station 4&lt;/p&gt;\r\n', 'e21b4022813c3483a0d2f3bea7f74b8b', 17.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 50, 0, 1, 0),
 (29, 9, 'PSP Go', '&lt;p&gt;PSP Go, nueva&lt;/p&gt;\r\n', '2bfe08d72a469d4d61cfa69d562a0e65', 6500.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 5, 0, 5, 0),
 (30, 9, 'Control xbox 360', '&lt;p&gt;Control xbox 360.&lt;/p&gt;\r\n', 'c57bd32bf8e13c12d90ddfbb35a46995', 1800.00, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 18, 0, 3, 0),
@@ -566,20 +640,20 @@ INSERT INTO `publicacion` (`ID`, `IDCATEGORIA`, `TITULO`, `DESCRIPCION`, `IMGDEF
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `publicacionimg`
+-- Estructura de tabla para la tabla `PUBLICACIONIMG`
 --
 
-DROP TABLE IF EXISTS `publicacionimg`;
-CREATE TABLE `publicacionimg` (
+DROP TABLE IF EXISTS `PUBLICACIONIMG`;
+CREATE TABLE `PUBLICACIONIMG` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `IMAGENES` varchar(50) NOT NULL DEFAULT 'DEFAULT.JPG'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `publicacionimg`
+-- Volcado de datos para la tabla `PUBLICACIONIMG`
 --
 
-INSERT INTO `publicacionimg` (`ID`, `IMAGENES`) VALUES
+INSERT INTO `PUBLICACIONIMG` (`ID`, `IMAGENES`) VALUES
 (1, '5f9449ae3d9a59993fbba292223ca281'),
 (2, 'd5cb6ed53edd7598910394d23eced911'),
 (3, '6716e710c0507b3070e9b6052e6f4688'),
@@ -642,11 +716,11 @@ INSERT INTO `publicacionimg` (`ID`, `IMAGENES`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `realiza`
+-- Estructura de tabla para la tabla `REALIZA`
 --
 
-DROP TABLE IF EXISTS `realiza`;
-CREATE TABLE `realiza` (
+DROP TABLE IF EXISTS `REALIZA`;
+CREATE TABLE `REALIZA` (
   `IDDENUNCIA` bigint(20) UNSIGNED NOT NULL,
   `IDUSUARIO` bigint(20) UNSIGNED NOT NULL,
   `BAJA` tinyint(1) DEFAULT '0'
@@ -655,11 +729,11 @@ CREATE TABLE `realiza` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Estructura de tabla para la tabla `USUARIO`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE `usuario` (
+DROP TABLE IF EXISTS `USUARIO`;
+CREATE TABLE `USUARIO` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `CEDULA` varchar(10) NOT NULL,
   `USUARIO` varchar(20) NOT NULL,
@@ -687,10 +761,10 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Volcado de datos para la tabla `USUARIO`
 --
 
-INSERT INTO `usuario` (`ID`, `CEDULA`, `USUARIO`, `PASSWORD`, `PASSWORDADM`, `PNOMBRE`, `SNOMBRE`, `PAPELLIDO`, `SAPELLIDO`, `FNACIMIENTO`, `EMAIL`, `CALLE`, `NUMERO`, `ESQUINA`, `CPOSTAL`, `LOCALIDAD`, `DEPARTAMENTO`, `GEOX`, `GEOY`, `TIPO`, `ESTADO`, `ACTIVACION`, `ROL`, `BAJA`) VALUES
+INSERT INTO `USUARIO` (`ID`, `CEDULA`, `USUARIO`, `PASSWORD`, `PASSWORDADM`, `PNOMBRE`, `SNOMBRE`, `PAPELLIDO`, `SAPELLIDO`, `FNACIMIENTO`, `EMAIL`, `CALLE`, `NUMERO`, `ESQUINA`, `CPOSTAL`, `LOCALIDAD`, `DEPARTAMENTO`, `GEOX`, `GEOY`, `TIPO`, `ESTADO`, `ACTIVACION`, `ROL`, `BAJA`) VALUES
 (6, '51652357', 'gabobuceo', '4e4800c9e622ec10c62c4bf2ca9aa88136d88bdf', NULL, 'Gabriel', NULL, 'Fernandez', NULL, '1990-11-28 00:00:00', 'emgabo@gmail.com', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 'VIP', 'RECUPERAR', '37c55379bdf99df28c82e96e6ba62d49d0644680', 'CLIENTE', 0),
 (7, '46544017', 'lotar', 'b9b6db4b0fbca028512fba2db8015c9572c2c6c6', NULL, 'mataus', NULL, 'lotar', NULL, '1980-02-14 00:00:00', 'lotar@gmail.com', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 'COMUN', 'CONFIRMAR EMAIL', '53f6ce85c5fda5259a8b43f87898803edc672b38', 'CLIENTE', 0),
 (9, '32154641', 'kiko', '3b55b765725f874ac5421250a71175623ee325f9', NULL, 'kiko', NULL, 'loureiro', NULL, '1988-02-14 00:00:00', 'kiko@gmail.com', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 'COMUN', 'CONFIRMAR EMAIL', '', 'CLIENTE', 0),
@@ -710,11 +784,11 @@ INSERT INTO `usuario` (`ID`, `CEDULA`, `USUARIO`, `PASSWORD`, `PASSWORDADM`, `PN
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuariotel`
+-- Estructura de tabla para la tabla `USUARIOTEL`
 --
 
-DROP TABLE IF EXISTS `usuariotel`;
-CREATE TABLE `usuariotel` (
+DROP TABLE IF EXISTS `USUARIOTEL`;
+CREATE TABLE `USUARIOTEL` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `TELEFONO` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -722,227 +796,245 @@ CREATE TABLE `usuariotel` (
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_busqueda_categoria`
+-- Estructura para la vista `DATOS_BUSQUEDA_CATEGORIA`
 --
-DROP TABLE IF EXISTS `datos_busqueda_categoria`;
+DROP TABLE IF EXISTS `DATOS_BUSQUEDA_CATEGORIA`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_busqueda_categoria`  AS  select `tt`.`USUARIO` AS `USUARIO`,`tt`.`ID` AS `ID`,`tt`.`TIPO` AS `TIPO`,`tt`.`IMGDEFAULT` AS `IMGDEFAULT`,`tt`.`PRECIO` AS `PRECIO`,`tt`.`TITULO` AS `TITULO`,`tt`.`FECHA` AS `FECHA`,`tt`.`IDCATEGORIA` AS `IDCATEGORIA`,`categoria`.`TITULO` AS `CATTITULO`,`categoria`.`ID` AS `CATID` from (`categoria` left join `datos_busqueda_categoria_aux01` `tt` on((`categoria`.`ID` = `tt`.`IDCATEGORIA`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_BUSQUEDA_CATEGORIA`  AS  select `TT`.`USUARIO` AS `USUARIO`,`TT`.`PNOMBRE` AS `PNOMBRE`,`TT`.`PAPELLIDO` AS `PAPELLIDO`,`TT`.`ID` AS `ID`,`TT`.`TIPO` AS `TIPO`,`TT`.`IMGDEFAULT` AS `IMGDEFAULT`,`TT`.`PRECIO` AS `PRECIO`,`TT`.`TITULO` AS `TITULO`,`TT`.`FECHA` AS `FECHA`,`TT`.`IDCATEGORIA` AS `IDCATEGORIA`,`CATEGORIA`.`TITULO` AS `CATTITULO`,`CATEGORIA`.`ID` AS `CATID` from (`CATEGORIA` left join `DATOS_BUSQUEDA_CATEGORIA_AUX01` `TT` on((`CATEGORIA`.`ID` = `TT`.`IDCATEGORIA`))) ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_busqueda_categoria_aux01`
+-- Estructura para la vista `DATOS_BUSQUEDA_CATEGORIA_AUX01`
 --
-DROP TABLE IF EXISTS `datos_busqueda_categoria_aux01`;
+DROP TABLE IF EXISTS `DATOS_BUSQUEDA_CATEGORIA_AUX01`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_busqueda_categoria_aux01`  AS  select `u`.`USUARIO` AS `USUARIO`,`u`.`ID` AS `ID`,`u`.`TIPO` AS `TIPO`,`u`.`IMGDEFAULT` AS `IMGDEFAULT`,`u`.`PRECIO` AS `PRECIO`,`u`.`TITULO` AS `TITULO`,`u`.`FECHA` AS `FECHA`,`p`.`IDCATEGORIA` AS `IDCATEGORIA` from (`datos_producto_index` `u` left join `publicacion` `p` on((`u`.`ID` = `p`.`ID`))) group by `u`.`ID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_BUSQUEDA_CATEGORIA_AUX01`  AS  select `U`.`USUARIO` AS `USUARIO`,`U`.`PNOMBRE` AS `PNOMBRE`,`U`.`PAPELLIDO` AS `PAPELLIDO`,`U`.`ID` AS `ID`,`U`.`TIPO` AS `TIPO`,`U`.`IMGDEFAULT` AS `IMGDEFAULT`,`U`.`PRECIO` AS `PRECIO`,`U`.`TITULO` AS `TITULO`,`U`.`FECHA` AS `FECHA`,`P`.`IDCATEGORIA` AS `IDCATEGORIA` from (`DATOS_PRODUCTO_INDEX` `U` left join `PUBLICACION` `P` on((`U`.`ID` = `P`.`ID`))) group by `U`.`ID` ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_persona`
+-- Estructura para la vista `DATOS_PERSONA`
 --
-DROP TABLE IF EXISTS `datos_persona`;
+DROP TABLE IF EXISTS `DATOS_PERSONA`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_persona`  AS  select `u`.`ID` AS `ID`,count(`cr`.`IDPUBLICACION`) AS `PUBLICACIONES`,`tt`.`VENTAS` AS `VENTAS`,`tt2`.`CALIFICACION` AS `CALIFICACION`,`tt2`.`NOTA` AS `NOTA` from (((`usuario` `u` left join `crea` `cr` on((`u`.`ID` = `cr`.`IDUSUARIO`))) left join `datos_persona_aux01` `tt` on((`u`.`ID` = `tt`.`ID`))) left join `datos_persona_aux03` `tt2` on((`u`.`ID` = `tt2`.`ID`))) group by `u`.`ID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PERSONA`  AS  select `U`.`ID` AS `ID`,`U`.`PNOMBRE` AS `PNOMBRE`,`U`.`PAPELLIDO` AS `PAPELLIDO`,count(`CR`.`IDPUBLICACION`) AS `PUBLICACIONES`,`TT`.`VENTAS` AS `VENTAS`,`TT2`.`CALIFICACION` AS `CALIFICACION`,`TT2`.`NOTA` AS `NOTA` from (((`USUARIO` `U` left join `CREA` `CR` on((`U`.`ID` = `CR`.`IDUSUARIO`))) left join `DATOS_PERSONA_AUX01` `TT` on((`U`.`ID` = `TT`.`ID`))) left join `DATOS_PERSONA_AUX03` `TT2` on((`U`.`ID` = `TT2`.`ID`))) group by `U`.`ID` ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_persona_aux01`
+-- Estructura para la vista `DATOS_PERSONA_AUX01`
 --
-DROP TABLE IF EXISTS `datos_persona_aux01`;
+DROP TABLE IF EXISTS `DATOS_PERSONA_AUX01`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_persona_aux01`  AS  select `u`.`ID` AS `ID`,sum(`co`.`CANTIDAD`) AS `VENTAS` from (`usuario` `u` left join `compra` `co` on((`u`.`ID` = `co`.`IDUSUARIO`))) group by `u`.`ID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PERSONA_AUX01`  AS  select `U`.`ID` AS `ID`,sum(`CO`.`CANTIDAD`) AS `VENTAS` from (`USUARIO` `U` left join `COMPRA` `CO` on((`U`.`ID` = `CO`.`IDUSUARIO`))) group by `U`.`ID` ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_persona_aux02`
+-- Estructura para la vista `DATOS_PERSONA_AUX02`
 --
-DROP TABLE IF EXISTS `datos_persona_aux02`;
+DROP TABLE IF EXISTS `DATOS_PERSONA_AUX02`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_persona_aux02`  AS  select `cr`.`IDUSUARIO` AS `IDUSUARIO`,round(avg(`co`.`CALIFICACION`),0) AS `NOTA`,count(`co`.`CALIFICACION`) AS `CALIFICACION` from (`crea` `cr` join `compra` `co`) where (`cr`.`IDPUBLICACION` = `co`.`IDPUBLICACION`) group by `cr`.`IDUSUARIO` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PERSONA_AUX02`  AS  select `CR`.`IDUSUARIO` AS `IDUSUARIO`,round(avg(`CO`.`CALIFICACION`),0) AS `NOTA`,count(`CO`.`CALIFICACION`) AS `CALIFICACION` from (`CREA` `CR` join `COMPRA` `CO`) where (`CR`.`IDPUBLICACION` = `CO`.`IDPUBLICACION`) group by `CR`.`IDUSUARIO` ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_persona_aux03`
+-- Estructura para la vista `DATOS_PERSONA_AUX03`
 --
-DROP TABLE IF EXISTS `datos_persona_aux03`;
+DROP TABLE IF EXISTS `DATOS_PERSONA_AUX03`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_persona_aux03`  AS  select `u`.`ID` AS `ID`,`tt`.`CALIFICACION` AS `CALIFICACION`,`tt`.`NOTA` AS `NOTA` from (`usuario` `u` left join `datos_persona_aux02` `tt` on((`u`.`ID` = `tt`.`IDUSUARIO`))) group by `u`.`ID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PERSONA_AUX03`  AS  select `U`.`ID` AS `ID`,`TT`.`CALIFICACION` AS `CALIFICACION`,`TT`.`NOTA` AS `NOTA` from (`USUARIO` `U` left join `DATOS_PERSONA_AUX02` `TT` on((`U`.`ID` = `TT`.`IDUSUARIO`))) group by `U`.`ID` ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_producto`
+-- Estructura para la vista `DATOS_PRODUCTO`
 --
-DROP TABLE IF EXISTS `datos_producto`;
+DROP TABLE IF EXISTS `DATOS_PRODUCTO`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_producto`  AS  select `p`.`ID` AS `ID`,`p`.`VISTO` AS `VISTO`,sum(`co`.`CANTIDAD`) AS `VENTAS`,`cm`.`PREGUNTAS` AS `PREGUNTAS` from ((`publicacion` `p` left join `compra` `co` on((`p`.`ID` = `co`.`IDPUBLICACION`))) left join `datos_producto_aux01` `cm` on((`p`.`ID` = `cm`.`IDPUBLICACION`))) group by `p`.`ID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PRODUCTO`  AS  select `P`.`ID` AS `ID`,`P`.`VISTO` AS `VISTO`,sum(`CO`.`CANTIDAD`) AS `VENTAS`,`CM`.`PREGUNTAS` AS `PREGUNTAS` from ((`PUBLICACION` `P` left join `COMPRA` `CO` on((`P`.`ID` = `CO`.`IDPUBLICACION`))) left join `DATOS_PRODUCTO_AUX01` `CM` on((`P`.`ID` = `CM`.`IDPUBLICACION`))) group by `P`.`ID` ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_producto_aux01`
+-- Estructura para la vista `DATOS_PRODUCTO_AUX01`
 --
-DROP TABLE IF EXISTS `datos_producto_aux01`;
+DROP TABLE IF EXISTS `DATOS_PRODUCTO_AUX01`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_producto_aux01`  AS  select `pregunta`.`IDPUBLICACION` AS `IDPUBLICACION`,count(`pregunta`.`ID`) AS `PREGUNTAS` from `pregunta` group by `pregunta`.`IDPUBLICACION` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PRODUCTO_AUX01`  AS  select `PREGUNTA`.`IDPUBLICACION` AS `IDPUBLICACION`,count(`PREGUNTA`.`ID`) AS `PREGUNTAS` from `PREGUNTA` group by `PREGUNTA`.`IDPUBLICACION` ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_producto_index`
+-- Estructura para la vista `DATOS_PRODUCTO_INDEX`
 --
-DROP TABLE IF EXISTS `datos_producto_index`;
+DROP TABLE IF EXISTS `DATOS_PRODUCTO_INDEX`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_producto_index`  AS  select `u`.`ID` AS `USUARIO`,`p`.`ID` AS `ID`,`u`.`TIPO` AS `TIPO`,`p`.`IMGDEFAULT` AS `IMGDEFAULT`,`p`.`PRECIO` AS `PRECIO`,`p`.`TITULO` AS `TITULO`,`c`.`FECHA` AS `FECHA` from ((`usuario` `u` join `crea` `c`) join `publicacion` `p`) where ((`u`.`ID` = `c`.`IDUSUARIO`) and (`c`.`IDPUBLICACION` = `p`.`ID`)) order by `u`.`TIPO` desc,rand() ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PRODUCTO_INDEX`  AS  select `U`.`ID` AS `USUARIO`,`U`.`PNOMBRE` AS `PNOMBRE`,`U`.`PAPELLIDO` AS `PAPELLIDO`,`P`.`ID` AS `ID`,`U`.`TIPO` AS `TIPO`,`P`.`IMGDEFAULT` AS `IMGDEFAULT`,`P`.`PRECIO` AS `PRECIO`,`P`.`TITULO` AS `TITULO`,`C`.`FECHA` AS `FECHA` from ((`USUARIO` `U` join `CREA` `C`) join `PUBLICACION` `P`) where ((`U`.`ID` = `C`.`IDUSUARIO`) and (`C`.`IDPUBLICACION` = `P`.`ID`)) order by `U`.`TIPO` desc,rand() ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_producto_oferta`
+-- Estructura para la vista `DATOS_PRODUCTO_OFERTA`
 --
-DROP TABLE IF EXISTS `datos_producto_oferta`;
+DROP TABLE IF EXISTS `DATOS_PRODUCTO_OFERTA`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_producto_oferta`  AS  select `p`.`ID` AS `ID`,`p`.`IMGDEFAULT` AS `IMGDEFAULT`,`p`.`PRECIO` AS `PRECIO`,`p`.`TITULO` AS `TITULO`,`c`.`FECHA` AS `FECHA` from (`crea` `c` join `publicacion` `p`) where ((`p`.`OFERTA` = '1') and (`c`.`IDPUBLICACION` = `p`.`ID`)) order by rand() limit 8 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PRODUCTO_OFERTA`  AS  select `P`.`ID` AS `ID`,`P`.`IMGDEFAULT` AS `IMGDEFAULT`,`P`.`PRECIO` AS `PRECIO`,`P`.`TITULO` AS `TITULO`,`C`.`FECHA` AS `FECHA` from (`CREA` `C` join `PUBLICACION` `P`) where ((`P`.`OFERTA` = '1') and (`C`.`IDPUBLICACION` = `P`.`ID`)) order by rand() limit 8 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `datos_producto_vip`
+-- Estructura para la vista `DATOS_PRODUCTO_VIP`
 --
-DROP TABLE IF EXISTS `datos_producto_vip`;
+DROP TABLE IF EXISTS `DATOS_PRODUCTO_VIP`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datos_producto_vip`  AS  select `u`.`ID` AS `USUARIO`,`p`.`ID` AS `ID`,`p`.`IDCATEGORIA` AS `IDCATEGORIA`,`p`.`TITULO` AS `TITULO`,`p`.`DESCRIPCION` AS `DESCRIPCION`,`p`.`IMGDEFAULT` AS `IMGDEFAULT`,`p`.`PRECIO` AS `PRECIO`,`p`.`OFERTA` AS `OFERTA`,`p`.`DESCUENTO` AS `DESCUENTO`,`p`.`FOFERTA` AS `FOFERTA`,`p`.`ESTADOP` AS `ESTADOP`,`p`.`ESTADOA` AS `ESTADOA`,`p`.`CANTIDAD` AS `CANTIDAD`,`p`.`PREGUNTAS` AS `PREGUNTAS`,`p`.`VISTO` AS `VISTO`,`p`.`BAJA` AS `BAJA` from ((`usuario` `u` join `crea` `c`) join `publicacion` `p`) where ((`u`.`ID` = `c`.`IDUSUARIO`) and (`c`.`IDPUBLICACION` = `p`.`ID`) and (`u`.`TIPO` = 'VIP')) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PRODUCTO_VIP`  AS  select `U`.`ID` AS `USUARIO`,`P`.`ID` AS `ID`,`P`.`IDCATEGORIA` AS `IDCATEGORIA`,`P`.`TITULO` AS `TITULO`,`P`.`DESCRIPCION` AS `DESCRIPCION`,`P`.`IMGDEFAULT` AS `IMGDEFAULT`,`P`.`PRECIO` AS `PRECIO`,`P`.`OFERTA` AS `OFERTA`,`P`.`DESCUENTO` AS `DESCUENTO`,`P`.`FOFERTA` AS `FOFERTA`,`P`.`ESTADOP` AS `ESTADOP`,`P`.`ESTADOA` AS `ESTADOA`,`P`.`CANTIDAD` AS `CANTIDAD`,`P`.`PREGUNTAS` AS `PREGUNTAS`,`P`.`VISTO` AS `VISTO`,`P`.`BAJA` AS `BAJA` from ((`USUARIO` `U` join `CREA` `C`) join `PUBLICACION` `P`) where ((`U`.`ID` = `C`.`IDUSUARIO`) and (`C`.`IDPUBLICACION` = `P`.`ID`) and (`U`.`TIPO` = 'VIP')) ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `prueba`
+-- Estructura para la vista `DATOS_PUBLICACIONES`
 --
-DROP TABLE IF EXISTS `prueba`;
+DROP TABLE IF EXISTS `DATOS_PUBLICACIONES`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `prueba`  AS  select `publicacion`.`ID` AS `ID`,`publicacion`.`IDCATEGORIA` AS `IDCATEGORIA`,`publicacion`.`TITULO` AS `TITULO`,`publicacion`.`DESCRIPCION` AS `DESCRIPCION`,`publicacion`.`IMGDEFAULT` AS `IMGDEFAULT`,`publicacion`.`PRECIO` AS `PRECIO`,`publicacion`.`OFERTA` AS `OFERTA`,`publicacion`.`DESCUENTO` AS `DESCUENTO`,`publicacion`.`FOFERTA` AS `FOFERTA`,`publicacion`.`ESTADOP` AS `ESTADOP`,`publicacion`.`ESTADOA` AS `ESTADOA`,`publicacion`.`CANTIDAD` AS `CANTIDAD`,`publicacion`.`PREGUNTAS` AS `PREGUNTAS`,`publicacion`.`VISTO` AS `VISTO`,`publicacion`.`BAJA` AS `BAJA` from `publicacion` order by rand() limit 0,10 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PUBLICACIONES`  AS  select `PUBLICACION`.`ID` AS `ID`,`PUBLICACION`.`IDCATEGORIA` AS `IDCATEGORIA`,`PUBLICACION`.`TITULO` AS `TITULO`,`PUBLICACION`.`DESCRIPCION` AS `DESCRIPCION`,`PUBLICACION`.`IMGDEFAULT` AS `IMGDEFAULT`,`PUBLICACION`.`PRECIO` AS `PRECIO`,`PUBLICACION`.`OFERTA` AS `OFERTA`,`PUBLICACION`.`DESCUENTO` AS `DESCUENTO`,`PUBLICACION`.`FOFERTA` AS `FOFERTA`,`PUBLICACION`.`ESTADOP` AS `ESTADOP`,`PUBLICACION`.`ESTADOA` AS `ESTADOA`,`PUBLICACION`.`CANTIDAD` AS `CANTIDAD`,`PUBLICACION`.`PREGUNTAS` AS `PREGUNTAS`,`PUBLICACION`.`VISTO` AS `VISTO`,`PUBLICACION`.`BAJA` AS `BAJA`,`DATOS_PUBLICACIONES_AUX01`.`FAV` AS `FAV` from (`PUBLICACION` left join `DATOS_PUBLICACIONES_AUX01` on((`PUBLICACION`.`ID` = `DATOS_PUBLICACIONES_AUX01`.`IDPUBLICACION`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `DATOS_PUBLICACIONES_AUX01`
+--
+DROP TABLE IF EXISTS `DATOS_PUBLICACIONES_AUX01`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DATOS_PUBLICACIONES_AUX01`  AS  select `FAVORITO`.`IDPUBLICACION` AS `IDPUBLICACION`,count(`FAVORITO`.`IDUSUARIO`) AS `FAV` from `FAVORITO` group by `FAVORITO`.`IDPUBLICACION` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `PRUEBA`
+--
+DROP TABLE IF EXISTS `PRUEBA`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PRUEBA`  AS  select `PUBLICACION`.`ID` AS `ID`,`PUBLICACION`.`IDCATEGORIA` AS `IDCATEGORIA`,`PUBLICACION`.`TITULO` AS `TITULO`,`PUBLICACION`.`DESCRIPCION` AS `DESCRIPCION`,`PUBLICACION`.`IMGDEFAULT` AS `IMGDEFAULT`,`PUBLICACION`.`PRECIO` AS `PRECIO`,`PUBLICACION`.`OFERTA` AS `OFERTA`,`PUBLICACION`.`DESCUENTO` AS `DESCUENTO`,`PUBLICACION`.`FOFERTA` AS `FOFERTA`,`PUBLICACION`.`ESTADOP` AS `ESTADOP`,`PUBLICACION`.`ESTADOA` AS `ESTADOA`,`PUBLICACION`.`CANTIDAD` AS `CANTIDAD`,`PUBLICACION`.`PREGUNTAS` AS `PREGUNTAS`,`PUBLICACION`.`VISTO` AS `VISTO`,`PUBLICACION`.`BAJA` AS `BAJA` from `PUBLICACION` order by rand() limit 0,10 ;
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `categoria`
+-- Indices de la tabla `CATEGORIA`
 --
-ALTER TABLE `categoria`
+ALTER TABLE `CATEGORIA`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD UNIQUE KEY `TITULO` (`TITULO`);
 
 --
--- Indices de la tabla `compra`
+-- Indices de la tabla `COMPRA`
 --
-ALTER TABLE `compra`
+ALTER TABLE `COMPRA`
   ADD PRIMARY KEY (`IDUSUARIO`,`IDPUBLICACION`,`FECHACOMPRA`),
   ADD KEY `IDPUBLICACION` (`IDPUBLICACION`);
 
 --
--- Indices de la tabla `contiene`
+-- Indices de la tabla `CONTIENE`
 --
-ALTER TABLE `contiene`
+ALTER TABLE `CONTIENE`
   ADD PRIMARY KEY (`ID`,`IDPUBLICACION`,`IDCATEGORIA`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD KEY `IDPUBLICACION` (`IDPUBLICACION`),
   ADD KEY `IDCATEGORIA` (`IDCATEGORIA`);
 
 --
--- Indices de la tabla `crea`
+-- Indices de la tabla `CREA`
 --
-ALTER TABLE `crea`
+ALTER TABLE `CREA`
   ADD PRIMARY KEY (`ID`,`IDUSUARIO`,`IDPUBLICACION`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD KEY `IDUSUARIO` (`IDUSUARIO`),
   ADD KEY `IDPUBLICACION` (`IDPUBLICACION`);
 
 --
--- Indices de la tabla `denuncia`
+-- Indices de la tabla `DENUNCIA`
 --
-ALTER TABLE `denuncia`
+ALTER TABLE `DENUNCIA`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD KEY `IDOBJETO` (`IDOBJETO`);
 
 --
--- Indices de la tabla `factura`
+-- Indices de la tabla `FACTURA`
 --
-ALTER TABLE `factura`
+ALTER TABLE `FACTURA`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `ID` (`ID`);
 
 --
--- Indices de la tabla `favorito`
+-- Indices de la tabla `FAVORITO`
 --
-ALTER TABLE `favorito`
+ALTER TABLE `FAVORITO`
   ADD PRIMARY KEY (`IDUSUARIO`,`IDPUBLICACION`),
   ADD KEY `IDPUBLICACION` (`IDPUBLICACION`);
 
 --
--- Indices de la tabla `gestiona`
+-- Indices de la tabla `GESTIONA`
 --
-ALTER TABLE `gestiona`
+ALTER TABLE `GESTIONA`
   ADD PRIMARY KEY (`IDUSUARIO`,`IDDENUNCIA`),
   ADD KEY `IDDENUNCIA` (`IDDENUNCIA`);
 
 --
--- Indices de la tabla `historial`
+-- Indices de la tabla `HISTORIAL`
 --
-ALTER TABLE `historial`
+ALTER TABLE `HISTORIAL`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD KEY `USUARIO` (`USUARIO`);
 
 --
--- Indices de la tabla `permuta`
+-- Indices de la tabla `PERMUTA`
 --
-ALTER TABLE `permuta`
+ALTER TABLE `PERMUTA`
   ADD PRIMARY KEY (`IDUSUARIO`,`IDPUBLICACION`),
   ADD KEY `IDPUBLICACION` (`IDPUBLICACION`);
 
 --
--- Indices de la tabla `pregunta`
+-- Indices de la tabla `PREGUNTA`
 --
-ALTER TABLE `pregunta`
+ALTER TABLE `PREGUNTA`
   ADD PRIMARY KEY (`ID`,`IDUSUARIO`,`IDPUBLICACION`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD KEY `IDUSUARIO` (`IDUSUARIO`),
   ADD KEY `IDPUBLICACION` (`IDPUBLICACION`);
 
 --
--- Indices de la tabla `publicacion`
+-- Indices de la tabla `PUBLICACION`
 --
-ALTER TABLE `publicacion`
+ALTER TABLE `PUBLICACION`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD KEY `TITULO` (`TITULO`),
   ADD KEY `IDCATEGORIA` (`IDCATEGORIA`);
 
 --
--- Indices de la tabla `publicacionimg`
+-- Indices de la tabla `PUBLICACIONIMG`
 --
-ALTER TABLE `publicacionimg`
+ALTER TABLE `PUBLICACIONIMG`
   ADD PRIMARY KEY (`ID`,`IMAGENES`);
 
 --
--- Indices de la tabla `realiza`
+-- Indices de la tabla `REALIZA`
 --
-ALTER TABLE `realiza`
+ALTER TABLE `REALIZA`
   ADD PRIMARY KEY (`IDDENUNCIA`,`IDUSUARIO`),
   ADD KEY `IDUSUARIO` (`IDUSUARIO`);
 
 --
--- Indices de la tabla `usuario`
+-- Indices de la tabla `USUARIO`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `USUARIO`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `ID` (`ID`),
   ADD UNIQUE KEY `CEDULA` (`CEDULA`),
@@ -952,9 +1044,9 @@ ALTER TABLE `usuario`
   ADD KEY `USUARIO_2` (`USUARIO`);
 
 --
--- Indices de la tabla `usuariotel`
+-- Indices de la tabla `USUARIOTEL`
 --
-ALTER TABLE `usuariotel`
+ALTER TABLE `USUARIOTEL`
   ADD PRIMARY KEY (`ID`,`TELEFONO`),
   ADD UNIQUE KEY `TELEFONO` (`TELEFONO`);
 
@@ -963,127 +1055,137 @@ ALTER TABLE `usuariotel`
 --
 
 --
--- AUTO_INCREMENT de la tabla `categoria`
+-- AUTO_INCREMENT de la tabla `CATEGORIA`
 --
-ALTER TABLE `categoria`
+ALTER TABLE `CATEGORIA`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
--- AUTO_INCREMENT de la tabla `contiene`
+-- AUTO_INCREMENT de la tabla `CONTIENE`
 --
-ALTER TABLE `contiene`
+ALTER TABLE `CONTIENE`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT de la tabla `crea`
+-- AUTO_INCREMENT de la tabla `CREA`
 --
-ALTER TABLE `crea`
+ALTER TABLE `CREA`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
 --
--- AUTO_INCREMENT de la tabla `denuncia`
+-- AUTO_INCREMENT de la tabla `DENUNCIA`
 --
-ALTER TABLE `denuncia`
+ALTER TABLE `DENUNCIA`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT de la tabla `factura`
+-- AUTO_INCREMENT de la tabla `FACTURA`
 --
-ALTER TABLE `factura`
+ALTER TABLE `FACTURA`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT de la tabla `historial`
+-- AUTO_INCREMENT de la tabla `HISTORIAL`
 --
-ALTER TABLE `historial`
+ALTER TABLE `HISTORIAL`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT de la tabla `pregunta`
+-- AUTO_INCREMENT de la tabla `PREGUNTA`
 --
-ALTER TABLE `pregunta`
+ALTER TABLE `PREGUNTA`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
--- AUTO_INCREMENT de la tabla `publicacion`
+-- AUTO_INCREMENT de la tabla `PUBLICACION`
 --
-ALTER TABLE `publicacion`
+ALTER TABLE `PUBLICACION`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT de la tabla `USUARIO`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `USUARIO`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `compra`
+-- Filtros para la tabla `COMPRA`
 --
-ALTER TABLE `compra`
-  ADD CONSTRAINT `COMPRA_ibfk_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`ID`),
-  ADD CONSTRAINT `COMPRA_ibfk_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `publicacion` (`ID`);
+ALTER TABLE `COMPRA`
+  ADD CONSTRAINT `COMPRA_IBFK_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `USUARIO` (`ID`),
+  ADD CONSTRAINT `COMPRA_IBFK_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `PUBLICACION` (`ID`);
 
 --
--- Filtros para la tabla `contiene`
+-- Filtros para la tabla `CONTIENE`
 --
-ALTER TABLE `contiene`
-  ADD CONSTRAINT `CONTIENE_ibfk_1` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `publicacion` (`ID`),
-  ADD CONSTRAINT `CONTIENE_ibfk_2` FOREIGN KEY (`IDCATEGORIA`) REFERENCES `categoria` (`ID`);
+ALTER TABLE `CONTIENE`
+  ADD CONSTRAINT `CONTIENE_IBFK_1` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `PUBLICACION` (`ID`),
+  ADD CONSTRAINT `CONTIENE_IBFK_2` FOREIGN KEY (`IDCATEGORIA`) REFERENCES `CATEGORIA` (`ID`);
 
 --
--- Filtros para la tabla `crea`
+-- Filtros para la tabla `CREA`
 --
-ALTER TABLE `crea`
-  ADD CONSTRAINT `CREA_ibfk_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`ID`),
-  ADD CONSTRAINT `CREA_ibfk_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `publicacion` (`ID`);
+ALTER TABLE `CREA`
+  ADD CONSTRAINT `CREA_IBFK_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `USUARIO` (`ID`),
+  ADD CONSTRAINT `CREA_IBFK_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `PUBLICACION` (`ID`);
 
 --
--- Filtros para la tabla `favorito`
+-- Filtros para la tabla `FAVORITO`
 --
-ALTER TABLE `favorito`
-  ADD CONSTRAINT `FAVORITO_ibfk_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`ID`),
-  ADD CONSTRAINT `FAVORITO_ibfk_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `publicacion` (`ID`);
+ALTER TABLE `FAVORITO`
+  ADD CONSTRAINT `FAVORITO_IBFK_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `USUARIO` (`ID`),
+  ADD CONSTRAINT `FAVORITO_IBFK_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `PUBLICACION` (`ID`);
 
 --
--- Filtros para la tabla `gestiona`
+-- Filtros para la tabla `GESTIONA`
 --
-ALTER TABLE `gestiona`
-  ADD CONSTRAINT `GESTIONA_ibfk_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`ID`),
-  ADD CONSTRAINT `GESTIONA_ibfk_2` FOREIGN KEY (`IDDENUNCIA`) REFERENCES `denuncia` (`ID`);
+ALTER TABLE `GESTIONA`
+  ADD CONSTRAINT `GESTIONA_IBFK_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `USUARIO` (`ID`),
+  ADD CONSTRAINT `GESTIONA_IBFK_2` FOREIGN KEY (`IDDENUNCIA`) REFERENCES `DENUNCIA` (`ID`);
 
 --
--- Filtros para la tabla `permuta`
+-- Filtros para la tabla `PERMUTA`
 --
-ALTER TABLE `permuta`
-  ADD CONSTRAINT `PERMUTA_ibfk_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`ID`),
-  ADD CONSTRAINT `PERMUTA_ibfk_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `publicacion` (`ID`);
+ALTER TABLE `PERMUTA`
+  ADD CONSTRAINT `PERMUTA_IBFK_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `USUARIO` (`ID`),
+  ADD CONSTRAINT `PERMUTA_IBFK_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `PUBLICACION` (`ID`);
 
 --
--- Filtros para la tabla `pregunta`
+-- Filtros para la tabla `PREGUNTA`
 --
-ALTER TABLE `pregunta`
-  ADD CONSTRAINT `PREGUNTA_ibfk_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`ID`),
-  ADD CONSTRAINT `PREGUNTA_ibfk_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `publicacion` (`ID`);
+ALTER TABLE `PREGUNTA`
+  ADD CONSTRAINT `PREGUNTA_IBFK_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `USUARIO` (`ID`),
+  ADD CONSTRAINT `PREGUNTA_IBFK_2` FOREIGN KEY (`IDPUBLICACION`) REFERENCES `PUBLICACION` (`ID`);
 
 --
--- Filtros para la tabla `publicacion`
+-- Filtros para la tabla `PUBLICACION`
 --
-ALTER TABLE `publicacion`
-  ADD CONSTRAINT `PUBLICACION_ibfk_1` FOREIGN KEY (`IDCATEGORIA`) REFERENCES `categoria` (`ID`);
+ALTER TABLE `PUBLICACION`
+  ADD CONSTRAINT `PUBLICACION_IBFK_1` FOREIGN KEY (`IDCATEGORIA`) REFERENCES `CATEGORIA` (`ID`);
 
 --
--- Filtros para la tabla `publicacionimg`
+-- Filtros para la tabla `PUBLICACIONIMG`
 --
-ALTER TABLE `publicacionimg`
-  ADD CONSTRAINT `PUBLICACIONIMG_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `publicacion` (`ID`);
+ALTER TABLE `PUBLICACIONIMG`
+  ADD CONSTRAINT `PUBLICACIONIMG_IBFK_1` FOREIGN KEY (`ID`) REFERENCES `PUBLICACION` (`ID`);
 
 --
--- Filtros para la tabla `realiza`
+-- Filtros para la tabla `REALIZA`
 --
-ALTER TABLE `realiza`
-  ADD CONSTRAINT `REALIZA_ibfk_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`ID`),
-  ADD CONSTRAINT `REALIZA_ibfk_2` FOREIGN KEY (`IDDENUNCIA`) REFERENCES `denuncia` (`ID`);
+ALTER TABLE `REALIZA`
+  ADD CONSTRAINT `REALIZA_IBFK_1` FOREIGN KEY (`IDUSUARIO`) REFERENCES `USUARIO` (`ID`),
+  ADD CONSTRAINT `REALIZA_IBFK_2` FOREIGN KEY (`IDDENUNCIA`) REFERENCES `DENUNCIA` (`ID`);
 
 --
--- Filtros para la tabla `usuariotel`
+-- Filtros para la tabla `USUARIOTEL`
 --
-ALTER TABLE `usuariotel`
-  ADD CONSTRAINT `USUARIOTEL_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `usuario` (`ID`);
+ALTER TABLE `USUARIOTEL`
+  ADD CONSTRAINT `USUARIOTEL_IBFK_1` FOREIGN KEY (`ID`) REFERENCES `USUARIO` (`ID`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

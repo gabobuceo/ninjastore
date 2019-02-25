@@ -23,6 +23,7 @@
 						<?php
 						if (isset($_SESSION['usu'])) {
 							$datos_favoritos = require_once('../logica/procesarCargaFavoritos.php');
+							$datos_favoritos_head = require_once('../logica/procesarCargaFavoritosHead.php');
 							/*var_dump($datos_favoritos);
 							echo "<br><br>";*/
 							?>
@@ -56,24 +57,26 @@
 											</li>
 											<?php
 										}else{
-											for ($i=0; $i < count($datos_favoritos); $i++) { 
+											for ($i=0; $i < count($datos_favoritos_head); $i++) { 
 												?>
 												<form action="../logica/procesarBajaFavoritos.php" method="POST">
 													<li>
+														<a href="../view/publication.php?id=<?php echo $datos_favoritos[$i]['IDPUBLICACION']; ?>">
 														<span class="item">
 															<span class="item-left">
-																<img src="../imagenes/<?php echo $datos_favoritos[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																<img src="../imagenes/<?php echo $datos_favoritos_head[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
 																<span class="item-info">
-																	<span><?php echo $datos_favoritos[$i]['TITULO']; ?></span>
-																	<span>$ <?php echo $datos_favoritos[$i]['PRECIO']; ?></span>
+																	<span><?php echo $datos_favoritos_head[$i]['TITULO']; ?></span>
+																	<span>$ <?php echo $datos_favoritos_head[$i]['PRECIO']; ?></span>
 																</span>
 															</span>
 															<span class="item-right">
-																<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos[$i]['IDPUBLICACION']; ?>">
+																<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
 																	<i class="fa fa-trash"></i>
 																</button>
 															</span>
 														</span>
+													</a>
 													</li>
 												</form>
 												<?php
