@@ -42,11 +42,8 @@ require('header.php');
 							<div class="row">
 								<div class="col-md-6 product_img">
 									<?php
-										cargarimgtn($datos_publicacion[0]['IMGDEFAULT']);
+									cargarimgtn($datos_publicacion[0]['IMGDEFAULT']);
 									?>
-									<!--
-									<img src="../imagenes/<?php echo $datos_publicacion[0]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
-									-->
 								</div>
 								<div class="col-md-6 product_content cppermuta">
 									<h4 class="lestitle">Articulo: <span class="subtitle"><?php echo $datos_publicacion['0']['TITULO']; ?></span></h4>

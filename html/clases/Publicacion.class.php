@@ -326,6 +326,12 @@ class Publicacion
 		$datos= $pp->consPubliVend($this,$conex);
 		return $datos;
 	}
+	public function consultaPublicacionesUsadas($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consPubliUsadas($this,$conex);
+		return $datos;
+	}
 }
 
 ?>

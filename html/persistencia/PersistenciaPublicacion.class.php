@@ -300,6 +300,16 @@ class PersistenciaPublicacion
 
 		return $resultados;
 	}
-}
+	public function consPubliUsadas($obj, $conex)
+	{
+		$id= trim($obj->getIdUsuario());
+		$sql = "SELECT DATOS_PRODUCTO_INDEX.* FROM DATOS_PUBLICACIONES,DATOS_PRODUCTO_INDEX WHERE DATOS_PUBLICACIONES.ID=DATOS_PRODUCTO_INDEX.ID AND DATOS_PUBLICACIONES.ESTADOA='USADO' AND DATOS_PRODUCTO_INDEX.USUARIO=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
 
+		return $resultados;
+	}
+}
 ?>
