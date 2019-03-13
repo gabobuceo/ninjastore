@@ -1,18 +1,19 @@
 <?php
 //require_once('config.php');
-function conectar()
-{
-	try {
-		static $conexion;
-		$config = include('../config/config.php');
-		$conexion = new PDO('mysql:host='.$config->bdhost.';port='.$config->bdport.';dbname='.$config->bdname, $config->bduser, $config->bdpass);
-		$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		return($conexion);
-	} catch (PDOException $e) {
-		
-		print "<p>Error: No puede conectarse con la base de datos.</p>".$e->getMessage();
-		exit();
-	}
+function conectar(){
+  if (!isset($conexion)) {
+    try {
+      static $conexion;
+      $config = include('../config/config.php');
+      $conexion = new PDO('mysql:host='.$config->bdhost.';port='.$config->bdport.';dbname='.$config->bdname, $config->bduser, $config->bdpass);
+      $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      return($conexion);
+    } catch (PDOException $e) {
+
+      print "<p>Error: No puede conectarse con la base de datos.</p>".$e->getMessage();
+      exit();
+    }
+  }
 }
 
 
@@ -122,7 +123,7 @@ function getBrowser() {
   // finally get the correct version number
   $known = array('Version', $ub, 'other');
   $pattern = '#(?<browser>' . join('|', $known) .
-')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+  ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
   if (!preg_match_all($pattern, $u_agent, $matches)) {
     // we have no matching number just continue
   }
@@ -132,9 +133,9 @@ function getBrowser() {
     //we will have two since we are not using 'other' argument yet
     //see if version is before or after the name
     if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
-        $version= $matches['version'][0];
+      $version= $matches['version'][0];
     }else {
-        $version= $matches['version'][1];
+      $version= $matches['version'][1];
     }
   }else {
     $version= $matches['version'][0];
@@ -154,17 +155,17 @@ function getBrowser() {
 function textovalido($texto){
   switch ($texto) {
     case null:
-      $_SESSION['eee']="caso null";
-      return false;
-      break;
+    $_SESSION['eee']="caso null";
+    return false;
+    break;
     case strlen($texto) < 4:
-      $_SESSION['eee']="strlen";
-      return false;
-      break;
+    $_SESSION['eee']="strlen";
+    return false;
+    break;
     default:
-      $_SESSION['eee']="ok";
-      return true;
-      break;
+    $_SESSION['eee']="ok";
+    return true;
+    break;
   }
 }
 
@@ -177,5 +178,6 @@ function cargarimgdi($imagen){
 function cargarimg($imagen){
   echo "<img src='../imagenes/".$imagen.".".$_SESSION['EXT']."' onerror=this.onerror=null;this.src='../static/img/noimage.".$_SESSION['EXT']."' />";
 }
+
 
 ?>    

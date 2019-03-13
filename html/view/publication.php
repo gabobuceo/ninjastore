@@ -51,6 +51,7 @@ require('definitions.php');
 <?php 
 require('header.php');
 ?>
+<!-- ********************************************************************************************************************************************* -->
 <section>
 	<?php
 	$_SESSION['PubID']=$_GET['id'];
@@ -150,78 +151,49 @@ require('header.php');
 							}
 							echo "<img src='../imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' style='border: 1px black solid;' /><br />";
 							if ((isset($_SESSION['id'])) AND ($_SESSION['id']!=$datos_vendedor['0']['ID'])){
-								if ($datos_publicacion['0']['ESTADOA']=="USADO") {
-									?>
-									<div class="buy-in-form">
-										<form action="../logica/procesarCompraOfavorito.php" method="POST">
-											<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ComprarModal">
-												<i class="fa fa-shopping-cart"></i> Comprar
-											</button>
-											<?php
-											if (isset($_SESSION['usu'])) {
-												if ($datos_productofavorito==false) {
-													?>
-													<button name="boton" type="submit" class="btn btm-nofavs" value="favorito">
-														<i class="fa fa-heart"></i>
-													</button>
-													<?php
-												}else{
-													?>
-													<button name="boton" type="submit" class="btn btm-favs" value="desfavorito">
-														<i class="fa fa-heart"></i>
-													</button>
-													<?php	
-												}
-											}else{
+								?>
+								<div class="buy-in-form">
+									<form action="../logica/procesarCompraOfavorito.php" method="POST">
+										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ComprarModal">
+											<i class="fa fa-shopping-cart"></i> Comprar
+										</button>
+										<?php
+										if (isset($_SESSION['usu'])) {
+											if ($datos_productofavorito==false) {
 												?>
-												<button name="boton" class="btn btm-nofavs" value="favorito">
+												<button name="boton" type="submit" class="btn btm-nofavs" value="favorito">
 													<i class="fa fa-heart"></i>
 												</button>
 												<?php
+											}else{
+												?>
+												<button name="boton" type="submit" class="btn btm-favs" value="desfavorito">
+													<i class="fa fa-heart"></i>
+												</button>
+												<?php	
 											}
+										}else{
 											?>
-										</form>
+											<button name="boton" class="btn btm-nofavs" value="favorito">
+												<i class="fa fa-heart"></i>
+											</button>
+											<?php
+										}
+										?>
+									</form>
+									<?php
+									if ($datos_publicacion['0']['ESTADOA']=="USADO") {
+										?>
 										<form action="../view/exchange.php" method="GET">
 											<button name="id" type="submit" class="btn btn-warning" value="<?php echo $_SESSION['PubID']; ?>">
 												<i class="fa fa-handshake-o"></i> Permutar
 											</button>
 										</form>
-									</div>
-									<?php
-								}else{
+										<?php
+									}
 									?>
-									<div class="buy-in-form">
-										<form action="../logica/procesarCompraOfavorito.php" method="POST">
-											<button name="boton" type="submit" class="btn btn-success" value="comprar">
-												<i class="fa fa-shopping-cart"></i> Comprar
-											</button>
-											<?php
-											if (isset($_SESSION['usu'])) {
-												if ($datos_productofavorito==false) {
-													?>
-													<button name="boton" type="submit" class="btn btm-nofavs" value="favorito">
-														<i class="fa fa-heart"></i>
-													</button>
-													<?php
-												}else{
-													?>
-													<button name="boton" type="submit" class="btn btm-favs" value="desfavorito">
-														<i class="fa fa-heart"></i>
-													</button>
-													<?php	
-												}
-											}else{
-												?>
-												<button name="boton" class="btn btm-nofavs" value="favorito">
-													<i class="fa fa-heart"></i>
-												</button>
-												<?php
-											}
-											?>
-										</form>
-									</div>
-									<?php
-								}
+								</div>
+								<?php
 							}
 							?>
 						</div>
@@ -379,7 +351,7 @@ require('header.php');
 										</div>
 									</form>
 									<?php
-									if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="publication.php"){
+									if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="chat"){
 										echo "<div name='popup' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
 										<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
 										unset($_SESSION['mobjetivo']);
@@ -509,82 +481,83 @@ require('header.php');
 								</div>
 								<?php
 							}
+							echo "</li>";
 							?>
-						</li>
-					</ul>
-					<script type="text/javascript">
-						$(window).load(function() {
-							$("#flexiselDemo2").flexisel({
-								visibleItems:1,
-								animationSpeed: 1000,
-								autoPlay: true,
-								autoPlaySpeed: 5000,    		
-								pauseOnHover: true,
-								enableResponsiveBreakpoints: true,
-								responsiveBreakpoints: { 
-									portrait: { 
-										changePoint:480,
-										visibleItems:1
-									}, 
-									landscape: { 
-										changePoint:640,
-										visibleItems:1
-									},
-									tablet: { 
-										changePoint:768,
-										visibleItems:1
+						</ul>
+						<script type="text/javascript">
+							$(window).load(function() {
+								$("#flexiselDemo2").flexisel({
+									visibleItems:1,
+									animationSpeed: 1000,
+									autoPlay: true,
+									autoPlaySpeed: 5000,    		
+									pauseOnHover: true,
+									enableResponsiveBreakpoints: true,
+									responsiveBreakpoints: { 
+										portrait: { 
+											changePoint:480,
+											visibleItems:1
+										}, 
+										landscape: { 
+											changePoint:640,
+											visibleItems:1
+										},
+										tablet: { 
+											changePoint:768,
+											visibleItems:1
+										}
 									}
-								}
-							});
+								});
 
-						});
-					</script>
-					<?php
-				}
-				?>
+							});
+						</script>
+						<?php
+					}
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </section>
+<!-- ********************************************************************************************************************************************* -->
 <div class="modal fade" id="ComprarModal" tabindex="-1" role="dialog" aria-labelledby="ComprarModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12 product_img">
-						<h4 class="lestitle" style="text-align: center;">Confirmacion de compra del articulo <br><span class="subtitle"><?php echo $datos_publicacion['0']['TITULO']; ?></span></h4>
-						<hr>
-					</div>
-					<div class="col-md-6 product_img">
-						<?php
-						cargarimgtn($datos_publicacion[0]['IMGDEFAULT']);
-						?>
-					</div>
-					<div class="col-md-6 product_content cppermuta">
-						
-						<h4 class="lestitle">Estado: <span class="subtitle"><?php echo $datos_publicacion['0']['ESTADOA']; ?></span></h4>
-						<h4 class="lestitle">Cantidad: <span class="subtitle"><?php echo $datos_publicacion['0']['CANTIDAD']; ?></span></h4>
-						<h5 class="lestitle">Descripcion: </h5>
-						<div class="product-details">
-							<?php echo htmlspecialchars_decode($datos_publicacion['0']['DESCRIPCION'], ENT_NOQUOTES); ?>
+			<form action="../logica/procesarCompraOfavorito.php" method="POST">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12 product_img">
+							<h4 class="lestitle" style="text-align: center;">Confirmacion de compra del articulo <br><span class="subtitle"><?php echo $datos_publicacion['0']['TITULO']; ?></span></h4>
+							<hr>
 						</div>
-						<h3 class="cost lestitle">Precio: <span class="subtitle"><i class="fa fa-usd" aria-hidden="true"></i><span id="subtotal"><?php echo $datos_publicacion['0']['PRECIO']; ?></span></span></h3>
-						<div class="space-ten"></div>
+						<div class="col-md-6 product_img">
+							<?php
+							cargarimgtn($datos_publicacion[0]['IMGDEFAULT']);
+							?>
+						</div>
+						<div class="col-md-6 product_content cppermuta">
+							<h4 class="lestitle">Estado: <span class="subtitle"><?php echo $datos_publicacion['0']['ESTADOA']; ?></span></h4>
+							<h4 class="lestitle">Cantidad: <input type="number" name="cantidad" max="<?php echo $datos_publicacion['0']['CANTIDAD']; ?>" min="1" value="1"> de <span class="subtitle"><?php echo $datos_publicacion['0']['CANTIDAD']; ?></span></h4>
+							<h5 class="lestitle">Descripcion: </h5>
+							<div class="product-details">
+								<?php echo htmlspecialchars_decode($datos_publicacion['0']['DESCRIPCION'], ENT_NOQUOTES); ?>
+							</div>
+							<h3 class="cost lestitle">Precio: <span class="subtitle"><i class="fa fa-usd" aria-hidden="true"></i><span id="subtotal"><?php echo $datos_publicacion['0']['PRECIO']; ?></span></span></h3>
+							<div class="space-ten"></div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<form action="../logica/procesarCompraOfavorito.php" method="POST">
+				<div class="modal-footer">
 					<button name="boton" type="submit" class="btn btn-success" value="comprar">
 						<i class="fa fa-shopping-cart"></i> Comprar
 					</button>
 					<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
+<!-- ********************************************************************************************************************************************* 
 <div class="modal fade" id="PermutaModal" tabindex="-1" role="dialog" aria-labelledby="PermutaModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -623,7 +596,7 @@ require('header.php');
 		</div>
 	</div>
 </div>
-<!-- ********************************************************************************************************************************************* -->
+********************************************************************************************************************************************* -->
 <script type="text/javascript">
 	function marksel(id){
 		$('div[name=itemperm]').removeClass("vip-pub");

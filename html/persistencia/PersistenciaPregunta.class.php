@@ -48,7 +48,6 @@ class PersistenciaPregunta
         return $resultados;
     }
     public function consultaPregPublicacion($obj, $conex){
-        $idUsuario= trim($obj->getIdUsuario());
         $idPublicacion= trim($obj->getIdPublicacion());
         $sql = "SELECT * FROM PREGUNTA WHERE IDPUBLICACION=:IDPUBLICACION";
         $result = $conex->prepare($sql);
@@ -57,5 +56,35 @@ class PersistenciaPregunta
         //Obtiene el registro de la tabla Usuario
         return $resultados;
     }
+    public function consultaPregUsuPublicacion($obj, $conex){
+        $idUsuario= trim($obj->getIdUsuario());
+        $idPublicacion= trim($obj->getIdPublicacion());
+        $SQL = "SELECT * FROM PREGUNTA WHERE IDPUBLICACION=:IDPUBLICACION AND IDUSUARIO=6";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":IDPUBLICACION" => $idPublicacion,
+                               ":IDUSUARIO" => $idUsuario));
+        $resultados=$result->fetchAll();
+        //Obtiene el registro de la tabla Usuario
+        return $resultados;
+    }
+    public function consultaPregUsuVentas($obj, $conex){
+        $idUsuario= trim($obj->getIdUsuario());
+        $sql = "SELECT PREGUNTA.ID,PREGUNTA.ESTADO,PREGUNTA.FECHAM,USUARIO.USUARIO,PUBLICACION.TITULO FROM PREGUNTA, CREA,USUARIO,PUBLICACION WHERE PREGUNTA.IDUSUARIO=USUARIO.ID AND PREGUNTA.IDPUBLICACION=PUBLICACION.ID AND PREGUNTA.IDPUBLICACION=CREA.IDPUBLICACION AND CREA.IDUSUARIO=:IDUSUARIO";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":IDUSUARIO" => $idUsuario));
+        $resultados=$result->fetchAll();
+        //Obtiene el registro de la tabla Usuario
+        return $resultados;
+    }
+    public function consultaPregUsuCompras($obj, $conex){
+        $idUsuario= trim($obj->getIdUsuario());
+        $sql = "SELECT PREGUNTA.ID,PREGUNTA.ESTADO,PREGUNTA.FECHAM,USUARIO.USUARIO,PUBLICACION.TITULO FROM PREGUNTA,USUARIO,PUBLICACION WHERE PREGUNTA.IDUSUARIO=USUARIO.ID AND PREGUNTA.IDPUBLICACION=PUBLICACION.ID AND IDUSUARIO=:IDUSUARIO";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":IDUSUARIO" => $idUsuario));
+        $resultados=$result->fetchAll();
+        //Obtiene el registro de la tabla Usuario
+        return $resultados;
+    }
 }
 ?>
+

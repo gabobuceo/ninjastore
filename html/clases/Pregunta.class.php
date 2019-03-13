@@ -138,6 +138,24 @@ class Pregunta
 		$datos= $pp->consultaPregPublicacion($this,$conex);
 		return $datos;
 	}
+	public function consultaPregUsuarioPublicacion($conex)
+	{
+		$pp=new PersistenciaPregunta;
+		$datos= $pp->consultaPregUsuPublicacion($this,$conex);
+		return $datos;
+	}
+	public function consultaPregUsuarioVentas($conex)
+	{
+		$pp=new PersistenciaPregunta;
+		$datos= $pp->consultaPregUsuVentas($this,$conex);
+		return $datos;
+	}
+	public function consultaPregUsuarioCompras($conex)
+	{
+		$pp=new PersistenciaPregunta;
+		$datos= $pp->consultaPregUsuCompras($this,$conex);
+		return $datos;
+	}
 }
 
 ?>

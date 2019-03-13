@@ -16,8 +16,7 @@ class Compra
 	private $calificacion;
 	private $baja;
 	
-	function __construct($i='', $iU='', $iP='', $fCom='', $con='', $fCon='', $can='',$t='',$com='',$cal='',
-			$ba=''){
+	function __construct($i='', $iU='', $iP='', $fCom='', $con='', $fCon='', $can='',$t='',$com='',$cal='',$ba=''){
 		$this->id= $i;
 		$this->idUsuario= $iU;
 		$this->idPublicacion= $iP;
@@ -139,6 +138,12 @@ class Compra
 	{
 		$pu=new PersistenciaCompra;
 		$datos= $pu->consVendidos($this,$conex);
+		return $datos;
+	}
+	public function consultaMaxID($conex)
+	{
+		$pu=new PersistenciaCompra;
+		$datos= $pu->consMaxID($conex);
 		return $datos;
 	}
 }
