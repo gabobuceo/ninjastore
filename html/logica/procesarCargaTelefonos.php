@@ -11,9 +11,10 @@ try {
   if (!empty($datos_c)){
     return $datos_c; 
   }else{
-    return array('this'=>'Vacio');
+    return array('this'=>'No tiene telefonos');
   }
 } catch (PDOException $e) {
-  return $e;
+  return "Error: ".$e->getMessage();
+  exit();
 }
 ?>

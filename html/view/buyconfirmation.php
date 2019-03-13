@@ -8,25 +8,24 @@ require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 $_SESSION['ComID']=$_GET['id'];
 $datos_compra = require_once('../logica/procesarCargaCompra.php');
+var_dump($datos_compra);
 $_SESSION['IDVENDEDOR']=$datos_compra[0]['IDVENDEDOR'];
 $_SESSION['IDCOMPRADOR']=$datos_compra[0]['IDCOMPRADOR'];
 $datos_telefono = require_once('../logica/procesarCargaTelefonos.php');
-var_dump($datos_telefono);
-echo "<hr>";
+//var_dump($datos_telefono);
 $datos_chat = require_once('../logica/procesarCargaTelefonos.php');
-var_dump($datos_chat);
-echo "<hr>";/*
+var_dump($datos_chat); /*
+echo "<hr>";
 var_dump($_GET);
 echo "<hr>";
 var_dump($_POST);
 echo "<hr>";
 var_dump($_SERVER);
-echo "<hr>";*/
+echo "<hr>";
+var_dump($_SERVER);
+echo "<hr>";
 
-
-
-
-var_dump($datos_compra);
+var_dump($datos_compra);*/
 $nombrecompleto = $datos_compra[0]['PNOMBRE'];
 if (is_null($datos_compra[0]['SNOMBRE'])){
 	$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['SNOMBRE'];
@@ -120,37 +119,36 @@ require('header.php');
 								<p><b>Ubicación: </b><a onclick="myNavFunc()"><i class="fa fa-location-arrow" aria-hidden="true"></i> Llevarme ahi</a></p>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-xs-12">
-								<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.2793235090016!2d-56.112215!3d-34.874336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDUyJzI3LjYiUyA1NsKwMDYnNDQuMCJX!5e0!3m2!1ses!2suy!4v1551893306506" frameborder="0" style="border:0;width:100%;height:400px;" allowfullscreen ></iframe>			
-							</div>
-						</div>
 					</div>
 					<h4>Chat de Venta</h4>
 					<div class="product-mesages">
 						<div class="chat_window">
 							<ul class="messages">
 								<?php
-								for ($i=0; $i < count($datos_chat); $i++) { 
-									?>
-									<li class="message left appeared">
-										<div class="text_wrapper">
-											<div class="text"><?php echo $datos_chat[$i]['MENSAJE']; ?></div>
-											<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_chat[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_chat[$i]['FECHAM']; ?>, Pregunta: <?php echo $datos_chat[$i]['ID']; ?></p>
-										</div>
-									</li>
-									<?php
-									if (!empty($datos_chat[$i]['RESPUESTA'])) {
+								if (is_array($datos_chat)) {
+									for ($i=0; $i < count($datos_chat); $i++) { 
 										?>
-										<li class="message right appeared">
+										<li class="message left appeared">
 											<div class="text_wrapper">
-												<div class="text"><?php echo $datos_chat[$i]['RESPUESTA']; ?></div>
-												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_chat[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_chat[$i]['FECHAR']; ?>, Pregunta: <?php echo $datos_chat[$i]['ID']; ?></p>
+												<div class="text"><?php echo $datos_chat[$i]['MENSAJE']; ?></div>
+												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_chat[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_chat[$i]['FECHAM']; ?>, Pregunta: <?php echo $datos_chat[$i]['ID']; ?></p>
 											</div>
 										</li>
 										<?php
+										if (!empty($datos_chat[$i]['RESPUESTA'])) {
+											?>
+											<li class="message right appeared">
+												<div class="text_wrapper">
+													<div class="text"><?php echo $datos_chat[$i]['RESPUESTA']; ?></div>
+													<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_chat[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_chat[$i]['FECHAR']; ?>, Pregunta: <?php echo $datos_chat[$i]['ID']; ?></p>
+												</div>
+											</li>
+											<?php
+										}
 									}
+								}else{
 									?>
+									<p>No se realizaron preguntas</p>
 									<?php
 								}
 								?>
@@ -172,13 +170,6 @@ require('header.php');
 					</div>
 					<div class="buyingdata">
 						<h4>Datos de la venta</h4>
-						<div class="row">
-							<div class="col-xs-12">
-								<form action="buyconfirmation.php?conf=yes" method="GET">						
-									<input type="submit" value="Confirmar venta">
-								</form>	
-							</div> 
-						</div>
 						<div class="row">
 							<div class="col-xs-6 text-center">
 								<p><b>Estado de la venta</b></p>
@@ -215,6 +206,13 @@ require('header.php');
 								</p>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<form action="buyconfirmation.php?conf=yes" method="GET">						
+									<input type="submit" value="Confirmar venta">
+								</form>	
+							</div> 
+						</div>
 					</div>
 				</div>
 			</div>
@@ -222,7 +220,7 @@ require('header.php');
 	</div>
 </section>
 <!-- ::::::::::::::  FIN LOGIN  :::::::::::::: -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR1MVvIOfmAGOlAqC1WnJ6f-G6Irn-cEc&callback=myMap"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR1MVvIOfmAGOlAqC1WnJ6f-G6Irn-cEc&callback=myMap"></script> -->
 <?php 
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin contenido de esta pagina.*/
