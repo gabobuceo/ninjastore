@@ -25,7 +25,7 @@ class PersistenciaUsuario
         //$estado = $obj->getEstado();
         //$rol = $obj->getRol();
         //$passwordadm = $obj->getPasswordADm();
-        $activacion = $obj->getActivacion();
+        $activacion = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
         //$baja = $obj->getBaja();
 
         
@@ -176,35 +176,38 @@ class PersistenciaUsuario
     public function actUsuario($obj, $conex)
     {
         $id= trim($obj->getId()); 
-        $estado= trim($obj->getEstado());
-        $activacion= trim($obj->getActivacion());
-        //echo $id."    ".$estado."    ".$activacion;
-         $sql = "UPDATE USUARIO SET ESTADO=:ESTADO, ACTIVACION=:ACTIVACION WHERE ID=:ID";
+        $estado= "ACTIVADO";
+        $activacion= 0;
+        $sql = "UPDATE USUARIO SET ESTADO=:ESTADO, ACTIVACION=:ACTIVACION WHERE ID=:ID";
         $result = $conex->prepare($sql);
         $result->execute(array(":ESTADO" => $estado,
                                 ":ACTIVACION" => $activacion,
                                 ":ID" => $id));
         if($result){
-          return(true);
+            return(true);
         }else{
-          return(false);
+            return(false);
         }
     }
     public function BusActUsuario($obj, $conex)
     {
+        $usuario= trim($obj->getUsuario());
         $activacionkey= trim($obj->getActivacion());
-        $sql = "SELECT ID FROM USUARIO WHERE ESTADO='CONFIRMAR EMAIL' AND BAJA=0 AND ACTIVACION=:activacionkey";
+        $sql = "SELECT ID FROM USUARIO WHERE ESTADO='CONFIRMAR EMAIL' AND BAJA=0 AND ACTIVACION=:activacionkey AND USUARIO=:usuario";
         $result = $conex->prepare($sql);
-        $result->execute(array(":activacionkey" => $activacionkey));
+        $result->execute(array(":activacionkey" => $activacionkey,
+                                ":usuario" => $usuario));
         $resultados=$result->fetchAll();
         return $resultados;
     }
     public function BusRecUsuario($obj, $conex)
     {
+        $usuario= trim($obj->getUsuario());
         $activacionkey= trim($obj->getActivacion());
-        $sql = "SELECT ID FROM USUARIO WHERE ESTADO='RECUPERAR' AND BAJA=0 AND ACTIVACION=:activacionkey";
+        $sql = "SELECT ID FROM USUARIO WHERE ESTADO='RECUPERAR' AND BAJA=0 AND ACTIVACION=:activacionkey AND USUARIO=:usuario";
         $result = $conex->prepare($sql);
-        $result->execute(array(":activacionkey" => $activacionkey));
+        $result->execute(array(":activacionkey" => $activacionkey,
+                                ":usuario" => $activacionkey));
         $resultados=$result->fetchAll();
         return $resultados;
     }

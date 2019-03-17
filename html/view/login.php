@@ -108,7 +108,7 @@ require('header.php');
 				<div class="new_people">
 					<h2>No tengo usuario!</h2>
 					<p>No hay problema. Registrarse es tan rápido como apretar aqui abajo!.</p>
-					<a href="javascript:void(0)">Registrate ya!</a>
+					<a href="../view/register.php">Registrate ya!</a>
 				</div>
 			</div>
 		</div>

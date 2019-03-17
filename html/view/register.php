@@ -26,7 +26,6 @@ require('header.php');
 				<h1>Crear una cuenta</h1>
 				<p class="creating">Create ahora mismo una cuenta y vive una experiencia inolvidable</p>
 				<h2>Información necesaria</h2>
-
 				<form action="../logica/procesarAltaUsuario.php" method="POST">
 					<div class="sign-u">
 						<div class="sign-up1">

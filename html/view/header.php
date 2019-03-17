@@ -11,7 +11,7 @@
 				<div class='store-navbar-search col-sm-6 col-xs-11'>
 					<div class='row'>
 						<form action='search.php' method='POST'>                
-							<input class='store-navbar-input col-xs-11' placeholder='Buscar' name='search' <?php if (isset($_SESSION['buscar'])) { echo "value='".$_SESSION['buscar']."'";  }?> >
+							<input class='store-navbar-input col-xs-11' placeholder='Buscar' name='search' <?php if (isset($_SESSION['buscar'])) { echo utf8_encode("value='".$_SESSION['buscar']."'");  }?> >
 							<button class='store-navbar-button col-xs-1' type='submit'>
 								<span class='glyphicon glyphicon-search' aria-hidden='true'></span>
 							</button>
