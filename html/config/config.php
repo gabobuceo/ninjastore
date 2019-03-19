@@ -6,6 +6,11 @@
         /*'bdpass' => 'Insercom01',*/
         'bdpass' => '',
         'bdname' => 'ninjadatos',
+        /*'serverso' => 'centos',*/
+        'windowswebp' => 'C:\\xampp\\htdocs\\ninjastore\\html\\static\\libwebp-windows\\bin\\',
+        'windowsimagenes' => 'C:\\xampp\\htdocs\\ninjastore\\html\\imagenes\\',
+        
+
         'app_info' => array(
             'appName'=>"Ninja Store",
             'appURL'=> "http://www.nijastore.uy/"

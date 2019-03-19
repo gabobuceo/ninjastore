@@ -45,14 +45,30 @@ foreach ($file_ary as $file) {
         $magicianObj -> saveImage($targetdi);
 
         move_uploaded_file($file['tmp_name'] , $target);
-        if ($file['type']=="image/gif") {
-            /* Imagen en GIF usa otro binario*/
-            exec("gif2webp -q 80 " . $target . " -o " . $webp); // Tamaño original
+        /* ------------------------------------------------ */
+        /* Verificar si el server es linux o windows */
+        /* ------------------------------------------------ */
+        if ($config->bdhost=="centos") {
+            if ($file['type']=="image/gif") {
+                /* Imagen en GIF usa otro binario*/
+                exec("gif2webp -q 80 " . $target . " -o " . $webp); // Tamaño original
+            }else{
+                exec("cwebp -q 80 " . $target . " -o " . $webp); // Tamaño original
+                exec("cwebp -q 80 " . $targettn . " -o " . $webptn); // Tamaño 250*250
+                exec("cwebp -q 80 " . $targetdi . " -o " . $webpdi); // Tamaño 640*360
+            }
         }else{
-            exec("cwebp -q 80 " . $target . " -o " . $webp); // Tamaño original
-            exec("cwebp -q 80 " . $targettn . " -o " . $webptn); // Tamaño 250*250
-            exec("cwebp -q 80 " . $targetdi . " -o " . $webpdi); // Tamaño 640*360
+            if ($file['type']=="image/gif") {
+                /* Imagen en GIF usa otro binario*/
+                exec($config->windowswebp . "gif2webp.exe -q 80 " . $config->windowsimagenes . $target . " -o " . $webp); // Tamaño original
+            }else{
+                exec($config->windowswebp . "cwebp.exe -q 80 " . $config->windowsimagenes . $target . " -o " . $webp); // Tamaño original
+                exec($config->windowswebp . "cwebp.exe -q 80 " . $config->windowsimagenes . $targettn . " -o " . $webptn); // Tamaño 250*250
+                exec($config->windowswebp . "cwebp.exe -q 80 " . $config->windowsimagenes . $targetdi . " -o " . $webpdi); // Tamaño 640*360
+            }
+            /*var_dump(str_replace("/","\\",$target));*/
         }
+        /* ------------------------------------------------ */
         $_SESSION['IMAGEN'][]=$imgname;
         if ($file['type']=="image/png") {
             $image = imagecreatefrompng($target);
