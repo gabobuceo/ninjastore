@@ -33,53 +33,53 @@ class PersistenciaUsuario
         $password=sha1($password);
         //Genera la sentencia a ejecutar
 		//La sql que vale es la primera, pero hay que completar los parametros en el execute
-		
-		$sql = "insert into USUARIO (CEDULA,USUARIO,PASSWORD,PNOMBRE,PAPELLIDO,FNACIMIENTO,EMAIL,ACTIVACION) values 
-				(:cedula, :usuario, :password, :pNombre, :pApellido, :fNacimiento,:email, :activacion)";
-		
-		$result = $conex->prepare($sql);		
-		$result->execute(array(":cedula" => $cedula, 
-                                ":usuario" => $usuario,
-								":password" => $password,
-								":pNombre" => $pNombre,                                
-								":pApellido" => $pApellido,                                
-								":fNacimiento" => $fNacimiento,
-                                ":email" => $email,
-                                ":activacion" => $activacion));
-                
+
+        $sql = "insert into USUARIO (CEDULA,USUARIO,PASSWORD,PNOMBRE,PAPELLIDO,FNACIMIENTO,EMAIL,ACTIVACION) values 
+        (:cedula, :usuario, :password, :pNombre, :pApellido, :fNacimiento,:email, :activacion)";
+
+        $result = $conex->prepare($sql);		
+        $result->execute(array(":cedula" => $cedula, 
+            ":usuario" => $usuario,
+            ":password" => $password,
+            ":pNombre" => $pNombre,                                
+            ":pApellido" => $pApellido,                                
+            ":fNacimiento" => $fNacimiento,
+            ":email" => $email,
+            ":activacion" => $activacion));
+
         //Para saber si ocurrió un error
         if($result)
         {
           return(true);
-        }
-        else
-        {
+      }
+      else
+      {
           return(false);
-        }
-    }
-    
-   //Devuelve true si el login coincide con la password
-   public function verificarLoginPassword($obj, $conex)
-   {
-        //Obtiene los datos del objeto $obj
-        $usuario= trim($obj->getUsuario());
-        $password= sha1(trim($obj->getPassword())); 
-               
+      }
+  }
 
-        $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password";
-        
-        $consulta = $conex->prepare($sql);
+   //Devuelve true si el login coincide con la password
+  public function verificarLoginPassword($obj, $conex)
+  {
+        //Obtiene los datos del objeto $obj
+    $usuario= trim($obj->getUsuario());
+    $password= sha1(trim($obj->getPassword())); 
+
+
+    $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password";
+
+    $consulta = $conex->prepare($sql);
 		// FORMA 1 de pasar los parametros es con el método bindParam
 		// con bindParam ligamos los parámetros de la consulta a las variables
 		//$consulta->bindParam(':usuario', $login, PDO::PARAM_STR);
 		//$consulta->bindParam(':password', $password, PDO::PARAM_STR);
 		//$consulta->execute();
-		
-		
+
+
 		/* FORMA 2es pasar los parámetros como argumentos del método execute
-		 utilizando un array asociativo */
-		$consulta->execute(array(":usuario" => $usuario, ":password" => $password));
-		
+     utilizando un array asociativo */
+     $consulta->execute(array(":usuario" => $usuario, ":password" => $password));
+
 		/*Despues de ejecutar la consulta como es un SELECT debo utilizar el método
 		fetchAll que devuelve un array que contiene todas las filas del conjunto de resultados
 		*/
@@ -88,30 +88,30 @@ class PersistenciaUsuario
 		return $result;
     }
 
-   public function consTodos( $conex)
-   {
-       
+    public function consTodos( $conex)
+    {
+
         $sql = "select * from usuario";
-		
+
         $result = $conex->prepare($sql);
-		$result->execute();
-		$resultados=$result->fetchAll();
+        $result->execute();
+        $resultados=$result->fetchAll();
         //Obtiene el registro de la tabla Usuario 
 
-       return $resultados;
+        return $resultados;
     }
     
-   public function consUno($obj, $conex)
-   {
+    public function consUno($obj, $conex)
+    {
         $id= trim($obj->getId());   
         $sql = "SELECT * FROM USUARIO WHERE ID=:ID";
-		
+
         $result = $conex->prepare($sql);
-	    $result->execute(array(":ID" => $id));
-		$resultados=$result->fetchAll();
+        $result->execute(array(":ID" => $id));
+        $resultados=$result->fetchAll();
         //Obtiene el registro de la tabla Usuario 
 
-       return $resultados;
+        return $resultados;
     }
     
     public function consEmail($obj, $conex)
@@ -122,47 +122,54 @@ class PersistenciaUsuario
     	$result->execute(array(":email" => $email));
     	$resultados=$result->fetchAll();
     	//Obtiene el registro de la tabla Usuario
-    
+
     	return $resultados;
     }
-	
-	public function modificar($obj, $conex)
-   {
-        $id= trim($obj->getId()); 
-        $nombre=$obj->getNombre();
-        $apellido=$obj->getApellido();
-        $categoria = $obj->getCategoria();
-        $ci = $obj->getCedula();
-        $correo = $obj->getCorreo();
-        $celular = $obj->getCelular();
-        $horario = $obj->getHorario();
-        $fecNac = $obj->getFecNac();
-		
-        $sql = "update usuario set nombre=:nombre,apellido=:apellido ,categoria=:categoria, ci=:ci, correo=:correo, celular=:celular,horario=:horario,fecnac=:fecnac where id=:id";	   
-		
+
+    public function modificar($obj, $conex)
+    {
+        $id= trim($obj->getId());             
+        $pnombre= trim($obj->getPNombre()); 
+        $snombre= trim($obj->getSNombre()); 
+        $papellido= trim($obj->getPApellido()); 
+        $sapellido= trim($obj->getSApellido()); 
+        $fnacimiento= trim($obj->getFecNac()); 
+        $email= trim($obj->getEmail()); 
+        $calle= trim($obj->getCalle()); 
+        $numero= trim($obj->getNumero()); 
+        $esquina= trim($obj->getEsquina()); 
+        $cpostal= trim($obj->getCPostal()); 
+        $localidad= trim($obj->getLocalidad()); 
+        $departamento= trim($obj->getDepartamento()); 
+        $sql = "UPDATE USUARIO SET PNOMBRE=:PNOMBRE,SNOMBRE=:SNOMBRE,PAPELLIDO=:PAPELLIDO,SAPELLIDO=:SAPELLIDO,FNACIMIENTO=:FNACIMIENTO,EMAIL=:EMAIL,CALLE=:CALLE,NUMERO=:NUMERO,ESQUINA=:ESQUINA,CPOSTAL=:CPOSTAL,LOCALIDAD=:LOCALIDAD,DEPARTAMENTO=:DEPARTAMENTO WHERE ID=:ID";	   
         $result = $conex->prepare($sql);
-		
-	    $result->execute(array(":nombre" => $nombre,":apellido" => $apellido,
-								":categoria" => $categoria,":ci" => $ci,
-								":correo" => $correo,":celular" => $celular,
-								":horario" => $horario,
-	    						":fecnac" => $fecNac,
-								":id"=>$id));
-        
-       return $result;
+        $result->execute(array(":PNOMBRE" => $pnombre,
+            ":SNOMBRE" => $snombre,
+            ":PAPELLIDO" => $papellido,
+            ":SAPELLIDO" => $sapellido,
+            ":FNACIMIENTO" => $fnacimiento,
+            ":EMAIL" => $email,
+            ":CALLE" => $calle,
+            ":NUMERO" => $numero,
+            ":ESQUINA" => $esquina,
+            ":CPOSTAL" => $cpostal,
+            ":LOCALIDAD" => $localidad,
+            ":DEPARTAMENTO" => $departamento,
+            ":ID"=>$id));
+        return $result;
     }
-	
-	public function eliminar($obj, $conex)
+
+    public function eliminar($obj, $conex)
     {
         $id= trim($obj->getId());      		
         
         $sql = "delete from usuario where id=:id";
         
         $result = $conex->prepare($sql);
-		
-	    $result->execute(array(":id"=>$id));
-        		
-       return $result;
+
+        $result->execute(array(":id"=>$id));
+
+        return $result;
     }
     public function consCalificacion($obj, $conex)
     {
@@ -181,8 +188,8 @@ class PersistenciaUsuario
         $sql = "UPDATE USUARIO SET ESTADO=:ESTADO, ACTIVACION=:ACTIVACION WHERE ID=:ID";
         $result = $conex->prepare($sql);
         $result->execute(array(":ESTADO" => $estado,
-                                ":ACTIVACION" => $activacion,
-                                ":ID" => $id));
+            ":ACTIVACION" => $activacion,
+            ":ID" => $id));
         if($result){
             return(true);
         }else{
@@ -196,7 +203,7 @@ class PersistenciaUsuario
         $sql = "SELECT ID FROM USUARIO WHERE ESTADO='CONFIRMAR EMAIL' AND BAJA=0 AND ACTIVACION=:activacionkey AND USUARIO=:usuario";
         $result = $conex->prepare($sql);
         $result->execute(array(":activacionkey" => $activacionkey,
-                                ":usuario" => $usuario));
+            ":usuario" => $usuario));
         $resultados=$result->fetchAll();
         return $resultados;
     }
@@ -207,7 +214,7 @@ class PersistenciaUsuario
         $sql = "SELECT ID FROM USUARIO WHERE ESTADO='RECUPERAR' AND BAJA=0 AND ACTIVACION=:activacionkey AND USUARIO=:usuario";
         $result = $conex->prepare($sql);
         $result->execute(array(":activacionkey" => $activacionkey,
-                                ":usuario" => $activacionkey));
+            ":usuario" => $activacionkey));
         $resultados=$result->fetchAll();
         return $resultados;
     }
@@ -226,7 +233,7 @@ class PersistenciaUsuario
         $sql = "SELECT PNOMBRE,PAPELLIDO,EMAIL,ID,USUARIO FROM USUARIO WHERE ID=:ID OR USUARIO=:USUARIO";
         $result = $conex->prepare($sql);
         $result->execute(array(":ID" => $id,
-                               ":USUARIO" => $usuario));
+         ":USUARIO" => $usuario));
         $resultados=$result->fetchAll();
         return $resultados;
     }
@@ -238,37 +245,37 @@ class PersistenciaUsuario
         $sql = "UPDATE USUARIO SET ESTADO=:ESTADO, ACTIVACION=:ACTIVACION WHERE USUARIO=:USUARIO";
         $result = $conex->prepare($sql);
         $result->execute(array(":ESTADO" => $estado,
-                                ":ACTIVACION" => $activacion,
-                                ":USUARIO" => $usuario));
+            ":ACTIVACION" => $activacion,
+            ":USUARIO" => $usuario));
         if($result){
           return(true);
-        }else{
+      }else{
           return(false);
-        }
-    }
-    public function CamPassUsuario($obj, $conex)
-    {
-        $usuario= trim($obj->getId()); 
-        $password= trim($obj->getPassword());
-        $sql = "UPDATE USUARIO SET PASSWORD=:PASSWORD WHERE USUARIO=:USUARIO";
-        $result = $conex->prepare($sql);
-        $result->execute(array(":PASSWORD" => $password,
-                                ":USUARIO" => $usuario));
-        if($result){
-          return(true);
-        }else{
-          return(false);
-        }
-    }
-    public function consDatosVendedor($obj, $conex)
-    {
-        $usuario= trim($obj->getId()); 
-        $sql = "SELECT * FROM DATOS_PERSONA WHERE ID=:id";
-        $result = $conex->prepare($sql);
-        $result->execute(array(":id" => $usuario));
-        $resultados=$result->fetchAll();
-        return $resultados;
-    }
-    
- }
+      }
+  }
+  public function CamPassUsuario($obj, $conex)
+  {
+    $usuario= trim($obj->getId()); 
+    $password= trim($obj->getPassword());
+    $sql = "UPDATE USUARIO SET PASSWORD=:PASSWORD WHERE USUARIO=:USUARIO";
+    $result = $conex->prepare($sql);
+    $result->execute(array(":PASSWORD" => $password,
+        ":USUARIO" => $usuario));
+    if($result){
+      return(true);
+  }else{
+      return(false);
+  }
+}
+public function consDatosVendedor($obj, $conex)
+{
+    $usuario= trim($obj->getId()); 
+    $sql = "SELECT * FROM DATOS_PERSONA WHERE ID=:id";
+    $result = $conex->prepare($sql);
+    $result->execute(array(":id" => $usuario));
+    $resultados=$result->fetchAll();
+    return $resultados;
+}
+
+}
 ?>

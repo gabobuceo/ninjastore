@@ -1,8 +1,7 @@
-Se arreglaron errores en la base de datos
-Principalmente en Categoria ya que era necesario llenar una foranea de si misma
-
-
-Se arreglro registro, login y activar usuario
+Funcion Editar Mi perfil Finalizado
+Ahora el usuario puede cambiar los datos de su perfil, falta cambio de contraseña, telefonos y geolocalizacion.
+Se cambio pluggin googlemaps por mapbox dado que googlemaps a partir de Marzo del 2018 paso a ser pago por lo que no se puede utilizar mas.
+Se agrego funcion para seleccionar mi geolocalizacion.
 
 -------------------------------
 
