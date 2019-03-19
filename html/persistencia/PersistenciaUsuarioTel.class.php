@@ -8,7 +8,8 @@ class PersistenciaUsuarioTel
 		$sql = "INSERT INTO USUARIOTEL (ID,TELEFONO) VALUES 
 		(:id, :telefono)";
 		$result = $conex->prepare($sql);		
-		$result->execute(array(":id" => $id, ":telefono" => $telefono));
+		$result->execute(array(":id" => $id, 
+								":telefono" => $telefono));
 		if($result) {
 			return(true);
 		}else{
@@ -16,10 +17,12 @@ class PersistenciaUsuarioTel
 		}
 	}
 	public function eliminar($obj, $conex) {
-		$ID = $obj->getId();      		
-		$sql = "DELETE FROM USUARIOTEL WHERE ID=:ID";
-		$result = $conex->prepare($sql);
-		$result->execute(array(":ID"=>$ID));
+		$id = $obj->getId();
+		$telefono = $obj->getTelefono();      
+		$sql = "DELETE FROM USUARIOTEL WHERE ID=:ID AND TELEFONO=:TELEFONO";
+		$result = $conex->prepare($sql);		
+		$result->execute(array(":ID" => $id, 
+								":TELEFONO" => $telefono));
 		if($result) {
 			return(true);
 		}else{

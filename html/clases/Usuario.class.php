@@ -25,10 +25,12 @@ class Usuario
     private $rol;
     private $passwordadm;
     private $activacion;
+    private $geox;
+    private $geoy;
     private $baja;
   
     function __construct($i='',$ce='', $us='', $pass='',$pN='', $sN='', $pA='', $sA='',$fN='',$em='',
-    		$ca='',$nu='',$esq='',$cP='',$lo='',$de='',$ti='',$est='',$ro='',$pasa='',$ac='',$ba='')
+    		$ca='',$nu='',$esq='',$cP='',$lo='',$de='',$ti='',$est='',$ro='',$pasa='',$ac='',$gx='',$gy='',$ba='')
     {
         $this->id= $i;
         $this->cedula= $ce;
@@ -51,6 +53,8 @@ class Usuario
         $this->rol= $ro;
         $this->passwordadm= $pasa;
         $this->activacion= $ac;
+        $this->geox= $gx;
+        $this->geoy= $gy;
         $this->baja= $ba;
     }
     
@@ -160,6 +164,16 @@ class Usuario
     public function setActivacion($ac)
     {
       $this->actuvacion=$ac;
+    }
+
+    public function setGeoX($gx)
+    {
+      $this->geox= $gx;
+    }
+
+    public function setGeoY($gy)
+    {
+      $this->geoy= $gy;
     }
 
     public function setBaja($ba)
@@ -274,6 +288,16 @@ class Usuario
     {
       return $this->activacion;
     }
+    
+    public function getGeoX()
+    {
+      return $this->geox;
+    }
+    
+    public function getGeoY()
+    {
+      return $this->geoy;
+    }
 
     public function getBaja()
     {
@@ -365,6 +389,12 @@ class Usuario
       $datos= $pu->CamEstado($this,$conex);
       return $datos;
     }
+    public function consultaPasswordUsuario($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->ConPassUsuario($this,$conex);
+      return $datos;
+    }
     public function CambiarPasswordUsuario($conex)
     {
       $pu=new PersistenciaUsuario();
@@ -375,6 +405,12 @@ class Usuario
     {
       $pu=new PersistenciaUsuario;
       $datos= $pu->consDatosVendedor($this,$conex);
+      return $datos;
+    }
+    public function CambiarGeoUsuario($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->CamGeoUsuario($this,$conex);
       return $datos;
     }
 }

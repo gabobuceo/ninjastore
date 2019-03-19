@@ -253,14 +253,29 @@ class PersistenciaUsuario
           return(false);
       }
   }
-  public function CamPassUsuario($obj, $conex)
+  public function ConPassUsuario($obj, $conex)
   {
-    $usuario= trim($obj->getId()); 
+    $id= trim($obj->getId()); 
     $password= trim($obj->getPassword());
-    $sql = "UPDATE USUARIO SET PASSWORD=:PASSWORD WHERE USUARIO=:USUARIO";
+    $password=sha1($password);
+
+    $sql = "SELECT ID FROM USUARIO WHERE PASSWORD=:PASSWORD AND ID=:ID";
     $result = $conex->prepare($sql);
     $result->execute(array(":PASSWORD" => $password,
-        ":USUARIO" => $usuario));
+        ":ID" => $id));
+    $resultados=$result->fetchAll();
+    return $resultados;
+}
+public function CamPassUsuario($obj, $conex)
+{
+    $id= trim($obj->getId()); 
+    $password= trim($obj->getPassword());
+    $password=sha1($password);
+
+    $sql = "UPDATE USUARIO SET PASSWORD=:PASSWORD WHERE ID=:ID";
+    $result = $conex->prepare($sql);
+    $result->execute(array(":PASSWORD" => $password,
+        ":ID" => $id));
     if($result){
       return(true);
   }else{
@@ -275,6 +290,24 @@ public function consDatosVendedor($obj, $conex)
     $result->execute(array(":id" => $usuario));
     $resultados=$result->fetchAll();
     return $resultados;
+}
+
+public function CamGeoUsuario($obj, $conex)
+{
+    $id= trim($obj->getId()); 
+    $geox= trim($obj->getGeoX());
+    $geoy= trim($obj->getGeoY());
+
+    $sql = "UPDATE USUARIO SET GEOX=:GEOX,GEOY=:GEOY WHERE ID=:ID";
+    $result = $conex->prepare($sql);
+    $result->execute(array(":GEOX" => $geox,
+                            ":GEOY" => $geoy,
+                            ":ID" => $id));
+    if($result){
+        return(true);
+    }else{
+        return(false);
+    }
 }
 
 }

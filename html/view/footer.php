@@ -30,5 +30,12 @@
 		</div>
 	</div>
 </footer>
+<script>
+	$(document).ready (function(){
+		$("#mensajealerta").fadeTo(2000, 500).slideUp(500, function(){
+			$("#mensajealerta").slideUp(500);
+		});   
+	});
+</script>
 </body>
 </html>
