@@ -42,7 +42,17 @@ var_dump($datos_telefono);*/
 					<div class="leftcpanel">
 						<form class="form-horizontal" action="../logica/procesarModificarUsuario.php" method="POST">
 							<fieldset>
-								<h4>Mis Datos</h4>						
+								<h4>Mis Datos</h4>	
+								<?php
+								if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="misdatos"){
+									"<div id='mensajealerta' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+									<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+									unset($_SESSION['mobjetivo']);
+									unset($_SESSION['mtipo']);
+									unset($_SESSION['mtexto']);	
+									unset($_SESSION['debugeame']);				
+								}
+								?>					
 								<div class="form-group">
 									<label class="col-md-5 control-label">Primer Nombre</label>  
 									<div class="col-md-5">
@@ -147,16 +157,6 @@ var_dump($datos_telefono);*/
 										</button> 
 									</div>
 								</div>
-								<?php
-								if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="misdatos"){
-									echo "<div class='alert ".$_SESSION['mtipo']." alert-dismissable'>
-									<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
-									unset($_SESSION['mobjetivo']);
-									unset($_SESSION['mtipo']);
-									unset($_SESSION['mtexto']);	
-									unset($_SESSION['debugeame']);				
-								}
-								?>
 							</fieldset>
 						</form>
 					</div>
@@ -165,9 +165,19 @@ var_dump($datos_telefono);*/
 			<div class="col-md-5">
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<form class="form-horizontal" action="../view/test.php" method="POST">
+						<form class="form-horizontal" action="../logica/procesarModificarUsuarioPassword.php" method="POST">
 							<fieldset>
 								<h4>Cambiar Contraseña</h4>
+								<?php
+								if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="micontraseña"){
+									echo "<div id='mensajealerta' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+									<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+									unset($_SESSION['mobjetivo']);
+									unset($_SESSION['mtipo']);
+									unset($_SESSION['mtexto']);	
+									unset($_SESSION['debugeame']);				
+								}
+								?>
 								<div class="form-group">
 									<label class="col-md-5 control-label">Contraseña Actual</label>  
 									<div class="col-md-5">
@@ -206,18 +216,34 @@ var_dump($datos_telefono);*/
 				</div>
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<form class="form-horizontal" action="../view/test.php" method="POST">
+						<h4>Telefonos</h4>
+						<?php
+						if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="mitelefono"){
+							echo "<div id='mensajealerta' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+							<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+							unset($_SESSION['mobjetivo']);
+							unset($_SESSION['mtipo']);
+							unset($_SESSION['mtexto']);	
+							unset($_SESSION['debugeame']);				
+						}
+						?>
+						<form id='formphoneadd' class="form-horizontal" action='../logica/procesarAltaTelefono.php' method="POST">
 							<fieldset>
-								<h4>Telefonos</h4>						
 								<div class="form-group">
 									<label class="col-md-5 control-label">Agregar Telefono</label>  
 									<div class="col-md-5">
 										<div class="input-group">
 											<input type="text" class="form-control" id="newphone" name="newphone">
-											<div class="input-group-addon btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></div>
+											<div class="input-group-addon btn btn-success" onClick="document.forms['formphoneadd'].submit();">
+												<i class="fa fa-plus" aria-hidden="true"></i>
+											</div>
 										</div>
 									</div>
 								</div>
+							</fieldset>
+						</form>
+						<form id='formphoneremove' class="form-horizontal" action='../logica/procesarBajaTelefono.php' method="POST">
+							<fieldset>
 								<div class="form-group">
 									<label class="col-md-5 control-label">Mis Telefonos</label>
 									<?php
@@ -229,7 +255,7 @@ var_dump($datos_telefono);*/
 										?>
 										<div class="col-md-5">
 											<div class="input-group">
-												<select class="form-control" id="listphones">
+												<select class="form-control" name="listphones">
 													<?php
 													for ($i=0; $i < count($datos_telefono); $i++) { 
 														?>
@@ -238,20 +264,14 @@ var_dump($datos_telefono);*/
 													}
 													?>
 												</select>
-												<div class="input-group-addon btn btn-warning"><i class="fa fa-minus" aria-hidden="true"></i></div>
+												<div class="input-group-addon btn btn-warning" onClick="document.forms['formphoneremove'].submit();">
+													<i class="fa fa-minus" aria-hidden="true"></i>
+												</div>
 											</div>
 										</div>
 										<?php
 									}
 									?>										
-								</div>
-								<div class="form-group">
-									<label class="col-md-5 control-label" ></label>  
-									<div class="col-md-5">
-										<button type="submit" class="btn btn-success">
-											<span class="glyphicon glyphicon-thumbs-up"></span> Guardar Cambios
-										</button> 
-									</div>
 								</div>
 							</fieldset>
 						</form>
@@ -259,15 +279,25 @@ var_dump($datos_telefono);*/
 				</div>
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<form class="form-horizontal" action="../view/test.php" method="POST">
+						<form class="form-horizontal" action="../logica/procesarModificarUsuarioGeo.php" method="POST">
 							<fieldset>
-								<h4>Mi Geolocalizacion</h4>						
+								<h4>Mi Geolocalizacion</h4>
+								<?php
+								if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="migeo"){
+									echo "<div id='mensajealerta' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+									<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+									unset($_SESSION['mobjetivo']);
+									unset($_SESSION['mtipo']);
+									unset($_SESSION['mtexto']);	
+									unset($_SESSION['debugeame']);				
+								}
+								?>						
 								<div id='map' style="height: 350px;margin-bottom: 10px;"></div>
 								<div class="form-group">
 									<label class="col-md-5 control-label">Latitud</label>  
 									<div class="col-md-5">
 										<div id='latitud' class="input-group">
-											<input name="" type="text" class="form-control" value="<?php echo utf8_encode($datos_usuario[0]['GEOX']) ?>">
+											<input name="latitud" type="text" class="form-control" value="<?php echo utf8_encode($datos_usuario[0]['GEOX']) ?>">
 										</div>
 									</div>
 								</div>
@@ -275,7 +305,7 @@ var_dump($datos_telefono);*/
 									<label class="col-md-5 control-label">Longitud</label>  
 									<div class="col-md-5">
 										<div id='longitud' class="input-group">
-											<input name="" type="text" class="form-control" value="<?php echo utf8_encode($datos_usuario[0]['GEOY']) ?>">
+											<input name="longitud" type="text" class="form-control" value="<?php echo utf8_encode($datos_usuario[0]['GEOY']) ?>">
 										</div>
 									</div>
 								</div>
@@ -314,8 +344,8 @@ var marker = new mapboxgl.Marker({
 function onDragEnd() {
 	var lngLat = marker.getLngLat();
 //coordinates.style.display = 'block';
-latitud.innerHTML = "<input name='' type='text' class='form-control' value='" + lngLat.lat + "'>";
-longitud.innerHTML = "<input name='' type='text' class='form-control' value='" + lngLat.lng + "'>";
+latitud.innerHTML = "<input name='latitud' type='text' class='form-control' value='" + lngLat.lat + "'>";
+longitud.innerHTML = "<input name='longitud' type='text' class='form-control' value='" + lngLat.lng + "'>";
 }
 
 marker.on('dragend', onDragEnd);

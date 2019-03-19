@@ -1,8 +1,6 @@
-Funcion Editar Mi perfil Finalizado
-Ahora el usuario puede cambiar los datos de su perfil, falta cambio de contraseña, telefonos y geolocalizacion.
-Se cambio pluggin googlemaps por mapbox dado que googlemaps a partir de Marzo del 2018 paso a ser pago por lo que no se puede utilizar mas.
-Se agrego funcion para seleccionar mi geolocalizacion.
-
+- Funcion Cambiar Contraseña Terminada (cpanel - perfil)
+- Se agrego un id a los Mensajes de alerta junto con una funcion de javascript / jquery en el footer para hacer que se auto cierre
+- Se saco el boton Guardar cambios en Telefono (cpanel - perfil)
 -------------------------------
 
 BUYCONFIRMATION -> Estado de la compra !!!!!!
