@@ -111,11 +111,11 @@ require('header.php');
 										$a=cargarCategoriasPadres();
 										$b=count($a);
 										for ($i=0; $i < $b; $i++) { 
-											echo "<optgroup label='".$a[$i]['TITULO']."'>";
+											echo utf8_encode("<optgroup label='".$a[$i]['TITULO']."'>");
 											$c=cargarCategoriasHijos($a[$i]['ID']);
 											$d=count($c);
 											for ($j=0; $j < $d; $j++) { 
-												echo "<option value='".$c[$j]['ID']."'>".$c[$j]['TITULO']."</option>";
+												echo utf8_encode("<option value='".$c[$j]['ID']."'>".$c[$j]['TITULO']."</option>");
 											}
 											echo "</optgroup>";	
 										}
@@ -226,7 +226,7 @@ require('header.php');
 							<input type="submit" class="submitnaranja" name="boton" value="Guardar" />
 						</div>
 						<div class="col-md-6">
-							<input type="submit" class="submitverde" name="boton" value="Acceder" />
+							<input type="submit" class="submitverde" name="boton" value="Publicar" />
 						</div>
 					</div>
 					<div class="clearfix"></div>
