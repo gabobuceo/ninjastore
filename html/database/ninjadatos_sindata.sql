@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `ninjadatos`
 --
-CREATE DATABASE IF NOT EXISTS `ninjadatos` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `ninjadatos` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `ninjadatos`;
 
 -- --------------------------------------------------------
@@ -35,9 +35,8 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `PADRE` bigint(20) UNSIGNED NOT NULL,
   `BAJA` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID` (`ID`),
-  UNIQUE KEY `TITULO` (`TITULO`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -61,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `compra` (
   PRIMARY KEY (`IDUSUARIO`,`IDPUBLICACION`,`FECHACOMPRA`),
   UNIQUE KEY `ID` (`ID`),
   KEY `IDPUBLICACION` (`IDPUBLICACION`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -79,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `contiene` (
   UNIQUE KEY `ID` (`ID`),
   KEY `IDPUBLICACION` (`IDPUBLICACION`),
   KEY `IDCATEGORIA` (`IDCATEGORIA`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -98,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `crea` (
   UNIQUE KEY `ID` (`ID`),
   KEY `IDUSUARIO` (`IDUSUARIO`),
   KEY `IDPUBLICACION` (`IDPUBLICACION`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -380,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `denuncia` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`),
   KEY `IDOBJETO` (`IDOBJETO`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -399,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `factura` (
   `BAJA` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -414,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `favorito` (
   `BAJA` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`IDUSUARIO`,`IDPUBLICACION`),
   KEY `IDPUBLICACION` (`IDPUBLICACION`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -432,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `gestiona` (
   `BAJA` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`IDUSUARIO`,`IDDENUNCIA`),
   KEY `IDDENUNCIA` (`IDDENUNCIA`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -450,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `historial` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`),
   KEY `USUARIO` (`USUARIO`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -469,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `permuta` (
   `BAJA` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`IDUSUARIO`,`IDPUBLICACION`),
   KEY `IDPUBLICACION` (`IDPUBLICACION`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -492,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
   UNIQUE KEY `ID` (`ID`),
   KEY `IDUSUARIO` (`IDUSUARIO`),
   KEY `IDPUBLICACION` (`IDPUBLICACION`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -546,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `publicacion` (
   UNIQUE KEY `ID` (`ID`),
   KEY `TITULO` (`TITULO`),
   KEY `IDCATEGORIA` (`IDCATEGORIA`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -559,7 +558,7 @@ CREATE TABLE IF NOT EXISTS `publicacionimg` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `IMAGENES` varchar(50) NOT NULL DEFAULT 'DEFAULT.JPG',
   PRIMARY KEY (`ID`,`IMAGENES`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -574,7 +573,7 @@ CREATE TABLE IF NOT EXISTS `realiza` (
   `BAJA` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`IDDENUNCIA`,`IDUSUARIO`),
   KEY `IDUSUARIO` (`IDUSUARIO`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -615,7 +614,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   UNIQUE KEY `EMAIL` (`EMAIL`),
   KEY `CEDULA_2` (`CEDULA`),
   KEY `USUARIO_2` (`USUARIO`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -629,7 +628,7 @@ CREATE TABLE IF NOT EXISTS `usuariotel` (
   `TELEFONO` varchar(10) NOT NULL,
   PRIMARY KEY (`ID`,`TELEFONO`),
   UNIQUE KEY `TELEFONO` (`TELEFONO`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
