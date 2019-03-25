@@ -23,14 +23,13 @@ class Usuario
     private $tipo;
     private $estado;
     private $rol;
-    private $passwordadm;
     private $activacion;
     private $geox;
     private $geoy;
     private $baja;
   
     function __construct($i='',$ce='', $us='', $pass='',$pN='', $sN='', $pA='', $sA='',$fN='',$em='',
-    		$ca='',$nu='',$esq='',$cP='',$lo='',$de='',$ti='',$est='',$ro='',$pasa='',$ac='',$gx='',$gy='',$ba='')
+    		$ca='',$nu='',$esq='',$cP='',$lo='',$de='',$ti='',$est='',$ro='',$ac='',$gx='',$gy='',$ba='')
     {
         $this->id= $i;
         $this->cedula= $ce;
@@ -51,7 +50,6 @@ class Usuario
         $this->tipo= $ti;
         $this->estado= $est;
         $this->rol= $ro;
-        $this->passwordadm= $pasa;
         $this->activacion= $ac;
         $this->geox= $gx;
         $this->geoy= $gy;
@@ -154,11 +152,6 @@ class Usuario
     public function setRol($ro)
     {
       $this->rol=$ro;
-    }
-
-    public function setPasswordADm($pasa)
-    {
-      $this->passwordadm=$pasa;
     }
 
     public function setActivacion($ac)
@@ -277,11 +270,6 @@ class Usuario
     public function getRol()
     {
       return $this->rol;
-    }
-
-    public function getPasswordADm()
-    {
-      return $this->passwordadm;
     }
 
     public function getActivacion()

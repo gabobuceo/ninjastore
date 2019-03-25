@@ -117,7 +117,7 @@ if ($error) {
 			if ($i == FALSE){
 				$commiteo->Rollbackeo($conex);
 			}else{
-				$p = new Publicacion($idpublicacion,$_SESSION['id']);
+				$p = new Publicacion($idpublicacion,$_SESSION['id'],date("Y-m-d h:s:m"));
 				if ($p->altacrea($conex)!== TRUE){
 					$commiteo->Rollbackeo($conex);
 					/*TODO MAL*/

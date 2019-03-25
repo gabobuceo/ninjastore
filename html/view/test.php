@@ -10,7 +10,7 @@ var_dump($_SERVER)
 
 ?>
 <?php
-/*MENSAJE DEMO - Importante ID*/
+/*MENSAJE DEMO - Importante ID
 if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="micontraseña"){
 	echo "<div id='mensajealerta' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
 	<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
@@ -18,5 +18,5 @@ if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="micontraseña"){
 	unset($_SESSION['mtipo']);
 	unset($_SESSION['mtexto']);	
 	unset($_SESSION['debugeame']);				
-}
+}*/
 ?>

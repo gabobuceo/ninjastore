@@ -66,7 +66,7 @@ class PersistenciaUsuario
     $password= sha1(trim($obj->getPassword())); 
 
 
-    $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password";
+    $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password AND ROL='CLIENTE' AND BAJA='0'";
 
     $consulta = $conex->prepare($sql);
 		// FORMA 1 de pasar los parametros es con el método bindParam
