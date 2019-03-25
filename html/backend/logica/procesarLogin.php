@@ -9,7 +9,7 @@ $password = strip_tags(trim($_POST['password']));
 if (empty($_POST['g-recaptcha-response'])) {
 	$_SESSION['mobjetivo']="login.php";
 	$_SESSION['mtipo']="alert-warning";
-	$_SESSION['mtexto']="<strong>!Problema! </strong>No fue comprobado el capcha";
+	$_SESSION['mtexto']="<strong>¡Problema! </strong>No fue comprobado el capcha";
 	header('Location: ../view/login.php');
 }else{
 	try {
@@ -25,7 +25,7 @@ if (empty($_POST['g-recaptcha-response'])) {
 		} else {
 			$_SESSION['mobjetivo']="login.php";
 			$_SESSION['mtipo']="alert-warning";
-			$_SESSION['mtexto']="<strong>!Problema! </strong>El Usuario o la contraseña no son correctas";
+			$_SESSION['mtexto']="<strong>¡Problema! </strong>Datos de usuario incorrectos";
 			header('Location: ../view/login.php');
 		}
 		desconectar($conex);
