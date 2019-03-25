@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require('definitions.php');
+
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -65,8 +66,8 @@ require('header.php');
 			?>
 			<div class="sign-in-form">
 				<div class="sign-in-form-top">
-					<h1>Iniciar Sesion</h1>
-				</div>
+					<div class="sinlink"><br/><center><font size='4'><font color="green">Iniciar Sesión</font></center></div>
+					</div>
 				<div class="signin">
 					<?php
 					if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="login.php"){
@@ -108,7 +109,9 @@ require('header.php');
 				<div class="new_people">
 					<h2>No tengo usuario!</h2>
 					<p>No hay problema. Registrarse es tan rápido como apretar aqui abajo!.</p>
-					<a href="javascript:void(0)">Registrate ya!</a>
+					<a href="../view/register.php" onclick="return llamar()" >Registrarse</a> 
+
+					</script>
 				</div>
 			</div>
 		</div>

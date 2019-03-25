@@ -3,8 +3,7 @@
         'bdhost' => 'localhost',
         'bdport' => '',
         'bduser' => 'root',
-#      origin/HotFix-ErrorsWithoutSession
-        'bdpass' => '',
+        'bdpass' => 'Insercom01',
         'bdname' => 'ninjadatos',
         'app_info' => array(
             'appName'=>"Ninja Store",
