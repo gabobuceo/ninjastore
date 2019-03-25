@@ -65,7 +65,7 @@ class PersistenciaUsuario
         $usuario= trim($obj->getUsuario());
         $password= sha1(trim($obj->getPassword()));
 
-        $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password AND ROL<>'CLIENTE'";
+        $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password AND (ROL='ADMINISTRADOR' OR ROL='MODERADOR')";
 
 
 

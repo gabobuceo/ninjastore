@@ -80,12 +80,6 @@ require('header.php');
 						unset($_SESSION['debugeame']);
 					}
 					?>
-					<div class="row">
-						<div class="col-md-6">
-							<p></p>
-						</div>
-						<div class="col-md-6"><p class="pull-right">Olvidaste la contraseña ? <a href="password.php">Haz Click Aqui</a> </p></div>
-					</div>
 					<form action="../logica/procesarLogin.php" method="POST">
 						<div class="log-input">
 							<div class="log-input-left">
@@ -104,11 +98,6 @@ require('header.php');
 						</div>
 						<input type="submit" value="Acceder">
 					</form>
-				</div>
-				<div class="new_people">
-					<h2>No tengo usuario!</h2>
-					<p>No hay problema. Registrarse es tan rápido como apretar aqui abajo!.</p>
-					<a href="javascript:void(0)">Registrate ya!</a>
 				</div>
 			</div>
 		</div>
