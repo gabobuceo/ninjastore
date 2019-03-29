@@ -4,15 +4,15 @@
 	<?php
 		if (isset($datos_categoria['0']['ID'])){
 		?>
-			<li class="active"><a href="../view/search.php?categoria=<?php echo $datos_categoria['0']['ID'] ?>"><?php echo $datos_categoria['0']['TITULO'] ?></a></li>
+			<li class="active"><a href="../view/search.php?categoria=<?php echo $datos_categoria['0']['ID'] ?>"><?php echo utf8_encode($datos_categoria['0']['TITULO']) ?></a></li>
 		<?php	
 		}else if(isset($_GET['categoria'])){
 			?>
-			<li class="active"><a href="../view/search.php?categoria=<?php echo $_GET['categoria'] ?>"><?php echo $_SESSION['buscar'] ?></a></li>
+			<li class="active"><a href="../view/search.php?categoria=<?php echo utf8_encode($_GET['categoria']) ?>"><?php echo utf8_encode($_SESSION['buscar']) ?></a></li>
 		<?php
 		}else if(isset($_SESSION['buscar'])){
 			?>
-			<li class="active"><?php echo $_SESSION['buscar'] ?></li>
+			<li class="active"><?php echo utf8_encode($_SESSION['buscar']) ?></li>
 		<?php
 		}
 	?>

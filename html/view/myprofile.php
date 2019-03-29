@@ -24,7 +24,7 @@ if (is_null($datos_usuario[0]['GEOY'])) {
 	$datos_usuario[0]['GEOX']="-34.871116";
 	$datos_usuario[0]['GEOY']="-56.167731";
 }
-/*var_dump($datos_usuario);
+/*var_dump($_SESSION);
 var_dump($datos_telefono);*/
 ?>
 <div class="row affix-row">
@@ -45,14 +45,14 @@ var_dump($datos_telefono);*/
 								<h4>Mis Datos</h4>	
 								<?php
 								if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="misdatos"){
-									"<div id='mensajealerta' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+									echo "<div id='mensajealerta' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
 									<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
 									unset($_SESSION['mobjetivo']);
 									unset($_SESSION['mtipo']);
 									unset($_SESSION['mtexto']);	
 									unset($_SESSION['debugeame']);				
 								}
-								?>					
+								?>				
 								<div class="form-group">
 									<label class="col-md-5 control-label">Primer Nombre</label>  
 									<div class="col-md-5">

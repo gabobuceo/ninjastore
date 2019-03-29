@@ -112,6 +112,7 @@ require('definitions.php');
 /* Agregar todo control, puntual para esta pagina (Como la sesion).*/
 /*-----------------------------------------------------------------------------------------------------------*/
 require('header.php');
+$datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/

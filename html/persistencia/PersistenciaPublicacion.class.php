@@ -244,7 +244,7 @@ class PersistenciaPublicacion
 	public function consPubliIndex( $conex)
 	{
 
-		$sql = "SELECT * FROM DATOS_PRODUCTO_INDEX";
+		$sql = "SELECT * FROM DATOS_PRODUCTO_INDEX LIMIT 12";
 
 		$result = $conex->prepare($sql);
 		$result->execute();

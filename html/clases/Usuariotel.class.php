@@ -37,5 +37,6 @@ class UsuarioTel{
     $datos= $put->consTodos($this,$conex);
     return $datos;
   }
+
 }
 ?>
