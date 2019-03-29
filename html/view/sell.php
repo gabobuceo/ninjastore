@@ -1,9 +1,16 @@
 <?php 
-//session_start();
+session_start();
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
+$perfil_completo = require_once('../logica/procesarPerfilCompleto.php');
+if ($perfil_completo==false) {
+	$_SESSION['mobjetivo']="misdatos";
+	$_SESSION['mtipo']="alert-warning";
+	$_SESSION['mtexto']="<strong>!Problema! </strong>Para poder publicar algo, debe tener el perfil completo";
+	header('Location: ../view/myprofile.php');
+}
 ?>
 <link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
 
@@ -58,68 +65,68 @@ require('header.php');
 			<h1>Publicar un producto</h1>
 			<div class="product-desc">
 				<form action="../logica/procesarAltaPublicacion.php" method="POST">
-				<!--<form action="test.php" method="POST">-->
-					<div class="col-md-7 product-view" style="border-width: 3px;">
-						<h2 st>Titulo de la publicación</h2>
-						<p><b><input name="titulopublicacion" class="form-control" type="text"></b></p>
-						<h2>Imagenes</h2>
-						<input id="escanneo" multiple type="file" name="imagen[]" accept="img/*">
-						<div id="errorBlock43" class="help-block"></div>
-						<h2>Descripcion de la publicación</h2>
-						<textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
-						<script>
-							CKEDITOR.replace( 'editor1' );
-						</script>
-					</div>
-					<div class="col-md-5 product-details-grid">
-						<div class="tips" style="margin-top: 0px;">
-							<div class="row">
-								<div class="col-xs-12">
-									<h4>Estado</h4><br />
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6">
-									<label>
-										<input type="radio" class="radio-icon" name="options" value="Nuevo" id="option1" autocomplete="off" checked><label for="option1">Nuevo</label>
-									</label>
-								</div>
-								<div class="col-xs-6">
-									<label>
-										<input type="radio" class="radio-icon" name="options" value="Usado" id="option2" autocomplete="off"><label for="option2">Usado</label>
-									</label>
-								</div>
-							</div>
+					<!--<form action="test.php" method="POST">-->
+						<div class="col-md-7 product-view" style="border-width: 3px;">
+							<h2 st>Titulo de la publicación</h2>
+							<p><b><input name="titulopublicacion" class="form-control" type="text"></b></p>
+							<h2>Imagenes</h2>
+							<input id="escanneo" multiple type="file" name="imagen[]" accept="img/*">
+							<div id="errorBlock43" class="help-block"></div>
+							<h2>Descripcion de la publicación</h2>
+							<textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+							<script>
+								CKEDITOR.replace( 'editor1' );
+							</script>
 						</div>
-						<div class="tips">
-							<div class="row">
-								<div class="col-xs-12">
-									<h4>Categoria</h4><br />
+						<div class="col-md-5 product-details-grid">
+							<div class="tips" style="margin-top: 0px;">
+								<div class="row">
+									<div class="col-xs-12">
+										<h4>Estado</h4><br />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-6">
+										<label>
+											<input type="radio" class="radio-icon" name="options" value="Nuevo" id="option1" autocomplete="off" checked><label for="option1">Nuevo</label>
+										</label>
+									</div>
+									<div class="col-xs-6">
+										<label>
+											<input type="radio" class="radio-icon" name="options" value="Usado" id="option2" autocomplete="off"><label for="option2">Usado</label>
+										</label>
+									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-xs-2">
-									<!--<i class="fa fa-usd fa-2x fa-border" aria-hidden="true"></i> -->
-									<span class="fa-stack fa-lg">
-										<i class="fa fa-square-o fa-stack-2x"></i>
-										<i class="fa fa-calendar-check-o fa-stack-1x"></i>
-									</span>
+							<div class="tips">
+								<div class="row">
+									<div class="col-xs-12">
+										<h4>Categoria</h4><br />
+									</div>
 								</div>
-								<div class="col-xs-10">
-									<select name="categoria" class="selectpicker" data-live-search="true">
-									<?php
-										$a=cargarCategoriasPadres();
-										$b=count($a);
-										for ($i=0; $i < $b; $i++) { 
-											echo utf8_encode("<optgroup label='".$a[$i]['TITULO']."'>");
-											$c=cargarCategoriasHijos($a[$i]['ID']);
-											$d=count($c);
-											for ($j=0; $j < $d; $j++) { 
-												echo utf8_encode("<option value='".$c[$j]['ID']."'>".$c[$j]['TITULO']."</option>");
+								<div class="row">
+									<div class="col-xs-2">
+										<!--<i class="fa fa-usd fa-2x fa-border" aria-hidden="true"></i> -->
+										<span class="fa-stack fa-lg">
+											<i class="fa fa-square-o fa-stack-2x"></i>
+											<i class="fa fa-calendar-check-o fa-stack-1x"></i>
+										</span>
+									</div>
+									<div class="col-xs-10">
+										<select name="categoria" class="selectpicker" data-live-search="true">
+											<?php
+											$a=cargarCategoriasPadres();
+											$b=count($a);
+											for ($i=0; $i < $b; $i++) { 
+												echo utf8_encode("<optgroup label='".$a[$i]['TITULO']."'>");
+												$c=cargarCategoriasHijos($a[$i]['ID']);
+												$d=count($c);
+												for ($j=0; $j < $d; $j++) { 
+													echo utf8_encode("<option value='".$c[$j]['ID']."'>".$c[$j]['TITULO']."</option>");
+												}
+												echo "</optgroup>";	
 											}
-											echo "</optgroup>";	
-										}
-									?>
+											?>
 										<!--<optgroup label="Dispositivos Moviles">
 											<option checked value="3">Celulares</option>
 											<option value="4">Tablets</option>

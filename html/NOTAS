@@ -1,10 +1,1 @@
-- Funcion Cambiar Contraseña Terminada (cpanel - perfil)
-- Se agrego un id a los Mensajes de alerta junto con una funcion de javascript / jquery en el footer para hacer que se auto cierre
-- Se saco el boton Guardar cambios en Telefono (cpanel - perfil)
--------------------------------
-
-BUYCONFIRMATION -> Estado de la compra !!!!!!
-
-Cpanel -> Contestar el chat del orto
-
-Cpanel -> Ver la compra realizada / Ver la venta realizada 
+Sistema de Control de Stock (agregar stock minimo y mostrar en las publiciones el stock)

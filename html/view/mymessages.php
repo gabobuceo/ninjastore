@@ -23,10 +23,10 @@ require('definitions.php');
 require('header.php');
 $datos_compras = require_once('../logica/procesarCargarPreguntasCompras.php');
 $datos_ventas = require_once('../logica/procesarCargarPreguntasVentas.php');
-var_dump($datos_compras);
+/*var_dump($datos_compras);
 echo "<hr>";
 var_dump($datos_ventas);
-echo "<hr>";
+echo "<hr>";*/
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/

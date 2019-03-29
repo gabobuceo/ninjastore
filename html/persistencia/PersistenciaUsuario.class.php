@@ -77,8 +77,8 @@ class PersistenciaUsuario
 
 
 		/* FORMA 2es pasar los parámetros como argumentos del método execute
-     utilizando un array asociativo */
-     $consulta->execute(array(":usuario" => $usuario, ":password" => $password));
+       utilizando un array asociativo */
+       $consulta->execute(array(":usuario" => $usuario, ":password" => $password));
 
 		/*Despues de ejecutar la consulta como es un SELECT debo utilizar el método
 		fetchAll que devuelve un array que contiene todas las filas del conjunto de resultados
@@ -233,7 +233,7 @@ class PersistenciaUsuario
         $sql = "SELECT PNOMBRE,PAPELLIDO,EMAIL,ID,USUARIO FROM USUARIO WHERE ID=:ID OR USUARIO=:USUARIO";
         $result = $conex->prepare($sql);
         $result->execute(array(":ID" => $id,
-         ":USUARIO" => $usuario));
+           ":USUARIO" => $usuario));
         $resultados=$result->fetchAll();
         return $resultados;
     }
@@ -301,13 +301,22 @@ public function CamGeoUsuario($obj, $conex)
     $sql = "UPDATE USUARIO SET GEOX=:GEOX,GEOY=:GEOY WHERE ID=:ID";
     $result = $conex->prepare($sql);
     $result->execute(array(":GEOX" => $geox,
-                            ":GEOY" => $geoy,
-                            ":ID" => $id));
+        ":GEOY" => $geoy,
+        ":ID" => $id));
     if($result){
         return(true);
     }else{
         return(false);
     }
+}
+
+public function consPerfil($obj, $conex){
+    $id= trim($obj->getId());        
+    $sql = "SELECT * FROM USUARIO WHERE ID=:ID";
+    $result = $conex->prepare($sql);
+    $result->execute(array(":ID" => $id));
+    $resultados=$result->fetchAll();
+    return $resultados;
 }
 
 }

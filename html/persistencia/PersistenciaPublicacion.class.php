@@ -128,14 +128,34 @@ class PersistenciaPublicacion
 
 		return $resultados;
 	}
-	public function consTodosUsu($obj, $conex)
+	public function consTodosUsuPublicadas($obj, $conex)
 	{
 		$id= trim($obj->getIdUsuario());
-		$estadop= trim($obj->getEstadoP());
-		$sql = "SELECT * FROM VWPUBLICACION WHERE IDUSUARIO=:ID AND ESTADOP=:ESTADOP";
+		$sql = "SELECT DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO AS CATEGORIA,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA,DATOS_PUBLICACIONES.ESTADOA FROM CREA,DATOS_PUBLICACIONES,CATEGORIA WHERE CREA.IDPUBLICACION=DATOS_PUBLICACIONES.ID AND CREA.BAJA=0 AND DATOS_PUBLICACIONES.ESTADOP='PUBLICADA' AND CATEGORIA.ID=DATOS_PUBLICACIONES.IDCATEGORIA AND CREA.IDUSUARIO=:ID";
 		$result = $conex->prepare($sql);
-		$result->execute(array(":ID" => $id,
-								":ESTADOP" => $estadop));
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
+
+		return $resultados;
+	}
+	public function consTodosUsuGuardadas($obj, $conex)
+	{
+		$id= trim($obj->getIdUsuario());
+		$sql = "SELECT DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO AS CATEGORIA,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA,DATOS_PUBLICACIONES.ESTADOA FROM CREA,DATOS_PUBLICACIONES,CATEGORIA WHERE CREA.IDPUBLICACION=DATOS_PUBLICACIONES.ID AND CREA.BAJA=0 AND ( DATOS_PUBLICACIONES.ESTADOP='BORRADOR' OR DATOS_PUBLICACIONES.ESTADOP='BANEADA' ) AND CATEGORIA.ID=DATOS_PUBLICACIONES.IDCATEGORIA AND CREA.IDUSUARIO=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
+//(ESTADOP='PUBLICADA' AND ESTADOP='BORRADOR' AND ESTADOP='CANCELADA' AND ESTADOP='BANEADA'),
+		return $resultados;
+	}
+	public function consTodosUsuCerradas($obj, $conex)
+	{
+		$id= trim($obj->getIdUsuario());
+		$sql = "SELECT DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO AS CATEGORIA,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA,DATOS_PUBLICACIONES.ESTADOA FROM CREA,DATOS_PUBLICACIONES,CATEGORIA WHERE CREA.IDPUBLICACION=DATOS_PUBLICACIONES.ID AND CREA.BAJA=0 AND DATOS_PUBLICACIONES.ESTADOP='CANCELADA' AND CATEGORIA.ID=DATOS_PUBLICACIONES.IDCATEGORIA AND CREA.IDUSUARIO=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();
 		//Obtiene el registro de la tabla Usuario
 
@@ -244,7 +264,7 @@ class PersistenciaPublicacion
 	public function consPubliIndex( $conex)
 	{
 
-		$sql = "SELECT * FROM DATOS_PRODUCTO_INDEX";
+		$sql = "SELECT * FROM DATOS_PRODUCTO_INDEX LIMIT 12";
 
 		$result = $conex->prepare($sql);
 		$result->execute();

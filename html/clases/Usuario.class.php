@@ -401,6 +401,12 @@ class Usuario
       $datos= $pu->CamGeoUsuario($this,$conex);
       return $datos;
     }
+    public function consultaPerfil($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->consPerfil($this,$conex);
+      return $datos;
+    }
 }
 
 ?>
