@@ -147,6 +147,7 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 							<p>No tienes publicaciones activas.</p>
 							<?php
 						}else{
+							/*print_r($datos_publicacion_activas);*/
 							?>
 							<div class="table-responsive">
 								<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
@@ -156,6 +157,7 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 											<td class="text-center"><strong>Categoria</strong></td>
 											<td class="text-center"><strong>Precio</strong></td>
 											<td class="text-center"><strong>Estado</strong></td>
+											<td class="text-center"><strong>Cant</strong></td>
 											<td class="text-center"><strong>Oferta</strong></td>
 											<td class="text-right"><strong>Enlace</strong></td>
 										</tr>
@@ -170,6 +172,7 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['CATEGORIA']) ?></td>
 												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['PRECIO']) ?></td>
 												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['ESTADOA']) ?></td>
+												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['CANTIDAD']) ?></td>
 												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['OFERTA']) ?></td>
 												<td class="text-right"><a href="../view/publication.php?id=<?php echo $datos_publicacion_activas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_publicacion_activas[$i]['ID'] ?></a></td>
 											</tr>

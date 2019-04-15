@@ -2,6 +2,8 @@
 require_once('../logica/funciones.php');
 require_once('../clases/Compra.class.php');
 require_once('../clases/commit.class.php');
+require_once('../clases/Historial.class.php');
+require_once('../clases/Publicacion.class.php');
 // -------- Obtener la Info ----
 $idusuario = $_SESSION['id'];
 $idpublicacion = $_SESSION['PubID'];
@@ -46,8 +48,14 @@ try {
 	}else{
 		$obtenerID=$c->consultaMaxID($conex);
 		$_SESSION['idcompra']=$obtenerID[0][0];
-		$commiteo->Commiteo($conex);
-		return true;
+		$h= new Historial('',$idusuario,'Alta en Compra','El usuario '.$idusuario.' compro '.$cantidad.' unidades del articulo '.$idpublicacion.' por el total de '.$precio);
+		if ($h->alta($conex)!== TRUE){
+			$commiteo->Rollbackeo($conex);
+			return false;
+		}else{
+			$commiteo->Commiteo($conex);
+			return true;
+		}
 	}
 	$commiteo->AutoCommitON($conex);
 } catch (PDOException $e) {
