@@ -65,7 +65,7 @@ require('header.php');
 			?>
 			<div class="sign-in-form">
 				<div class="sign-in-form-top">
-					<h1>Iniciar Sesion</h1>
+					<center><h1>Inicio de Sesion</h1></center>
 				</div>
 				<div class="signin">
 					<?php
