@@ -13,9 +13,9 @@ body::-webkit-scrollbar-thumb {
     outline: 1px solid red;
 }
 
-.color-blue{color:#1D92AF}
-.color-segreen{color:#3F7577}
-.color-orang{color:#CE7B11}
+.color-blue{color:#004354}
+.color-segreen{color:#092728}
+.color-orang{color:#844c05}
 
 .padding-top > .col-md-6{padding-bottom:15px;}
 
@@ -36,7 +36,7 @@ body::-webkit-scrollbar-thumb {
 /*Top Navbar/////////START///////////*/
 
 .top-bar {
-    background-color: #2874f0;
+    background-color: #041735;
     padding: 0px;
     border: solid 0px;
     border-radius: 0px;
@@ -122,7 +122,7 @@ body::-webkit-scrollbar-thumb {
 
 
 .left-sidebar {
-    background-color: #ECECEC;
+    background-color: #08074c;
     position: fixed;
     left: 0px;
     top:50px;
@@ -160,13 +160,13 @@ body::-webkit-scrollbar-thumb {
 }
 .left-sidebar::-webkit-scrollbar {
     width: 6px;
-    background-color: #ECECEC;
+    background-color: #08074c;
 }
 .left-sidebar::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 .left-sidebar::-webkit-scrollbar-thumb {
-    background-color: #084951;
+    background-color: #26256d;
     outline: 1px solid black;
 }
 .left-sidebar .side-nav {
@@ -185,7 +185,7 @@ body::-webkit-scrollbar-thumb {
 }
 .panel {
     margin-bottom: 0px;
-    background-color: #ECECEC;
+    background-color: #230f0f;
     border-top: 1px solid #777;
     border-radius: 0px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);

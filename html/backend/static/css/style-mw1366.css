@@ -1,0 +1,12 @@
+
+
+
+  @media (max-width: 1366px){
+  body{
+  	background-color: red !important;
+  }
+  .main-banner {
+    min-height: 380px;
+  }
+
+}

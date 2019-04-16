@@ -3,7 +3,6 @@
         'bdhost' => 'localhost',
         'bdport' => '',
         'bduser' => 'root',
-        /*'bdpass' => 'Insercom01',*/
         'bdpass' => '',
         'bdname' => 'ninjadatos',
         /*'serverso' => 'centos',*/

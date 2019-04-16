@@ -118,8 +118,8 @@ require('header.php');
 					</div>
 					<div class="sub_home">
 						<div class="sub_home_left">
-							<input type="submit" value="Registrarse">
-						</div>
+							<input type="submit" value="Registrarse"> 
+							</div>
 						<div class="sub_home_right">
 							<p>Regresar a <a href="index.php">Inicio</a></p>
 						</div>
