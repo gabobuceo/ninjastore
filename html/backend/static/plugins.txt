@@ -1,0 +1,8 @@
+boostrap 3
+ckeditor
+datatables
+fileimput
+fontawesome
+magicianimg
+fpdf
+https://i-like-robots.github.io/EasyZoom/
