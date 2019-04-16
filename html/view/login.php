@@ -1,7 +1,6 @@
 <?php 
 session_start();
 require('definitions.php');
-
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -22,9 +21,6 @@ if (isset($_SESSION['USERNAME'])){
 	header("Location: index.php");
 }
 if (isset($_POST) and !empty($_POST)){
-	/*$sender_name = stripslashes($_POST["sender_name"]);
-	$sender_email = stripslashes($_POST["sender_email"]);
-	$sender_message = stripslashes($_POST["sender_message"]);*/
 	$response = $_POST["g-recaptcha-response"];
 	$url = 'https://www.google.com/recaptcha/api/siteverify';
 	$data = array(
@@ -55,7 +51,6 @@ require('header.php');
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<!-- ::::::::::::::  LOGIN  :::::::::::::: -->
 <section>
 	<div id="page-wrapper" class="sign-in-wrapper">
 		<div class="graphs">
@@ -66,13 +61,11 @@ require('header.php');
 			?>
 			<div class="sign-in-form">
 				<div class="sign-in-form-top">
-					<div class="sinlink"><br/><center><font size='4'><font color="green">Iniciar Sesión</font></center></div>
-					</div>
+					<center><font color="green"><h2>Iniciar Sesión</h2></font></center>
+				</div>
 				<div class="signin">
 					<?php
 					if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="login.php"){
-						/*debugconsola($_SESSION['debugeame']);
-						debugconsola($_SESSION['mobjetivo']);*/
 						echo "<div class='alert ".$_SESSION['mtipo']." alert-dismissable'>
 						<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
 						unset($_SESSION['mobjetivo']);
@@ -109,19 +102,12 @@ require('header.php');
 				<div class="new_people">
 					<h2>No tengo usuario!</h2>
 					<p>No hay problema. Registrarse es tan rápido como apretar aqui abajo!.</p>
-<<<<<<< HEAD
 					<a href="../view/register.php">Registrate ya!</a>
-=======
-					<a href="../view/register.php" onclick="return llamar()" >Registrarse</a> 
-
-					</script>
->>>>>>> develop
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<!-- ::::::::::::::  FIN LOGIN  :::::::::::::: -->
 <?php 
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin contenido de esta pagina.*/
