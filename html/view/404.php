@@ -25,7 +25,7 @@ require('header.php');
 				<img class="img-responsive error-image" src='../static/img/404.gif' />
 				<div class="error-actions">
 					<div class="container">
-						<a href='javascript:void(0)' class="btn btn-primary btn-lg"><span class="fa fa-home"></span>
+						<a href='../view/index.php' class="btn btn-primary btn-lg"><span class="fa fa-home"></span>
 						Volver al inicio </a>
 						<a href='javascript:history.back(1)' class="btn btn-default btn-lg"><span class="fa fa-arrow-left"></span> 
 						Volver atrás </a>

@@ -51,7 +51,7 @@ if ($error==true){
     $commiteo= new Commit();
     $commiteo->AutoCommitOFF($conex);
     $commiteo->TransactionStart($conex);
-    $c= new Usuario($id,'','','','','','','','','','','','','','','','','','','','',$geox,$geoy);
+    $c= new Usuario($id,'','','','','','','','','','','','','','','','','','','',$geox,$geoy);
     if ($c->CambiarGeoUsuario($conex)!= TRUE){
       $commiteo->Rollbackeo($conex);
       $_SESSION['mobjetivo']="migeo";

@@ -8,24 +8,11 @@ require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 $_SESSION['ComID']=$_GET['id'];
 $datos_compra = require_once('../logica/procesarCargaCompra.php');
-var_dump($datos_compra);
 $_SESSION['IDVENDEDOR']=$datos_compra[0]['IDVENDEDOR'];
 $_SESSION['IDCOMPRADOR']=$datos_compra[0]['IDCOMPRADOR'];
 $datos_telefono = require_once('../logica/procesarCargaTelefonos.php');
-//var_dump($datos_telefono);
 $datos_chat = require_once('../logica/procesarCargaTelefonos.php');
-var_dump($datos_chat); /*
-echo "<hr>";
-var_dump($_GET);
-echo "<hr>";
-var_dump($_POST);
-echo "<hr>";
-var_dump($_SERVER);
-echo "<hr>";
-var_dump($_SERVER);
-echo "<hr>";
 
-var_dump($datos_compra);*/
 $nombrecompleto = $datos_compra[0]['PNOMBRE'];
 if (is_null($datos_compra[0]['SNOMBRE'])){
 	$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['SNOMBRE'];
@@ -66,7 +53,7 @@ require('header.php');
 						<h4>Datos de la Compra</h4>
 						<div class="row">
 							<div class="col-xs-12">
-								<p><b>Producto: </b> <?php echo $datos_compra[0]['TITULO']?></p>
+								<p><b>Producto: </b> <?php echo utf8_encode($datos_compra[0]['TITULO'])?></p>
 								<p><b>Cantidad: </b> <?php echo $datos_compra[0]['CANTIDAD']?> unidad/es</p>
 								<p><b>Total: $</b><?php echo $datos_compra[0]['TOTAL']?></p>
 							</div>
@@ -76,7 +63,7 @@ require('header.php');
 						<h4>Datos del Vendedor</h4>
 						<div class="row">
 							<div class="col-xs-12">
-								<p><b>Nombre Completo: </b><?php echo $nombrecompleto?></p>
+								<p><b>Nombre Completo: </b><?php echo utf8_encode($nombrecompleto) ?></p>
 							</div>
 						</div>
 						<div class="row">
@@ -86,17 +73,17 @@ require('header.php');
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<p><b>Dirección: </b><?php echo $datos_compra[0]['CALLE']?> <?php echo $datos_compra[0]['NUMERO']?></p>
+								<p><b>Dirección: </b><?php echo $datos_compra[0]['CALLE']?> <?php echo utf8_encode($datos_compra[0]['NUMERO'])?></p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<p><b>Esquina: </b><?php echo $datos_compra[0]['ESQUINA']?></p>
+								<p><b>Esquina: </b><?php echo utf8_encode($datos_compra[0]['ESQUINA'])?></p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<p><b>Localidad: </b><?php echo $datos_compra[0]['LOCALIDAD']?>, <?php echo $datos_compra[0]['DEPARTAMENTO']?>. CP: <?php echo $datos_compra[0]['CPOSTAL']?></p>
+								<p><b>Localidad: </b><?php echo utf8_encode($datos_compra[0]['LOCALIDAD'])?>, <?php echo utf8_encode($datos_compra[0]['DEPARTAMENTO'])?>. CP: <?php echo $datos_compra[0]['CPOSTAL']?></p>
 							</div>
 						</div>
 						<div class="row">
@@ -130,7 +117,7 @@ require('header.php');
 										?>
 										<li class="message left appeared">
 											<div class="text_wrapper">
-												<div class="text"><?php echo $datos_chat[$i]['MENSAJE']; ?></div>
+												<div class="text"><?php echo utf8_encode($datos_chat[$i]['MENSAJE']); ?></div>
 												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_chat[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_chat[$i]['FECHAM']; ?>, Pregunta: <?php echo $datos_chat[$i]['ID']; ?></p>
 											</div>
 										</li>
@@ -139,7 +126,7 @@ require('header.php');
 											?>
 											<li class="message right appeared">
 												<div class="text_wrapper">
-													<div class="text"><?php echo $datos_chat[$i]['RESPUESTA']; ?></div>
+													<div class="text"><?php echo utf8_encode($datos_chat[$i]['RESPUESTA']); ?></div>
 													<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_chat[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_chat[$i]['FECHAR']; ?>, Pregunta: <?php echo $datos_chat[$i]['ID']; ?></p>
 												</div>
 											</li>
@@ -153,19 +140,6 @@ require('header.php');
 								}
 								?>
 							</ul>
-							<!--
-							<div class="bottom_wrapper clearfix">
-								<div class="message_input_wrapper">
-									<input class="message_input" placeholder="Pregunta algo..." />
-								</div>
-								<div class="send_message">
-									<div class="icon">
-									</div>
-									<div class="text">
-									Enviar</div>
-								</div>
-							</div>
-						-->
 						</div>
 					</div>
 					<div class="buyingdata">
@@ -173,37 +147,37 @@ require('header.php');
 						<div class="row">
 							<div class="col-xs-6 text-center">
 								<p><b>Estado de la venta</b></p>
-								<p><i class="fa fa-times-circle-o" style="color: var(--Terciario);" aria-hidden="true"></i> No confirmada</p>
+								<?php
+								if ( $datos_compra[0]['TITULO'] == 0) {
+									?>
+									<p><i class="fa fa-times-circle-o" style="color: var(--Terciario);" aria-hidden="true"></i> No confirmada</p>
+									<?php
+								}else{
+									?>
+									<p><i class="fa fa-check-circle-o" style="color: var(--Principal);" aria-hidden="true"></i> Confirmada</p>
+									<?php
+								}
+								?>
 							</div>
 							<div class="col-xs-6 text-center">
 								<p><b>Calificacion de la venta</b></p>
-								<p>No calificada</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 text-center">
-								<p><b>Estado de la venta</b></p>
-								<p><i class="fa fa-check-circle-o" style="color: var(--Principal);" aria-hidden="true"></i> Confirmada</p>
-							</div>
-							<div class="col-xs-6 text-center">
-								<p><b>Calificacion de la venta</b></p>
-								<p>No calificada</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 text-center">
-								<p><b>Estado de la venta</b></p>
-								<p><i class="fa fa-check-circle-o" style="color: var(--Principal);" aria-hidden="true"></i> Confirmada</p>
-							</div>
-							<div class="col-xs-6 text-center">
-								<p><b>Calificacion de la venta</b></p>
-								<p>
-									<i class="fa fa-star" style="color: var(--Principal);" aria-hidden="true"></i>
-									<i class="fa fa-star" style="color: var(--Principal);" aria-hidden="true"></i>
-									<i class="fa fa-star-half-o" style="color: var(--Secundario);" aria-hidden="true"></i>
-									<i class="fa fa-star-o" style="color: var(--Terciario);" aria-hidden="true"></i>
-									<i class="fa fa-star-o" style="color: var(--Terciario);" aria-hidden="true"></i>
-								</p>
+								<?php
+								if ( $datos_compra[0]['CALIFICACION'] == NULL) {
+									?>
+									<p><i class="fa fa-times-circle-o" style="color: var(--Terciario);" aria-hidden="true"></i> No calificada</p>
+									<?php
+								}else{
+									?>
+									<p>
+										<i class="fa fa-star" style="color: var(--Principal);" aria-hidden="true"></i>
+										<i class="fa fa-star" style="color: var(--Principal);" aria-hidden="true"></i>
+										<i class="fa fa-star-half-o" style="color: var(--Secundario);" aria-hidden="true"></i>
+										<i class="fa fa-star-o" style="color: var(--Terciario);" aria-hidden="true"></i>
+										<i class="fa fa-star-o" style="color: var(--Terciario);" aria-hidden="true"></i>
+									</p>
+									<?php
+								}
+								?>
 							</div>
 						</div>
 						<div class="row">
@@ -220,7 +194,6 @@ require('header.php');
 	</div>
 </section>
 <!-- ::::::::::::::  FIN LOGIN  :::::::::::::: -->
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR1MVvIOfmAGOlAqC1WnJ6f-G6Irn-cEc&callback=myMap"></script> -->
 <?php 
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin contenido de esta pagina.*/

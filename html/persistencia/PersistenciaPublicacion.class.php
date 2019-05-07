@@ -258,7 +258,6 @@ class PersistenciaPublicacion
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();
 		//Obtiene el registro de la tabla Usuario
-
 		return $resultados;
 	}
 	public function consPubliIndex( $conex)
@@ -330,6 +329,42 @@ class PersistenciaPublicacion
 		//Obtiene el registro de la tabla Usuario
 
 		return $resultados;
+	}
+	public function consultaCant($obj, $conex)
+	{
+		$id= trim($obj->getId());
+		$sql = "SELECT CANTIDAD FROM PUBLICACION WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function modificarCant($obj, $conex)
+	{
+		$id= trim($obj->getId());
+		$cantidad = $obj->getCantidad();
+
+		$sql = "UPDATE PUBLICACION SET CANTIDAD=:CANTIDAD WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":CANTIDAD" => $cantidad,":ID" => $id));
+		if($result){
+          return(true);
+        }else{
+          return(false);
+        }
+	}
+	public function modificarEstP($obj, $conex)
+	{
+		$id= trim($obj->getId());
+		$estadoP = trim($obj->getEstadoP());
+		$sql = "UPDATE PUBLICACION SET ESTADOP=:ESTADOP WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ESTADOP" => $estadoP,":ID" => $id));
+		if($result){
+          return(true);
+        }else{
+          return(false);
+        }
 	}
 }
 ?>

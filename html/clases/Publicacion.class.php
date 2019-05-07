@@ -346,6 +346,22 @@ class Publicacion
 		$datos= $pp->consPubliUsadas($this,$conex);
 		return $datos;
 	}
+	public function consultaCantidad($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consultaCant($this,$conex);
+		return $datos;
+	}
+	public function modificarCantidad($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		return($pp->modificarCant($this, $conex));
+	}
+	public function modificarEstadoP($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		return($pp->modificarEstP($this, $conex));
+	}	
 }
 
 ?>
