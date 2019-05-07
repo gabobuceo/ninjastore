@@ -170,10 +170,10 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 											<tr>
 												<td><?php echo utf8_encode($datos_publicacion_activas[$i]['TITULO']) ?></td>
 												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['CATEGORIA']) ?></td>
-												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['PRECIO']) ?></td>
-												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['ESTADOA']) ?></td>
-												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['CANTIDAD']) ?></td>
-												<td class="text-center"><?php echo utf8_encode($datos_publicacion_activas[$i]['OFERTA']) ?></td>
+												<td class="text-center"><?php echo $datos_publicacion_activas[$i]['PRECIO'] ?></td>
+												<td class="text-center"><?php echo $datos_publicacion_activas[$i]['ESTADOA'] ?></td>
+												<td class="text-center"><?php echo $datos_publicacion_activas[$i]['CANTIDAD'] ?></td>
+												<td class="text-center"><?php echo $datos_publicacion_activas[$i]['OFERTA'] ?></td>
 												<td class="text-right"><a href="../view/publication.php?id=<?php echo $datos_publicacion_activas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_publicacion_activas[$i]['ID'] ?></a></td>
 											</tr>
 											<?php
@@ -215,8 +215,8 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 											/*DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA*/
 											?>
 											<tr>
-												<td><?php echo $datos_publicacion_cerradas[$i]['TITULO'] ?></td>
-												<td class="text-center"><?php echo $datos_publicacion_cerradas[$i]['CATEGORIA'] ?></td>
+												<td><?php echo utf8_encode($datos_publicacion_cerradas[$i]['TITULO']) ?></td>
+												<td class="text-center"><?php echo utf8_encode($datos_publicacion_cerradas[$i]['CATEGORIA']) ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_cerradas[$i]['PRECIO'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_cerradas[$i]['ESTADOA'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_cerradas[$i]['OFERTA'] ?></td>
@@ -263,8 +263,8 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 											/*DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA*/
 											?>
 											<tr>
-												<td><?php echo $datos_publicacion_guardadas[$i]['TITULO'] ?></td>
-												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['CATEGORIA'] ?></td>
+												<td><?php echo utf8_encode($datos_publicacion_guardadas[$i]['TITULO']) ?></td>
+												<td class="text-center"><?php echo utf8_encode($datos_publicacion_guardadas[$i]['CATEGORIA']) ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['PRECIO'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['ESTADOA'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['OFERTA'] ?></td>

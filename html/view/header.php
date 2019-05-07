@@ -24,7 +24,8 @@
 						if (isset($_SESSION['usu'])) {
 							$datos_favoritos = require_once('../logica/procesarCargaFavoritos.php');
 							$datos_favoritos_head = require_once('../logica/procesarCargaFavoritosHead.php');
-							/*var_dump($datos_favoritos);
+							$datos_notificaciones = require_once('../logica/procesarCargaNotificaciones.php');
+							/*var_dump($datos_notificaciones);
 							echo "<br><br>";*/
 							?>
 							<ul class="nav navbar-nav pull-right">
@@ -41,7 +42,16 @@
 									</ul>
 								</li>
 								<li class="pull-left dropdown">
-									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-heart" aria-hidden="true"></i></a>
+									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false">
+										<i class="fa fa-heart" aria-hidden="true">
+											<?php
+												if (!isset($datos_favoritos["this"])) {
+													$cant=count($datos_favoritos);
+													echo "<span class='badge'>$cant</span>";
+												}
+											?>
+										</i>
+									</a>
 									<ul class="dropdown-menu dropdown-cart" role="menu">
 										<?php
 										if (isset($datos_favoritos["this"])) {
@@ -62,21 +72,21 @@
 												<form action="../logica/procesarBajaFavoritos.php" method="POST">
 													<li>
 														<a href="../view/publication.php?id=<?php echo $datos_favoritos[$i]['IDPUBLICACION']; ?>">
-														<span class="item">
-															<span class="item-left">
-																<img src="../imagenes/<?php echo $datos_favoritos_head[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
-																<span class="item-info">
-																	<span><?php echo $datos_favoritos_head[$i]['TITULO']; ?></span>
-																	<span>$ <?php echo $datos_favoritos_head[$i]['PRECIO']; ?></span>
+															<span class="item">
+																<span class="item-left">
+																	<img src="../imagenes/<?php echo $datos_favoritos_head[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																	<span class="item-info">
+																		<span><?php echo $datos_favoritos_head[$i]['TITULO']; ?></span>
+																		<span>$ <?php echo $datos_favoritos_head[$i]['PRECIO']; ?></span>
+																	</span>
+																</span>
+																<span class="item-right">
+																	<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
+																		<i class="fa fa-trash"></i>
+																	</button>
 																</span>
 															</span>
-															<span class="item-right">
-																<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
-																	<i class="fa fa-trash"></i>
-																</button>
-															</span>
-														</span>
-													</a>
+														</a>
 													</li>
 												</form>
 												<?php
@@ -91,7 +101,59 @@
 									</ul>
 								</li>
 								<li class="pull-left">
-									<a class="store-main-button" href="javascript:void(0)"><i class="fa fa-bell" aria-hidden="true"></i></a>
+									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false">
+										<i class="fa fa-bell" aria-hidden="true">
+											<?php
+												if (!isset($datos_notificaciones["this"])) {
+													$cant=count($datos_notificaciones);
+													echo "<span class='badge'>$cant</span>";
+												}
+											?>
+										</i>
+									</a>
+									<ul class="dropdown-menu dropdown-cart" role="menu">
+										<?php
+										if (isset($datos_notificaciones["this"])) {
+											?>
+											<li>
+												<span class="item">
+													<span class="item-left">
+														<span class="item-info-2">
+															<span>No tiene notificaciones.</span>
+														</span>
+													</span>
+												</span>
+											</li>
+											<?php
+										}else{
+											for ($i=0; $i < count($datos_notificaciones); $i++) { 
+												?>
+												<!-- <form action="../logica/procesarBajaFavoritos.php" method="POST">-->
+													<li>
+														<a href="#">
+															<span class="item">
+																<span class="item-left">
+																	<img src="../imagenes/<?php echo $datos_notificaciones[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																	<span class="item-info">
+																		<span><?php echo $datos_notificaciones[$i]['TIPO']; ?></span>
+																		<span><?php echo $datos_notificaciones[$i]['DESCRIPCION']; ?></span>
+																	</span>
+																</span>
+																<span class="item-right">
+																	<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
+																		<i class="fa fa-trash"></i>
+																	</button>
+																</span>
+															</span>
+														</a>
+													</li>
+												<!-- </form> -->
+												<?php
+											}
+										}
+										?>
+										
+									</ul>
 								</li>
 								<li class="pull-left  borleft">
 									<a class="store-main-button" href="sell.php"><i class="fa fa-usd" aria-hidden="true"></i> Vender</a>

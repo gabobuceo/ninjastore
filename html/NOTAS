@@ -1,1 +1,14 @@
-Sistema de Control de Stock (agregar stock minimo y mostrar en las publiciones el stock)
+00Ventas realizadas, con control de Cantidad contra compradas (aunque la pagina no te deje incluso)
+Hacer que si la publicacion queda en 0 unidades -> Publicacion = Finalizada
+
+Notificaciones funcionando -> falta aplicar la funcion "visto"
+
+-----------------------
+Se agrego un badge en favoritos y notificacione spara ver la cantidad exacta de cada uno
+------------------------
+
+Chat de cliente al vendedor Funciona
+Chat del vendedor en el panel de control aun no (no puede responder)
+BuyConfirmacion -> No carga el chat
+				-> EStado de la venta y calificacion de la misma -> Listo los IF, hacer funcionar el boton
+				

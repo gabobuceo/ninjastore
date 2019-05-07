@@ -78,7 +78,7 @@ require('header.php');
 			?>
 			<div class="product-desc">
 				<div class="col-md-7 product-view">
-					<h2><?php echo $datos_publicacion['0']['TITULO']; ?></h2>
+					<h2><?php echo utf8_encode($datos_publicacion['0']['TITULO']); ?></h2>
 					<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_publicacion['0']['ID']; ?>">denunciar publicacion</a>| creado el <?php echo date("d/m/Y", strtotime($datos_publicacionfecha['0']['FECHA'])); ?> a las <?php echo date("H:m", strtotime($datos_publicacionfecha['0']['FECHA'])); ?>, Publicacion: <?php echo $datos_publicacion['0']['ID']; ?></p>
 					<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
 						<?php
@@ -255,7 +255,7 @@ require('header.php');
 								</div>
 								<div class="col-xs-6">
 									<p>
-										<b><?php echo $datos_vendedor['0']['PNOMBRE'].' '.$datos_vendedor['0']['PAPELLIDO'] ?></b><br />
+										<b><?php echo utf8_encode( $datos_vendedor['0']['PNOMBRE'].' '.$datos_vendedor['0']['PAPELLIDO']) ?></b><br />
 										<?php
 										for ($i=0; $i < 5; $i++) { 
 											if ($i<$datos_vendedor['0']['NOTA']) {
@@ -314,7 +314,7 @@ require('header.php');
 										?>
 										<li class="message left appeared">
 											<div class="text_wrapper">
-												<div class="text"><?php echo $datos_preguntas[$i]['MENSAJE']; ?></div>
+												<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['MENSAJE']); ?></div>
 												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_preguntas[$i]['FECHAM']; ?>, Pregunta: <?php echo $datos_preguntas[$i]['ID']; ?></p>
 											</div>
 										</li>
@@ -323,7 +323,7 @@ require('header.php');
 											?>
 											<li class="message right appeared">
 												<div class="text_wrapper">
-													<div class="text"><?php echo $datos_preguntas[$i]['RESPUESTA']; ?></div>
+													<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['RESPUESTA']); ?></div>
 													<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_preguntas[$i]['FECHAR']; ?>, Pregunta: <?php echo $datos_preguntas[$i]['ID']; ?></p>
 												</div>
 											</li>
@@ -372,7 +372,7 @@ require('header.php');
 			<div class="container superdeals-entry">
 				<div class="superdeals-top">
 					<h2 class="deals-logo">
-						<a href="javascript:void(0)">Mas productos del vendedor</a>
+						<a href="javascript:void(0)">Más productos del vendedor</a>
 					</h2>
 					<a class="view-more" href="javascript:void(0)">Ver Todos</a>
 				</div>
@@ -401,7 +401,7 @@ require('header.php');
 											<span class="price">&#36; <?php echo $datos_masproductosvendedor[$i]['PRECIO']; ?></span>
 										</a> 
 										<div class="ad-info">
-											<h5><?php echo $datos_masproductosvendedor[$i]['TITULO']; ?></h5>
+											<h5><?php echo utf8_encode($datos_masproductosvendedor[$i]['TITULO']); ?></h5>
 											<span><?php echo $datos_masproductosvendedor[$i]['FECHA']; ?></span>
 										</div>
 									</div>
@@ -475,7 +475,7 @@ require('header.php');
 										<span class="price">&#36; <?php echo $datos_productossimilares[$i]['PRECIO']; ?></span>
 									</a> 
 									<div class="ad-info">
-										<h5><?php echo $datos_productossimilares[$i]['TITULO']; ?></h5>
+										<h5><?php echo utf8_encode($datos_productossimilares[$i]['TITULO']); ?></h5>
 										<span><?php echo $datos_productossimilares[$i]['FECHA']; ?></span>
 									</div>
 								</div>
@@ -527,7 +527,7 @@ require('header.php');
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12 product_img">
-							<h4 class="lestitle" style="text-align: center;">Confirmacion de compra del articulo <br><span class="subtitle"><?php echo $datos_publicacion['0']['TITULO']; ?></span></h4>
+							<h4 class="lestitle" style="text-align: center;">Confirmacion de compra del articulo <br><span class="subtitle"><?php echo utf8_encode($datos_publicacion['0']['TITULO']); ?></span></h4>
 							<hr>
 						</div>
 						<div class="col-md-6 product_img">
