@@ -13,6 +13,7 @@ require_once ('../logica/funciones.php');
 /* Agregar todo control, puntual para esta pagina (Como la sesion).*/
 /*-----------------------------------------------------------------------------------------------------------*/
 require('header.php');
+/*$datos_favoritos = require_once('../logica/procesarCargaFavoritos.php'); ----> no es necesario ya que se encuentra en el HEADER!!!!!
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/

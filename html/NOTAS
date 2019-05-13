@@ -1,10 +1,10 @@
-00Ventas realizadas, con control de Cantidad contra compradas (aunque la pagina no te deje incluso)
-Hacer que si la publicacion queda en 0 unidades -> Publicacion = Finalizada
-
-Notificaciones funcionando -> falta aplicar la funcion "visto"
-
+Se agregan los check en tipo de notificacion: CONFIRMADOC, CONFIRMADOV, CALIFICACIONC, CALIFICACIONV y se borran CONFIRMADO y CALIFICACION
+Se crea mynotificacion y se modifica el menu en el panel de control del usuario
+Se edita el bagde de Favorito y Notificacion para que si hay mas de 9 muestre +9 y se edita el Dropdown menu de Notificacion para que sea mas completo.
+Notificaciones de Compras pronto
 -----------------------
-Se agrego un badge en favoritos y notificacione spara ver la cantidad exacta de cada uno
+Mover en Pûblicaciones (Publicaciones desactivadas) haca la izquiera y poner ahi "Listado de Ventas", donde al hacer click le abra abajo de si mismo la venta en si con la info del comprador y de la venta
+Editar en Compras la parte de mensajes  y poner ahi "Listado de Compras", donde al hacer click le abra abajo de si mismo la compra en si con la info del vendedor y de la compra
 ------------------------
 
 Chat de cliente al vendedor Funciona

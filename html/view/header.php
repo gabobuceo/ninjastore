@@ -25,8 +25,11 @@
 							$datos_favoritos = require_once('../logica/procesarCargaFavoritos.php');
 							$datos_favoritos_head = require_once('../logica/procesarCargaFavoritosHead.php');
 							$datos_notificaciones = require_once('../logica/procesarCargaNotificaciones.php');
-							/*var_dump($datos_notificaciones);
-							echo "<br><br>";*/
+							/*obtenerFechaSistema();
+							var_dump($datos_notificaciones);
+							echo "<br><br>";/*
+							<?php echo date("d/m/Y", strtotime($datos_publicacionfecha['0']['FECHA']));
+							*/
 							?>
 							<ul class="nav navbar-nav pull-right">
 								<li class="dropdown pull-left">
@@ -45,10 +48,14 @@
 									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false">
 										<i class="fa fa-heart" aria-hidden="true">
 											<?php
-												if (!isset($datos_favoritos["this"])) {
+											if (!isset($datos_favoritos["this"])) {
+												if (count($datos_favoritos) > 9) {
+													$cant="+9";
+												}else{
 													$cant=count($datos_favoritos);
-													echo "<span class='badge'>$cant</span>";
 												}
+												echo "<span class='badge'>$cant</span>";
+											}
 											?>
 										</i>
 									</a>
@@ -100,14 +107,18 @@
 										
 									</ul>
 								</li>
-								<li class="pull-left">
+								<li class="pull-left dropdown">
 									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false">
 										<i class="fa fa-bell" aria-hidden="true">
 											<?php
-												if (!isset($datos_notificaciones["this"])) {
+											if (!isset($datos_notificaciones["this"])) {
+												if (count($datos_notificaciones) > 9) {
+													$cant="+9";
+												}else{
 													$cant=count($datos_notificaciones);
-													echo "<span class='badge'>$cant</span>";
 												}
+												echo "<span class='badge'>$cant</span>";
+											}
 											?>
 										</i>
 									</a>
@@ -125,31 +136,47 @@
 												</span>
 											</li>
 											<?php
-										}else{
+										}else{ 
 											for ($i=0; $i < count($datos_notificaciones); $i++) { 
 												?>
-												<!-- <form action="../logica/procesarBajaFavoritos.php" method="POST">-->
+												<form action="../logica/procesarBajaFavoritos.php?" method="GET">
 													<li>
-														<a href="#">
+														<a href="../view/mynotifications.php?id=<?php echo $datos_notificaciones[$i]['ID']; ?>">
 															<span class="item">
 																<span class="item-left">
 																	<img src="../imagenes/<?php echo $datos_notificaciones[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
 																	<span class="item-info">
-																		<span><?php echo $datos_notificaciones[$i]['TIPO']; ?></span>
+																		<span><?php echo $datos_notificaciones[$i]['TIPO']." (".date("d/m/Y", strtotime($datos_notificaciones[$i]['FECHA'])).")"; ?> </span>
 																		<span><?php echo $datos_notificaciones[$i]['DESCRIPCION']; ?></span>
 																	</span>
 																</span>
 																<span class="item-right">
-																	<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
-																		<i class="fa fa-trash"></i>
-																	</button>
+																	<?php
+																	if ($datos_notificaciones[$i]['VISTO']=='0') {
+																		?>
+																		<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
+																			<i class="fa fa-eye"></i>
+																		</button>
+																		<?php
+																	}else{
+																		?>
+																		<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
+																			<i class="fa fa-eye-slash"></i>
+																		</button>
+																		<?php
+																	}
+																	?>
 																</span>
 															</span>
 														</a>
 													</li>
-												<!-- </form> -->
+												</form>
 												<?php
 											}
+											?>
+											<li class="divider"></li>
+											<li><a class="text-center" href="../view/mynotifications.php">Ver todas tus notificaciones</a></li>
+											<?php
 										}
 										?>
 										
