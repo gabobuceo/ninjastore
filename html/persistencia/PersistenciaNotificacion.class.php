@@ -89,12 +89,12 @@ class PersistenciaNotificacion{
 			return(false);
 		}
 	}
-	public function agregarconfirmado($obj, $conex){
+	public function agregarconfirmadoc($obj, $conex){
 		$idUsuario=trim($obj->getIdUsuario());
 		$descripcion=trim($obj->getDescripcion());
 		$link=trim($obj->getLink());
 		$publicacion=trim($obj->getPublicacion());
-		$tipo="CONFIRMADO";
+		$tipo="CONFIRMADOC";
 		$sql = "INSERT INTO NOTIFICACION (USUARIO,DESCRIPCION,LINK,TIPO,PUBLICACION) VALUES (:USUARIO,:DESCRIPCION,:LINK,:TIPO,:PUBLICACION)";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":USUARIO" => $idUsuario,
@@ -108,12 +108,50 @@ class PersistenciaNotificacion{
 			return(false);
 		}
 	}
-	public function agregarcalificacion($obj, $conex){
+	public function agregarcalificacionc($obj, $conex){
 		$idUsuario=trim($obj->getIdUsuario());
 		$descripcion=trim($obj->getDescripcion());
 		$link=trim($obj->getLink());
 		$publicacion=trim($obj->getPublicacion());
-		$tipo="CALIFICACION";
+		$tipo="CALIFICACIONC";
+		$sql = "INSERT INTO NOTIFICACION (USUARIO,DESCRIPCION,LINK,TIPO,PUBLICACION) VALUES (:USUARIO,:DESCRIPCION,:LINK,:TIPO,:PUBLICACION)";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":USUARIO" => $idUsuario,
+			":DESCRIPCION" => $descripcion,
+			":LINK" => $link,
+			":TIPO" => $tipo,
+			":PUBLICACION" => $publicacion));
+		if($result){
+			return(true);
+		}else{
+			return(false);
+		}
+	}
+	public function agregarconfirmadov($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$descripcion=trim($obj->getDescripcion());
+		$link=trim($obj->getLink());
+		$publicacion=trim($obj->getPublicacion());
+		$tipo="CONFIRMADOV";
+		$sql = "INSERT INTO NOTIFICACION (USUARIO,DESCRIPCION,LINK,TIPO,PUBLICACION) VALUES (:USUARIO,:DESCRIPCION,:LINK,:TIPO,:PUBLICACION)";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":USUARIO" => $idUsuario,
+			":DESCRIPCION" => $descripcion,
+			":LINK" => $link,
+			":TIPO" => $tipo,
+			":PUBLICACION" => $publicacion));
+		if($result){
+			return(true);
+		}else{
+			return(false);
+		}
+	}
+	public function agregarcalificacionv($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$descripcion=trim($obj->getDescripcion());
+		$link=trim($obj->getLink());
+		$publicacion=trim($obj->getPublicacion());
+		$tipo="CALIFICACIONV";
 		$sql = "INSERT INTO NOTIFICACION (USUARIO,DESCRIPCION,LINK,TIPO,PUBLICACION) VALUES (:USUARIO,:DESCRIPCION,:LINK,:TIPO,:PUBLICACION)";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":USUARIO" => $idUsuario,
@@ -175,7 +213,7 @@ class PersistenciaNotificacion{
 	}
 	public function consUno($obj, $conex){
 		$id= trim($obj->getId());
-		$sql = "SELECT * FROM NOTIFICACION WHERE ID=:ID";
+		$sql = "SELECT NOTIFICACION.*,PUBLICACION.IMGDEFAULT FROM NOTIFICACION,PUBLICACION WHERE NOTIFICACION.ID=:ID AND NOTIFICACION.PUBLICACION=PUBLICACION.ID";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();

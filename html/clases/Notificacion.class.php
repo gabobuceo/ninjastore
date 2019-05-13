@@ -138,14 +138,24 @@ class Notificacion
 		$pu=new PersistenciaNotificacion;
 		return ($pu->agregarventa($this, $conex));
 	}
-	public function altaconfirmado($conex){
+
+	public function altaconfirmadoc($conex){
 		$pu=new PersistenciaNotificacion;
-		return ($pu->agregarconfirmado($this, $conex));
+		return ($pu->agregarconfirmadoc($this, $conex));
 	}
-	public function altacalificacion($conex){
+	public function altacalificacionc($conex){
 		$pu=new PersistenciaNotificacion;
-		return ($pu->agregarcalificacion($this, $conex));
+		return ($pu->agregarcalificacionc($this, $conex));
 	}
+	public function altaconfirmadov($conex){
+		$pu=new PersistenciaNotificacion;
+		return ($pu->agregarconfirmadov($this, $conex));
+	}
+	public function altacalificacionv($conex){
+		$pu=new PersistenciaNotificacion;
+		return ($pu->agregarcalificacionv($this, $conex));
+	}
+
 	public function altabaneado($conex){
 		$pu=new PersistenciaNotificacion;
 		return ($pu->agregarbaneado($this, $conex));
