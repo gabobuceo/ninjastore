@@ -205,7 +205,15 @@ class PersistenciaNotificacion{
 	}
 	public function consTodos($obj, $conex){
 		$idUsuario=trim($obj->getIdUsuario());
-		$sql = "SELECT NOTIFICACION.*,PUBLICACION.IMGDEFAULT FROM NOTIFICACION,PUBLICACION WHERE USUARIO=:USUARIO AND NOTIFICACION.PUBLICACION=PUBLICACION.ID";
+		$sql = "SELECT NOTIFICACION.*,PUBLICACION.IMGDEFAULT FROM NOTIFICACION,PUBLICACION WHERE USUARIO=:USUARIO AND NOTIFICACION.PUBLICACION=PUBLICACION.ID ORDER BY NOTIFICACION.FECHA DESC";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":USUARIO" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consTodosNoLeidos($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT NOTIFICACION.*,PUBLICACION.IMGDEFAULT FROM NOTIFICACION,PUBLICACION WHERE USUARIO=:USUARIO AND NOTIFICACION.PUBLICACION=PUBLICACION.ID AND NOTIFICACION.VISTO=0 ORDER BY NOTIFICACION.FECHA DESC";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":USUARIO" => $idUsuario));
 		$resultados=$result->fetchAll();
@@ -226,6 +234,17 @@ class PersistenciaNotificacion{
 		$result->execute();
 		$resultados=$result->fetchAll();
 		return $resultados;
+	}
+	public function notivisto($obj, $conex){
+		$id= trim($obj->getId());
+		$sql = "UPDATE NOTIFICACION SET VISTO=1 WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		if($result){
+			return(true);
+		}else{
+			return(false);
+		}
 	}
 }
 

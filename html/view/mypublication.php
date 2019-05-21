@@ -115,6 +115,7 @@ require('header.php');
 $datos_publicacion_activas = require_once('../logica/procesarListadoPublicacionesActivas.php');
 $datos_publicacion_guardadas = require_once('../logica/procesarListadoPublicacionesGuardadas.php');
 $datos_publicacion_cerradas = require_once('../logica/procesarListadoPublicacionesCerradas.php');
+$datos_ventas = require_once('../logica/procesarListadoVentas.php');
 /*var_dump($datos_publicacion_activas);
 echo "<hr>";
 var_dump($datos_publicacion_guardadas);
@@ -189,6 +190,52 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 				</div>
 				<div class="single-page main-grid-border">
 					<div class="leftcpanel">
+						<h4>Publicaciones Desactivadas</h4>
+						<?php				
+						if (isset($datos_publicacion_guardadas["this"])) {
+							?>
+							<p>No tienes publicaciones desactivadas.</p>
+							<?php
+						}else{
+							?>
+							<div class="table-responsive">
+								<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<td><strong>Publicacion</strong></td>
+											<td class="text-center"><strong>Categoria</strong></td>
+											<td class="text-center"><strong>Precio</strong></td>
+											<td class="text-center"><strong>Estado</strong></td>
+											<td class="text-center"><strong>Oferta</strong></td>
+											<td class="text-right"><strong>Enlace</strong></td>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										for ($i=0; $i < count($datos_publicacion_guardadas); $i++) { 
+											/*DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA*/
+											?>
+											<tr>
+												<td><?php echo utf8_encode($datos_publicacion_guardadas[$i]['TITULO']) ?></td>
+												<td class="text-center"><?php echo utf8_encode($datos_publicacion_guardadas[$i]['CATEGORIA']) ?></td>
+												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['PRECIO'] ?></td>
+												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['ESTADOA'] ?></td>
+												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['OFERTA'] ?></td>
+												<td class="text-right"><a href="../view/publication.php?id=<?php echo $datos_publicacion_guardadas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_publicacion_guardadas[$i]['ID'] ?></a></td>
+											</tr>
+											<?php
+										}
+										?>
+									</tbody>
+								</table>
+							</div>
+							<?php
+						}
+						?>
+					</div>
+				</div>
+				<div class="single-page main-grid-border">
+					<div class="leftcpanel">
 						<h4>Publicaciones Finalizadas</h4>
 						<?php				
 						if (isset($datos_publicacion_cerradas["this"])) {
@@ -237,9 +284,9 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 			<div class="col-md-5">
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<h4>Publicaciones Desactivadas</h4>
+						<h4>Listado de Ventas</h4>
 						<?php				
-						if (isset($datos_publicacion_guardadas["this"])) {
+						if (isset($datos_ventas["this"])) {
 							?>
 							<p>No tienes publicaciones desactivadas.</p>
 							<?php
@@ -250,25 +297,29 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 									<thead>
 										<tr>
 											<td><strong>Publicacion</strong></td>
-											<td class="text-center"><strong>Categoria</strong></td>
-											<td class="text-center"><strong>Precio</strong></td>
-											<td class="text-center"><strong>Estado</strong></td>
-											<td class="text-center"><strong>Oferta</strong></td>
+											<td class="text-center"><strong>Fecha</strong></td>
+											<td class="text-center"><strong>Concretada</strong></td>
 											<td class="text-right"><strong>Enlace</strong></td>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
-										for ($i=0; $i < count($datos_publicacion_guardadas); $i++) { 
+										for ($i=0; $i < count($datos_ventas); $i++) { 
 											/*DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA*/
 											?>
 											<tr>
-												<td><?php echo utf8_encode($datos_publicacion_guardadas[$i]['TITULO']) ?></td>
-												<td class="text-center"><?php echo utf8_encode($datos_publicacion_guardadas[$i]['CATEGORIA']) ?></td>
-												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['PRECIO'] ?></td>
-												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['ESTADOA'] ?></td>
-												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['OFERTA'] ?></td>
-												<td class="text-right"><a href="../view/publication.php?id=<?php echo $datos_publicacion_guardadas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_publicacion_guardadas[$i]['ID'] ?></a></td>
+												<td><?php echo utf8_encode($datos_ventas[$i]['TITULO']) ?></td>
+												<td class="text-center"><?php echo utf8_encode($datos_ventas[$i]['FECHACOMPRA']) ?></td>
+												<td class="text-center">
+												<?php
+													if ($datos_ventas[$i]['CONCRETADO']==0) {
+														echo "No";
+													}else{
+														echo "Si";
+													}
+												?>
+												</td>
+												<td class="text-right"><a href="mypublication?id='<?php echo $datos_ventas[$i]['IDCOMPRA'] ?>'"></i> ID: <?php echo $datos_ventas[$i]['IDCOMPRA'] ?></a></td>
 											</tr>
 											<?php
 										}
@@ -293,7 +344,8 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 						<div id="chartselling" style="height: 370px;"></div>
 					</div>
 				</div>
-				<div class="single-page main-grid-border">
+				<!--
+					<div class="single-page main-grid-border">
 					<div class="rightcpanel">
 						<h4>Control Stock</h4>
 						<div class="table-responsive">
@@ -531,7 +583,8 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 							</table>
 						</div>
 					</div>
-				</div>
+					</div>
+				-->
 			</div>
 		</div>
 	</div>

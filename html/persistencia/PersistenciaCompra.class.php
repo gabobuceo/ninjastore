@@ -55,6 +55,17 @@ class PersistenciaCompra
 
 		return $resultados;
 	}
+	public function consVentas($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		/*print_r($idPublicacion);*/
+		$sql = "SELECT * FROM DATOS_VENTAS WHERE IDVENDEDOR=:IDVENDEDOR";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDVENDEDOR" => $idUsuario));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
+
+		return $resultados;
+	}
 	public function consMaxID($conex)
 	{
 		$sql = "SELECT MAX(ID) FROM COMPRA";

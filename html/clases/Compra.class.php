@@ -140,6 +140,12 @@ class Compra
 		$datos= $pu->consVendidos($this,$conex);
 		return $datos;
 	}
+	public function consultaVentas($conex)
+	{
+		$pu=new PersistenciaCompra;
+		$datos= $pu->consVentas($this,$conex);
+		return $datos;
+	}
 	public function consultaMaxID($conex)
 	{
 		$pu=new PersistenciaCompra;
