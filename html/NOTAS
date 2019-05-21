@@ -1,9 +1,9 @@
-Se agregan los check en tipo de notificacion: CONFIRMADOC, CONFIRMADOV, CALIFICACIONC, CALIFICACIONV y se borran CONFIRMADO y CALIFICACION
-Se crea mynotificacion y se modifica el menu en el panel de control del usuario
-Se edita el bagde de Favorito y Notificacion para que si hay mas de 9 muestre +9 y se edita el Dropdown menu de Notificacion para que sea mas completo.
-Notificaciones de Compras pronto
------------------------
-Mover en Pûblicaciones (Publicaciones desactivadas) haca la izquiera y poner ahi "Listado de Ventas", donde al hacer click le abra abajo de si mismo la venta en si con la info del comprador y de la venta
+Mejora en Norificaciones
+Ahora en el cabezal solo aparecen las No Leidas, Se ordena para que en el panel se muestren de las más nuevas en adelante y en Negrita las No Leidas
+Publicaciones desactivadas movido hacia la izquiera 
+En proceso de "Listado de Ventas"
+
+donde al hacer click le abra abajo de si mismo la venta en si con la info del comprador y de la venta
 Editar en Compras la parte de mensajes  y poner ahi "Listado de Compras", donde al hacer click le abra abajo de si mismo la compra en si con la info del vendedor y de la compra
 ------------------------
 
@@ -12,3 +12,8 @@ Chat del vendedor en el panel de control aun no (no puede responder)
 BuyConfirmacion -> No carga el chat
 				-> EStado de la venta y calificacion de la misma -> Listo los IF, hacer funcionar el boton
 				
+
+
+
+
+Pensar en un tipo de Strike por las denuncias y multas del moderador hacia el usuario

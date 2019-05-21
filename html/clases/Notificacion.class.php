@@ -117,6 +117,11 @@ class Notificacion
 		$datos= $pu->consTodos($this,$conex);
 		return $datos;
 	}
+	public function consultaTodosNoLeidos($conex){
+		$pu=new PersistenciaNotificacion;
+		$datos= $pu->consTodosNoLeidos($this,$conex);
+		return $datos;
+	}
 	public function consultaUno($conex){
 		$pu=new PersistenciaNotificacion;
 		$datos= $pu->consUno($this,$conex);
@@ -163,6 +168,10 @@ class Notificacion
 	public function altafinalizado($conex){
 		$pu=new PersistenciaNotificacion;
 		return ($pu->agregarfinalizado($this, $conex));
+	}
+	public function notificacionvisto($conex){
+		$pu=new PersistenciaNotificacion;
+		return ($pu->notivisto($this, $conex));
 	}
 }
 ?>

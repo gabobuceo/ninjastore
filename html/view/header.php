@@ -24,7 +24,7 @@
 						if (isset($_SESSION['usu'])) {
 							$datos_favoritos = require_once('../logica/procesarCargaFavoritos.php');
 							$datos_favoritos_head = require_once('../logica/procesarCargaFavoritosHead.php');
-							$datos_notificaciones = require_once('../logica/procesarCargaNotificaciones.php');
+							$datos_notificaciones_leidas = require_once('../logica/procesarCargaNotificacionesNoLeidas.php');
 							/*obtenerFechaSistema();
 							var_dump($datos_notificaciones);
 							echo "<br><br>";/*
@@ -111,11 +111,11 @@
 									<a class="navbar-link store-main-button dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false">
 										<i class="fa fa-bell" aria-hidden="true">
 											<?php
-											if (!isset($datos_notificaciones["this"])) {
-												if (count($datos_notificaciones) > 9) {
+											if (!isset($datos_notificaciones_leidas["this"])) {
+												if (count($datos_notificaciones_leidas) > 9) {
 													$cant="+9";
 												}else{
-													$cant=count($datos_notificaciones);
+													$cant=count($datos_notificaciones_leidas);
 												}
 												echo "<span class='badge'>$cant</span>";
 											}
@@ -124,7 +124,7 @@
 									</a>
 									<ul class="dropdown-menu dropdown-cart" role="menu">
 										<?php
-										if (isset($datos_notificaciones["this"])) {
+										if (isset($datos_notificaciones_leidas["this"])) {
 											?>
 											<li>
 												<span class="item">
@@ -137,41 +137,42 @@
 											</li>
 											<?php
 										}else{ 
-											for ($i=0; $i < count($datos_notificaciones); $i++) { 
-												?>
-												<form action="../logica/procesarBajaFavoritos.php?" method="GET">
-													<li>
-														<a href="../view/mynotifications.php?id=<?php echo $datos_notificaciones[$i]['ID']; ?>">
-															<span class="item">
-																<span class="item-left">
-																	<img src="../imagenes/<?php echo $datos_notificaciones[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
-																	<span class="item-info">
-																		<span><?php echo $datos_notificaciones[$i]['TIPO']." (".date("d/m/Y", strtotime($datos_notificaciones[$i]['FECHA'])).")"; ?> </span>
-																		<span><?php echo $datos_notificaciones[$i]['DESCRIPCION']; ?></span>
+											for ($i=0; $i < count($datos_notificaciones_leidas); $i++) { 
+													?>
+													<form action="../logica/procesarBajaFavoritos.php?" method="GET">
+														<li>
+															<a href="../view/mynotifications.php?id=<?php echo $datos_notificaciones_leidas[$i]['ID']; ?>">
+																<span class="item">
+																	<span class="item-left">
+																		<img src="../imagenes/<?php echo $datos_notificaciones_leidas[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																		<span class="item-info">
+																			<span><?php echo $datos_notificaciones_leidas[$i]['TIPO']." (".date("d/m/Y", strtotime($datos_notificaciones_leidas[$i]['FECHA'])).")"; ?> </span>
+																			<span><?php echo $datos_notificaciones_leidas[$i]['DESCRIPCION']; ?></span>
+																		</span>
+																	</span>
+																	<span class="item-right">
+																		<?php
+																		if ($datos_notificaciones_leidas[$i]['VISTO']=='0') {
+																			?>
+																			<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
+																				<i class="fa fa-eye"></i>
+																			</button>
+																			<?php
+																		}else{
+																			?>
+																			<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
+																				<i class="fa fa-eye-slash"></i>
+																			</button>
+																			<?php
+																		}
+																		?>
 																	</span>
 																</span>
-																<span class="item-right">
-																	<?php
-																	if ($datos_notificaciones[$i]['VISTO']=='0') {
-																		?>
-																		<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
-																			<i class="fa fa-eye"></i>
-																		</button>
-																		<?php
-																	}else{
-																		?>
-																		<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
-																			<i class="fa fa-eye-slash"></i>
-																		</button>
-																		<?php
-																	}
-																	?>
-																</span>
-															</span>
-														</a>
-													</li>
-												</form>
-												<?php
+															</a>
+														</li>
+													</form>
+													<?php
+												
 											}
 											?>
 											<li class="divider"></li>
