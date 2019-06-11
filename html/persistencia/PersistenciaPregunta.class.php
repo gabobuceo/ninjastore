@@ -26,7 +26,14 @@ class PersistenciaPregunta
             return(false);
         }
     }
-
+    public function consUno($obj, $conex){
+        $id= trim($obj->getId());
+        $sql = "SELECT * FROM PREGUNTA WHERE ID=:ID";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":ID" => $id));
+        $resultados=$result->fetchAll();
+        return $resultados;
+    }
     public function consTodos($obj, $conex){
         $idPublicacion= trim($obj->getIdPublicacion());
         $sql = "SELECT * FROM VWMENSAJES WHERE TIPO='PREGUNTA' AND IDPUBLICACION=:IDPUBLICACION ORDER BY FECHAM DESC";
@@ -69,7 +76,7 @@ class PersistenciaPregunta
     }
     public function consultaPregUsuVentas($obj, $conex){
         $idUsuario= trim($obj->getIdUsuario());
-        $sql = "SELECT PREGUNTA.ID,PREGUNTA.ESTADO,PREGUNTA.FECHAM,USUARIO.USUARIO,PUBLICACION.TITULO FROM PREGUNTA, CREA,USUARIO,PUBLICACION WHERE PREGUNTA.IDUSUARIO=USUARIO.ID AND PREGUNTA.IDPUBLICACION=PUBLICACION.ID AND PREGUNTA.IDPUBLICACION=CREA.IDPUBLICACION AND CREA.IDUSUARIO=:IDUSUARIO";
+        $sql = "SELECT PREGUNTA.ID,PREGUNTA.ESTADO,PREGUNTA.FECHAM,USUARIO.USUARIO,PUBLICACION.TITULO,PREGUNTA.RESPUESTA FROM PREGUNTA, CREA,USUARIO,PUBLICACION WHERE PREGUNTA.IDUSUARIO=USUARIO.ID AND PREGUNTA.IDPUBLICACION=PUBLICACION.ID AND PREGUNTA.IDPUBLICACION=CREA.IDPUBLICACION AND CREA.IDUSUARIO=:IDUSUARIO ORDER BY PREGUNTA.FECHAM DESC";
         $result = $conex->prepare($sql);
         $result->execute(array(":IDUSUARIO" => $idUsuario));
         $resultados=$result->fetchAll();
@@ -78,11 +85,34 @@ class PersistenciaPregunta
     }
     public function consultaPregUsuCompras($obj, $conex){
         $idUsuario= trim($obj->getIdUsuario());
-        $sql = "SELECT PREGUNTA.ID,PREGUNTA.ESTADO,PREGUNTA.FECHAM,USUARIO.USUARIO,PUBLICACION.TITULO FROM PREGUNTA,USUARIO,PUBLICACION WHERE PREGUNTA.IDUSUARIO=USUARIO.ID AND PREGUNTA.IDPUBLICACION=PUBLICACION.ID AND IDUSUARIO=:IDUSUARIO";
+        $sql = "SELECT PREGUNTA.ID,PREGUNTA.ESTADO,PREGUNTA.FECHAM,USUARIO.USUARIO,PUBLICACION.TITULO,PREGUNTA.RESPUESTA FROM PREGUNTA,USUARIO,PUBLICACION WHERE PREGUNTA.IDUSUARIO=USUARIO.ID AND PREGUNTA.IDPUBLICACION=PUBLICACION.ID AND IDUSUARIO=:IDUSUARIO ORDER BY PREGUNTA.FECHAM DESC";
         $result = $conex->prepare($sql);
         $result->execute(array(":IDUSUARIO" => $idUsuario));
         $resultados=$result->fetchAll();
         //Obtiene el registro de la tabla Usuario
+        return $resultados;
+    }
+    public function RespPregunta($obj, $conex){
+        $id = $obj->getId();
+        $respuesta = $obj->getRespuesta();
+        $sql = "UPDATE PREGUNTA SET RESPUESTA=:RESPUESTA WHERE ID=:ID";
+        $result = $conex->prepare($sql);        
+        $result->execute(array(":RESPUESTA" => $respuesta, 
+                                ":ID" => $id));
+        if($result){
+          return(true);
+        }else{
+          return(false);
+        }
+    }
+    public function consMaxID($conex)
+    {
+        $sql = "SELECT MAX(ID) FROM PREGUNTA";
+
+        $result = $conex->prepare($sql);
+        $result->execute();
+        $resultados=$result->fetchAll();
+        
         return $resultados;
     }
 }

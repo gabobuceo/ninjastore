@@ -1,10 +1,16 @@
-Mejora en Norificaciones
-Ahora en el cabezal solo aparecen las No Leidas, Se ordena para que en el panel se muestren de las más nuevas en adelante y en Negrita las No Leidas
-Publicaciones desactivadas movido hacia la izquiera 
-En proceso de "Listado de Ventas"
+* Se actualizo la vista DATOS_COMPRA para que mostrara el email del comprador
+* Finalizada la Notificacion de Compra
+* Finalizada la Notificacion de Venta
+* Finalizada la Notificacion de Finalizados
+* Cliente puede hacer pegunta
+* Vendedor puede contestar la pregunta
+* Listado de preguntas de compras o ventas en panel del usuario
+* Se agrego la funcion MAXID en la clase Pregunta
+* Se agrego más caracteres en el atributo accion de Historial
+* Notificaciones de Chat listo
+* Chat en Notificaciones listo
 
-donde al hacer click le abra abajo de si mismo la venta en si con la info del comprador y de la venta
-Editar en Compras la parte de mensajes  y poner ahi "Listado de Compras", donde al hacer click le abra abajo de si mismo la compra en si con la info del vendedor y de la compra
+
 ------------------------
 
 Chat de cliente al vendedor Funciona
@@ -13,6 +19,8 @@ BuyConfirmacion -> No carga el chat
 				-> EStado de la venta y calificacion de la misma -> Listo los IF, hacer funcionar el boton
 				
 
+Denuncias: Chau chat, hacerlo bien de boton
+re nazi
 
 
 

@@ -70,7 +70,7 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 								</a> 
 								<div class="ad-info">
 									<h5><?php echo $datos_ofertas[$i]['TITULO']; ?></h5>
-									<span><?php echo $datos_ofertas[$i]['FECHA']; ?></span>
+									<span><?php echo date("d/m/Y H:i", strtotime($datos_ofertas[$i]['FECHA'])); ?></span>
 								</div>
 							</div>
 							<?php
@@ -134,7 +134,7 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 						</a> 
 						<div class="ad-info">
 							<h5><?php echo $datos_publicaciones[$i]['TITULO']; ?></h5>
-							<span><?php echo $datos_publicaciones[$i]['FECHA']; ?></span>
+							<span><?php echo date("d/m/Y H:i", strtotime($datos_publicaciones[$i]['FECHA'])); ?></span>
 						</div>
 					</div>
 					<?php

@@ -47,45 +47,62 @@ echo "<hr>";*/
 						<h4>Chat</h4>
 						<?php
 						if (isset($_GET['idmensaje'])) {
-							$_SESSION['idmensaje']=$_GET['idmensaje'];					
+							$_SESSION['idmensaje']=$_GET['idmensaje'];
+							$datos_mensaje = require_once('../logica/procesarCargaChat.php');					
 							unset($_SESSION['idmensaje']);
+							/*var_dump($datos_mensaje);*/
 							?>
 							<div class="product-mesages">
 								<div class="chat_window">
 									<ul class="messages">
 										<li class="message left appeared">
 											<div class="text_wrapper">
-												<div class="text">
-												Buenas, compre el producto el dia de hoy. Queria saber si puedo pasar mañana a las 16hs</div>
-												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="javascript:void(0)"> denunciar </a>| creado el 26/10/2017 a las 18:55 pm, Pregunta: 4584134</p>
+												<div class="text">Pregunta: <?php echo utf8_encode($datos_mensaje[0]['MENSAJE']); ?></div>
+												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_mensaje[0]['ID']; ?>"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_mensaje[0]['FECHAM'])); ?></p>
 											</div>
 										</li>
-										<li class="message right appeared">
-											<div class="text_wrapper">
-												<div class="text">
-												Buenos dias, te estaremos esperando con mucho gusto. Gracias por tu compra IRL SA.</div>
-												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="javascript:void(0)"> denunciar </a>| creado el 26/10/2017 a las 19:0 pm, Respuesta: 4584134</p>
-											</div>
-										</li>
-										<li class="message left appeared">
-											<div class="text_wrapper">
-												<div class="text">
-												Buenas, compre el producto el dia de hoy. Queria saber si puedo pasar mañana a las 16hs</div>
-												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="javascript:void(0)"> denunciar </a>| creado el 26/10/2017 a las 18:55 pm, Pregunta: 4584134</p>
-											</div>
-										</li>
+										<?php
+										if (!is_null($datos_mensaje[0]['RESPUESTA'])) {
+											?>
+											<li class="message right appeared">
+												<div class="text_wrapper">
+													<div class="text">Respuesta: <?php echo utf8_encode($datos_mensaje[0]['RESPUESTA']); ?></div>
+													<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_mensaje[0]['ID']; ?>"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_mensaje[0]['FECHAR'])); ?></p>
+												</div>
+											</li>
+											<?php
+										}
+										?>								
 									</ul>
-									<div class="bottom_wrapper clearfix">
-										<div class="message_input_wrapper">
-											<input class="message_input" placeholder="Agregar un mensaje..." />
+									<?php
+									if (is_null($datos_mensaje[0]['RESPUESTA']) and $datos_mensaje[0]['IDUSUARIO']!=$_SESSION['id'] ) {
+										?>
+										<div class="bottom_wrapper clearfix">
+											<form name="hola" action="../logica/procesarAltaRespuesta.php?id=<?php echo $datos_mensaje[0]['ID']; ?>" method="POST">
+												<div class="message_input_wrapper">
+													<input name="respuesta" class="message_input" placeholder="Responder..." />
+												</div>
+												<div class="send_message">
+													<div class="icon">
+													</div>
+													<div class="text" onclick="hola.submit()">
+													Preguntar</div>
+												</div>
+											</form>
+											<?php
+											if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="chat"){
+												echo "<div name='popup' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+												<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+												unset($_SESSION['mobjetivo']);
+												unset($_SESSION['mtipo']);
+												unset($_SESSION['mtexto']);	
+												unset($_SESSION['debugeame']);				
+											}
+											?>
 										</div>
-										<div class="send_message">
-											<div class="icon">
-											</div>
-											<div class="text">
-											Enviar</div>
-										</div>
-									</div>
+										<?php
+									}
+									?>		
 								</div>
 							</div>
 							<?php
@@ -105,68 +122,102 @@ echo "<hr>";*/
 			<div class="col-md-5">
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<h4>Compras</h4>
-						<div class="table-responsive">
-							<table id="tablacompras" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
-								<thead>
-									<tr>
-										<td><strong>Publicacion</strong></td>
-										<td class="text-center"><strong>Usuario</strong></td>
-										<td class="text-center"><strong>Estado</strong></td>
-										<td class="text-center"><strong>Fecha</strong></td>
-										<td class="text-right"><strong>Leer</strong></td>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									for ($i=0; $i < count($datos_compras); $i++) { 
-										?>
+						<h4>Mensajes de Compras</h4>
+						<?php				
+						if (isset($datos_compras["this"])) {
+							?>
+							<p>No tienes publicaciones activas.</p>
+							<?php
+						}else{
+							?>
+							<div class="table-responsive">
+								<table id="tablacompras" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
 										<tr>
-											<td><?php echo $datos_compras[$i]['TITULO'] ?></td>
-											<td class="text-center"><?php echo $datos_compras[$i]['USUARIO'] ?></td>
-											<td class="text-center"><?php echo $datos_compras[$i]['ESTADO'] ?></td>
-											<td class="text-center"><?php echo date("d/m/Y H:m", strtotime($datos_compras[$i]['FECHAM'])); ?></td>
-											<td class="text-right"><a href="../view/mymessages.php?idmensaje=<?php echo $datos_compras[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_compras[$i]['ID'] ?></a></td>
+											<td><strong>Publicacion</strong></td>
+											<td class="text-center"><strong>Estado</strong></td>
+											<td class="text-center"><strong>Fecha</strong></td>
+											<td class="text-right"><strong>Leer</strong></td>
 										</tr>
+									</thead>
+									<tbody>
 										<?php
-									}
-									?>
-								</tbody>
-							</table>
-						</div>
+										for ($i=0; $i < count($datos_compras); $i++) { 
+											?>
+											<tr>
+												<td><?php echo utf8_encode($datos_compras[$i]['TITULO']) ?></td>
+												<td class="text-center">
+												<?php
+												if (is_null($datos_compras[$i]['RESPUESTA'])) {
+													echo "Pendientes";
+												}else{
+													echo "Respondido";
+												}
+												?>
+												</td>
+												<td class="text-center"><?php echo date("d/m/Y H:i", strtotime($datos_compras[$i]['FECHAM'])); ?></td>
+												<td class="text-right"><a href="../view/mymessages.php?idmensaje=<?php echo $datos_compras[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_compras[$i]['ID'] ?></a></td>
+											</tr>
+											<?php
+										}
+										?>
+									</tbody>
+								</table>
+							</div>
+							<?php
+						}
+						?>
 					</div>
 				</div>
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<h4>Ventas</h4>
-						<div class="table-responsive">
-							<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
-								<thead>
-									<tr>
-										<td><strong>Publicacion</strong></td>
-										<td class="text-center"><strong>Usuario</strong></td>
-										<td class="text-center"><strong>Estado</strong></td>
-										<td class="text-center"><strong>Fecha</strong></td>
-										<td class="text-right"><strong>Leer</strong></td>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									for ($i=0; $i < count($datos_ventas); $i++) { 
-										?>
+						<h4>Mensajes de Ventas</h4>
+						<?php				
+						if (isset($datos_ventas["this"])) {
+							?>
+							<p>No tienes publicaciones activas.</p>
+							<?php
+						}else{
+							/*print_r($datos_publicacion_activas);*/
+							?>
+							<div class="table-responsive">
+								<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
 										<tr>
-											<td><?php echo $datos_ventas[$i]['TITULO'] ?></td>
-											<td class="text-center"><?php echo $datos_ventas[$i]['USUARIO'] ?></td>
-											<td class="text-center"><?php echo $datos_ventas[$i]['ESTADO'] ?></td>
-											<td class="text-center"><?php echo date("d/m/Y H:m", strtotime($datos_ventas[$i]['FECHAM'])); ?></td>
-											<td class="text-right"><a href="../view/mymessages.php?idmensaje=<?php echo $datos_ventas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_ventas[$i]['ID'] ?></a></td>
+											<td><strong>Publicacion</strong></td>
+											<td class="text-center"><strong>Estado</strong></td>
+											<td class="text-center"><strong>Fecha</strong></td>
+											<td class="text-right"><strong>Leer</strong></td>
 										</tr>
+									</thead>
+									<tbody>
 										<?php
-									}
-									?>
-								</tbody>
-							</table>
-						</div>
+										/*var_dump($datos_ventas);*/
+										for ($i=0; $i < count($datos_ventas); $i++) { 
+											?>
+											<tr>
+												<td><?php echo utf8_encode($datos_ventas[$i]['TITULO']) ?></td>
+												<td class="text-center">
+												<?php
+												if (is_null($datos_ventas[$i]['RESPUESTA'])) {
+													echo "Pendientes";
+												}else{
+													echo "Respondido";
+												}
+												?>
+												</td>
+												<td class="text-center"><?php echo date("d/m/Y H:i", strtotime($datos_ventas[$i]['FECHAM'])); ?></td>
+												<td class="text-right"><a href="../view/mymessages.php?idmensaje=<?php echo $datos_ventas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_ventas[$i]['ID'] ?></a></td>
+											</tr>
+											<?php
+										}
+										?>
+									</tbody>
+								</table>
+							</div>
+							<?php
+						}
+						?>
 					</div>
 				</div>
 			</div>
