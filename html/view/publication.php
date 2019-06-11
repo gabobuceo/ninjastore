@@ -79,7 +79,7 @@ require('header.php');
 			<div class="product-desc">
 				<div class="col-md-7 product-view">
 					<h2><?php echo utf8_encode($datos_publicacion['0']['TITULO']); ?></h2>
-					<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_publicacion['0']['ID']; ?>">denunciar publicacion</a>| creado el <?php echo date("d/m/Y", strtotime($datos_publicacionfecha['0']['FECHA'])); ?> a las <?php echo date("H:m", strtotime($datos_publicacionfecha['0']['FECHA'])); ?>, Publicacion: <?php echo $datos_publicacion['0']['ID']; ?></p>
+					<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_publicacion['0']['ID']; ?>">denunciar publicacion</a>| creado el <?php echo date("d/m/Y", strtotime($datos_publicacionfecha['0']['FECHA'])); ?> a las <?php echo date("H:i", strtotime($datos_publicacionfecha['0']['FECHA'])); ?>, Publicacion: <?php echo $datos_publicacion['0']['ID']; ?></p>
 					<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
 						<?php
 						if (count($datos_publicacionimg)>1){
@@ -315,7 +315,7 @@ require('header.php');
 										<li class="message left appeared">
 											<div class="text_wrapper">
 												<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['MENSAJE']); ?></div>
-												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_preguntas[$i]['FECHAM']; ?>, Pregunta: <?php echo $datos_preguntas[$i]['ID']; ?></p>
+												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAM'])); ?></p>
 											</div>
 										</li>
 										<?php
@@ -324,7 +324,7 @@ require('header.php');
 											<li class="message right appeared">
 												<div class="text_wrapper">
 													<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['RESPUESTA']); ?></div>
-													<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo $datos_preguntas[$i]['FECHAR']; ?>, Pregunta: <?php echo $datos_preguntas[$i]['ID']; ?></p>
+													<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAR'])); ?></p>
 												</div>
 											</li>
 											<?php
@@ -402,7 +402,7 @@ require('header.php');
 										</a> 
 										<div class="ad-info">
 											<h5><?php echo utf8_encode($datos_masproductosvendedor[$i]['TITULO']); ?></h5>
-											<span><?php echo $datos_masproductosvendedor[$i]['FECHA']; ?></span>
+											<span><?php echo date("d/m/Y H:i", strtotime($datos_masproductosvendedor[$i]['FECHA'])); ?></span>
 										</div>
 									</div>
 									<?php
@@ -476,7 +476,7 @@ require('header.php');
 									</a> 
 									<div class="ad-info">
 										<h5><?php echo utf8_encode($datos_productossimilares[$i]['TITULO']); ?></h5>
-										<span><?php echo $datos_productossimilares[$i]['FECHA']; ?></span>
+										<span><?php echo date("d/m/Y H:i", strtotime($datos_productossimilares[$i]['FECHA'])); ?></span>
 									</div>
 								</div>
 								<?php

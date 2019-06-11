@@ -1,11 +1,12 @@
 <?php
 require_once('../logica/funciones.php');
 require_once('../clases/Compra.class.php');
+require_once('../clases/Usuario.class.php');
+require_once('../clases/Publicacion.class.php');
+
 require_once('../clases/commit.class.php');
 require_once('../clases/Historial.class.php');
 require_once('../clases/Notificacion.class.php');
-require_once('../clases/Usuario.class.php');
-require_once('../clases/Publicacion.class.php');
 // -------- Obtener la Info ----
 $idusuario = $_SESSION['id'];
 $idpublicacion = $_SESSION['PubID'];

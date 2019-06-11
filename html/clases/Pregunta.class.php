@@ -156,6 +156,17 @@ class Pregunta
 		$datos= $pp->consultaPregUsuCompras($this,$conex);
 		return $datos;
 	}
+	public function ResponderPregunta($conex)
+	{
+		$pp=new PersistenciaPregunta;
+		return($pp->RespPregunta($this, $conex));
+	}
+	public function consultaMaxID($conex)
+	{
+		$pp=new PersistenciaPregunta;
+		$datos= $pp->consMaxID($conex);
+		return $datos;
+	}
 }
 
 ?>
