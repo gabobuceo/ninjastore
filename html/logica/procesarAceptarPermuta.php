@@ -30,7 +30,6 @@ try {
   $datos_permutas = require_once('../logica/procesarCargaPermuta.php');   
   unset($_SESSION['ExcID']);
 //var_dump($datos_permutas);
-
   $p= new Publicacion($datos_permutas[0]['IDPUBLICACIONORIGEN']);
   $CantidadOrigen=$p->consultaCantidad($conex);
   if ($CantidadOrigen<1) {
@@ -48,7 +47,6 @@ try {
         $commiteo->Rollbackeo($conex);
         $fin=false;
       }else{
-        /*Hacer las 2 bajas de items*/
         $p= new Publicacion($datos_permutas[0]['IDPUBLICACIONORIGEN'],'','','','','','','','','','',$CantidadOrigen[0][0]-1);
         if ($p->modificarCantidad($conex)!== TRUE){
           $commiteo->Rollbackeo($conex);
@@ -92,26 +90,22 @@ try {
 
 
 /*
-TAMBIEN DEBERIA DE CHECKEAR SI EL ARTICULO ES NUEVO PARA MANDARLE A LA FACTURA !!!!!!!!!!!
+
 */
  // ----------- PROCESO NOTIFICACION --------------------*/
-/*
-$_SESSION['ComID']= $_GET['idcompra'];
-  $datos_vendedor = require_once('../logica/procesarCargaCompra.php');
 
+/*var_dump($datos_permutas);*/
 try {  
-  $idcomprador=$datos_vendedor[0]['IDCOMPRADOR'];
-  $idpublicacion=$datos_vendedor[0]['IDPUBLICACION'];
   $commiteo= new Commit();
   $commiteo->AutoCommitOFF($conex);
   $commiteo->TransactionStart($conex);
-  $c= new notificacion('',$_SESSION['id'],'Has confirmado una venta!',$_GET['idcompra'],$idpublicacion);
-  if ($c->altaconfirmadov($conex)!== TRUE){
+  $c= new notificacion('',$_SESSION['id'],'Has aceptado una permuta!',$datos_permutas[0]['ID'],$datos_permutas[0]['IDPUBLICACIONORIGEN']);
+  if ($c->altapermutaaceptada($conex)!== TRUE){
     $commiteo->Rollbackeo($conex);
     $fin=false;
   }else{
-    $c= new notificacion('',$idcomprador,'El vendedor ha confirmado tu compra',$_GET['idcompra'],$idpublicacion);
-    if ($c->altaconfirmadoc($conex)!== TRUE){
+    $c= new notificacion('',$datos_permutas[0]['IDORIGEN'],'El vendedor ha aceptado tu permuta',$datos_permutas[0]['ID'],$datos_permutas[0]['IDPUBLICACIONDESTINO']);
+    if ($c->altapermutaaceptada($conex)!== TRUE){
       $commiteo->Rollbackeo($conex);
       $fin=false;
     }else{
@@ -123,14 +117,14 @@ try {
   print "Error: ".$e->getMessage();
   exit();
 }
-  // ----------- PROCESO HISTORIAL --------------------
+// ----------- PROCESO HISTORIAL --------------------
 try {          
   $conex = conectar();
   $commiteo= new Commit();
   $commiteo->AutoCommitOFF($conex);
   $commiteo->TransactionStart($conex);
 
-  $h= new Historial('',$_SESSION['id'],'Update en Compra','El vendedor '.$_SESSION['id'].' confirmo la compra '.$_GET['idcompra']);
+  $h= new Historial('',$_SESSION['id'],'Permuta aceptada','El vendedor '.$_SESSION['id'].' confirmo la permuta '.$datos_permutas[0]['ID']);
   if ($h->alta($conex)!== TRUE){
     $commiteo->Rollbackeo($conex);
     $fin=false;

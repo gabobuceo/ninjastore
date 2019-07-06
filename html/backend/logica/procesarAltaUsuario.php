@@ -103,7 +103,7 @@ try {
     session_start();
     $_SESSION['mobjetivo']="login.php";
     $_SESSION['mtipo']="alert-success";
-    $_SESSION['mtexto']="<strong>!Felicidades! </strong>El usuario $usuario se ha creado con exito. Ingrese sesión";
+    $_SESSION['mtexto']="<strong>!Felicidades! </strong>El usuario $usuario se ha creado con exito. Favor entre a su correo para confirmar su usuario";
     header('Location: ../view/login.php');
   }else{
       session_start();

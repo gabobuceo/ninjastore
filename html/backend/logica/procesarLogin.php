@@ -6,10 +6,11 @@ session_start();
 //Obtiene los datos ingresados
 $usuario= strip_tags(trim($_POST['usuario']));
 $password = strip_tags(trim($_POST['password']));
+
 if (empty($_POST['g-recaptcha-response'])) {
 	$_SESSION['mobjetivo']="login.php";
 	$_SESSION['mtipo']="alert-warning";
-	$_SESSION['mtexto']="<strong>¡Problema! </strong>No fue comprobado el capcha";
+	$_SESSION['mtexto']="<strong>!Problema! </strong>No fue comprobado el capcha";
 	header('Location: ../view/login.php');
 }else{
 	try {
@@ -21,11 +22,11 @@ if (empty($_POST['g-recaptcha-response'])) {
 			$_SESSION["name"]=$datos_u[0]["PNOMBRE"];
 			$_SESSION["sname"]=$datos_u[0]["PAPELLIDO"];
 			$_SESSION["id"]=$datos_u[0]["ID"];
-			header('Location: ../view/index.php');
+			header('Location: ../view/sumary.php');
 		} else {
 			$_SESSION['mobjetivo']="login.php";
 			$_SESSION['mtipo']="alert-warning";
-			$_SESSION['mtexto']="<strong>¡Problema! </strong>Datos de usuario incorrectos";
+			$_SESSION['mtexto']="<strong>!Problema! </strong>El Usuario o la contraseña no son correctas";
 			header('Location: ../view/login.php');
 		}
 		desconectar($conex);
@@ -34,6 +35,7 @@ if (empty($_POST['g-recaptcha-response'])) {
 		$_SESSION['mtipo']="alert-danger";
 		$_SESSION['mtexto']="<strong>!Error! </strong>".$e->getMessage();
 		header('Location: ../view/login.php');
+
 	}
 }
 ?>

@@ -361,11 +361,10 @@ class Publicacion
 		$pp=new PersistenciaPublicacion;
 		return($pp->modificarCant($this, $conex));
 	}
-	public function modificarEstadoP($conex)
-	{
+	public function modificarEstadoP($conex){
 		$pp=new PersistenciaPublicacion;
 		return($pp->modificarEstP($this, $conex));
-	}	
+	}
 }
 
 ?>

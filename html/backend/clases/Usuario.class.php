@@ -2,7 +2,7 @@
 require_once('../persistencia/PersistenciaUsuario.class.php');
 // $u = new Usuario('id','cedula','usuario','password','pNombre','sNombre','pApellido','sApellido','fNacimiento','email','calle','numero','esquina','cPostal','localidad','departamento','tipo','estado','rol','passwordadm','activacion','baja');
 
-class Usuario 
+class Usuario
 {
     private $id;
     private $cedula;
@@ -23,12 +23,13 @@ class Usuario
     private $tipo;
     private $estado;
     private $rol;
-    private $passwordadm;
     private $activacion;
+    private $geox;
+    private $geoy;
     private $baja;
-  
+
     function __construct($i='',$ce='', $us='', $pass='',$pN='', $sN='', $pA='', $sA='',$fN='',$em='',
-    		$ca='',$nu='',$esq='',$cP='',$lo='',$de='',$ti='',$est='',$ro='',$pasa='',$ac='',$ba='')
+    		$ca='',$nu='',$esq='',$cP='',$lo='',$de='',$ti='',$est='',$ro='',$ac='',$gx='',$gy='',$ba='')
     {
         $this->id= $i;
         $this->cedula= $ce;
@@ -49,14 +50,15 @@ class Usuario
         $this->tipo= $ti;
         $this->estado= $est;
         $this->rol= $ro;
-        $this->passwordadm= $pasa;
         $this->activacion= $ac;
+        $this->geox= $gx;
+        $this->geoy= $gy;
         $this->baja= $ba;
     }
-    
+
     //----------------- ------------ ---------------
     //----------------- METODOS SET ----------------
-    
+
     public function setId($i)
     {
       $this->id= $i;
@@ -66,27 +68,27 @@ class Usuario
     {
       $this->cedula=$ce;
     }
-    
+
     public function setUsuario($us)
     {
       $this->usuario= $us;
     }
-    
+
     public function setPassword($pass)
     {
     	$this->password= $pass;
     }
-    
+
     public function setPNombre($pN)
     {
       $this->pNombre= $pN;
     }
-    
+
 	public function setSNombre($sN)
     {
       $this->sNombre= $sN;
     }
-    
+
      public function setPApellido($pA)
     {
       $this->pApellido= $pA;
@@ -106,32 +108,32 @@ class Usuario
     {
       $this->email= $em;
     }
-         
+
     public function setCalle($ca)
     {
       $this->calle=$ca;
     }
-    
+
  	public function setNumero($nu)
     {
       $this->numero=$nu;
     }
-    
+
 	public function setEsquina($esq)
     {
       $this->esquina=$esq;
     }
-    
+
 	public function setCPostal($cP)
     {
       $this->cPostal=$cP;
     }
-    
+
     public function setLocalidad($lo)
     {
       $this->localidad=$lo;
     }
-    
+
     public function setDepartamento($de)
     {
       $this->departamento=$de;
@@ -152,14 +154,19 @@ class Usuario
       $this->rol=$ro;
     }
 
-    public function setPasswordADm($pasa)
-    {
-      $this->passwordadm=$pasa;
-    }
-
     public function setActivacion($ac)
     {
       $this->actuvacion=$ac;
+    }
+
+    public function setGeoX($gx)
+    {
+      $this->geox= $gx;
+    }
+
+    public function setGeoY($gy)
+    {
+      $this->geoy= $gy;
     }
 
     public function setBaja($ba)
@@ -169,7 +176,7 @@ class Usuario
 
     // ----------- ------------------ -----------
     // -------------- METODOS GET ---------------
-    
+
     public function getId()
     {
       return $this->id;
@@ -179,27 +186,27 @@ class Usuario
     {
       return $this->cedula;
     }
-    
+
     public function getUsuario()
     {
        return $this->usuario;
     }
-    
+
     public function getPassword()
     {
     	return $this->password;
     }
-    
+
     public function getPNombre()
     {
        return $this->pNombre;
     }
-    
+
     public function getSNombre()
     {
        return $this->sNombre;
     }
-    
+
      public function getPApellido()
     {
        return $this->pApellido;
@@ -219,32 +226,32 @@ class Usuario
     {
       return $this->email;
     }
-         
+
     public function getCalle()
     {
       return $this->calle;
     }
-    
+
   public function getNumero()
     {
        return $this->numero;
     }
-    
+
   public function getEsquina()
     {
       return $this->esquina;
     }
-    
+
   public function getCPostal()
     {
       return $this->cPostal;
     }
-    
+
     public function getLocalidad()
     {
       return $this->localidad;
     }
-    
+
     public function getDepartamento()
     {
        return $this->departamento;
@@ -265,14 +272,19 @@ class Usuario
       return $this->rol;
     }
 
-    public function getPasswordADm()
-    {
-      return $this->passwordadm;
-    }
-
     public function getActivacion()
     {
       return $this->activacion;
+    }
+
+    public function getGeoX()
+    {
+      return $this->geox;
+    }
+
+    public function getGeoY()
+    {
+      return $this->geoy;
     }
 
     public function getBaja()
@@ -287,42 +299,54 @@ class Usuario
         $pu=new PersistenciaUsuario;
         return ($pu->agregar($this, $conex));
     }
-    
-   
+
+
     public function baja($conex)
     {
         $pu=new PersistenciaUsuario;
         return($pu->eliminar($this, $conex));
     }
-    
-    
+
+
     public function modificacion($conex)
     {
       $pu=new PersistenciaUsuario;
       return($pu->modificar($this, $conex));
     }
+
+    public function adminalta($conex)
+    {
+      $pu=new PersistenciaUsuario;
+      return($pu->adminalta($this, $conex));
+    }
     
+    public function adminmodifica($conex)
+    {
+      $pu=new PersistenciaUsuario;
+      return($pu->adminmodificar($this, $conex));
+    }
+
     public function consultaTodos($conex)
     {
       $pu=new PersistenciaUsuario;
       $datos= $pu->consTodos($conex);
       return $datos;
     }
-    
+
 	public function consultaUno($conex)
     {
       $pu=new PersistenciaUsuario;
       $datos= $pu->consUno($this,$conex);
       return $datos;
     }
-    
+
     //Devuelve true si el Login y el Password coinciden
     public function coincideLoginPassword($conex)
     {
         $pu= new PersistenciaUsuario;
-        return $pu->verificarLoginPassword($this, $conex);       
+        return $pu->verificarLoginPassword($this, $conex);
     }
-    
+
     public function consultaEmail($conex)
     {
     	$pu=new PersistenciaUsuario();
@@ -365,6 +389,12 @@ class Usuario
       $datos= $pu->CamEstado($this,$conex);
       return $datos;
     }
+    public function consultaPasswordUsuario($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->ConPassUsuario($this,$conex);
+      return $datos;
+    }
     public function CambiarPasswordUsuario($conex)
     {
       $pu=new PersistenciaUsuario();
@@ -375,6 +405,18 @@ class Usuario
     {
       $pu=new PersistenciaUsuario;
       $datos= $pu->consDatosVendedor($this,$conex);
+      return $datos;
+    }
+    public function CambiarGeoUsuario($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->CamGeoUsuario($this,$conex);
+      return $datos;
+    }
+    public function consultaPerfil($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->consPerfil($this,$conex);
       return $datos;
     }
 }

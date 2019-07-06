@@ -82,43 +82,43 @@ require('header.php');
 								<?php
 								break;
 								case 'RESPUESTA':
-								$_SESSION['idmensaje']=$datos_notificacion[0]['LINK'];
-								$datos_mensaje = require_once('../logica/procesarCargaChat.php');					
-								unset($_SESSION['idmensaje']);
-								/*var_dump($datos_mensaje);*/
-								?>
-								<div class="col-md-6 product_img">
-									<?php
-									cargarimgtn($datos_notificacion[0]['IMGDEFAULT']);
+									$_SESSION['idmensaje']=$datos_notificacion[0]['LINK'];
+									$datos_mensaje = require_once('../logica/procesarCargaChat.php');					
+									unset($_SESSION['idmensaje']);
+									/*var_dump($datos_mensaje);*/
 									?>
-								</div>
-								<div class="col-md-6 product_content cppermuta">
-									<div class="buyingdata">
-										<h4>Respuesta:</h4>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><?php echo utf8_encode($datos_mensaje[0]['RESPUESTA'])?></p>
+									<div class="col-md-6 product_img">
+										<?php
+										cargarimgtn($datos_notificacion[0]['IMGDEFAULT']);
+										?>
+									</div>
+									<div class="col-md-6 product_content cppermuta">
+										<div class="buyingdata">
+											<h4>Respuesta:</h4>
+											<div class="row">
+												<div class="col-xs-12">
+													<p><?php echo utf8_encode($datos_mensaje[0]['RESPUESTA'])?></p>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-12">
-												<div class="btn-ground">
-													<div class="buy-in-form">
-														<form action="../view/mymessages.php?idmensaje=<?php echo $datos_mensaje['0']['ID']; ?>" method="POST">	
-															<button name="boton" type="submit" class="btn btn-warning" value="comprar">
-																<i class="fa fa-external-link"></i> Ir al mensaje
-															</button>
-														</form>	
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="btn-ground">
+														<div class="buy-in-form">
+															<form action="../view/mymessages.php?idmensaje=<?php echo $datos_mensaje['0']['ID']; ?>" method="POST">	
+																<button name="boton" type="submit" class="btn btn-warning" value="comprar">
+																	<i class="fa fa-external-link"></i> Ir al mensaje
+																</button>
+															</form>	
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>			
-								</div>
-								<div class="row">
+										</div>			
+									</div>
+									<div class="row">
 
-								</div>
-								<?php
+									</div>
+									<?php
 								break;
 								case 'COMPRA':
 								case 'VENTA':
@@ -126,187 +126,187 @@ require('header.php');
 								case 'CONFIRMADOC':
 								case 'CALIFICACIONC':
 								case 'CALIFICACIONV':
-								$_SESSION['ComID']=$datos_notificacion[0]['LINK'];
-								$datos_compra = require_once('../logica/procesarCargaCompra.php');
-								/*var_dump($datos_compra);*/
-								unset($_SESSION['ComID']);
-								$_SESSION['IDVENDEDOR']=$datos_compra[0]['IDVENDEDOR'];
-								$datos_telefono = require_once('../logica/procesarCargaTelefonos.php');
-								$nombrecompleto = $datos_compra[0]['PNOMBRE'];
-								if (is_null($datos_compra[0]['SNOMBRE'])){
-									$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['SNOMBRE'];
-								}
-								$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['PAPELLIDO'];
-								if (is_null($datos_compra[0]['SAPELLIDO'])){
-									$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['SAPELLIDO'];
-								}
-								?>
-								<div class="col-md-6 product_img">
-									<?php
-									cargarimgtn($datos_notificacion[0]['IMGDEFAULT']);
+									$_SESSION['ComID']=$datos_notificacion[0]['LINK'];
+									$datos_compra = require_once('../logica/procesarCargaCompra.php');
+									/*var_dump($datos_compra);*/
+									unset($_SESSION['ComID']);
+									$_SESSION['IDVENDEDOR']=$datos_compra[0]['IDVENDEDOR'];
+									$datos_telefono = require_once('../logica/procesarCargaTelefonos.php');
+									$nombrecompleto = $datos_compra[0]['PNOMBRE'];
+									if (is_null($datos_compra[0]['SNOMBRE'])){
+										$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['SNOMBRE'];
+									}
+									$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['PAPELLIDO'];
+									if (is_null($datos_compra[0]['SAPELLIDO'])){
+										$nombrecompleto = $nombrecompleto." ".$datos_compra[0]['SAPELLIDO'];
+									}
 									?>
-								</div>
-								<div class="col-md-6 product_content cppermuta">
-									<div class="buyingdata">
-										<h4>Datos de la Compra</h4>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><b>Producto: </b> <?php echo utf8_encode($datos_compra[0]['TITULO'])?></p>
-												<p><b>Precio Unitario: $</b><?php echo $datos_compra[0]['TOTAL']?></p>
-												<p><b>Cantidad: </b> <?php echo $datos_compra[0]['CANTIDAD']?> unidad/es</p>
-												<p><b>Total: $</b><?php echo $datos_compra[0]['TOTAL'] * $datos_compra[0]['CANTIDAD']?></p>
+									<div class="col-md-6 product_img">
+										<?php
+										cargarimgtn($datos_notificacion[0]['IMGDEFAULT']);
+										?>
+									</div>
+									<div class="col-md-6 product_content cppermuta">
+										<div class="buyingdata">
+											<h4>Datos de la Compra</h4>
+											<div class="row">
+												<div class="col-xs-12">
+													<p><b>Producto: </b> <?php echo utf8_encode($datos_compra[0]['TITULO'])?></p>
+													<p><b>Precio Unitario: $</b><?php echo $datos_compra[0]['TOTAL']?></p>
+													<p><b>Cantidad: </b> <?php echo $datos_compra[0]['CANTIDAD']?> unidad/es</p>
+													<p><b>Total: $</b><?php echo $datos_compra[0]['TOTAL'] * $datos_compra[0]['CANTIDAD']?></p>
+												</div>
 											</div>
-										</div>
-									</div>			
-									<div class="buyingdata">
-										<h4>Datos del Vendedor</h4>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><b>Nombre Completo: </b><?php echo utf8_encode($nombrecompleto) ?></p>
+										</div>			
+										<div class="buyingdata">
+											<h4>Datos del Vendedor</h4>
+											<div class="row">
+												<div class="col-xs-12">
+													<p><b>Nombre Completo: </b><?php echo utf8_encode($nombrecompleto) ?></p>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><b>Teléfono: </b>
-													<?php for ($i=0; $i < count($datos_telefono); $i++) { 
-														?>
-														<a href="tel:<?php echo $datos_telefono[$i]['TELEFONO']?>"><?php echo $datos_telefono[$i]['TELEFONO']?></a> 
-														<?php
-														if ($i < count($datos_telefono)-1) {
-															?> | <?php
+											<div class="row">
+												<div class="col-xs-12">
+													<p><b>Teléfono: </b>
+														<?php for ($i=0; $i < count($datos_telefono); $i++) { 
+															?>
+															<a href="tel:<?php echo $datos_telefono[$i]['TELEFONO']?>"><?php echo $datos_telefono[$i]['TELEFONO']?></a> 
+															<?php
+															if ($i < count($datos_telefono)-1) {
+																?> | <?php
+															}
 														}
-													}
-													?>
-												</p>
+														?>
+													</p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-xs-12">
+													<p><b>Cédula: </b><?php echo $datos_compra[0]['CEDULA']?></p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-xs-12">
+													<p><b>Correo: </b><a href="mailto:<?php echo $datos_compra[0]['EMAIL']?>"><?php echo $datos_compra[0]['EMAIL']?></a></p>
+												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><b>Cédula: </b><?php echo $datos_compra[0]['CEDULA']?></p>
+										<div class="buyingdata">
+											<h4>Estado de Compra</h4>
+											<div class="row">
+												<div class="col-xs-12">
+													<p><b>Fecha de Compra: </b><?php echo date("d/m/Y", strtotime($datos_compra[0]['FECHACOMPRA'])); ?></p>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><b>Correo: </b><a href="mailto:<?php echo $datos_compra[0]['EMAIL']?>"><?php echo $datos_compra[0]['EMAIL']?></a></p>
-											</div>
-										</div>
-									</div>
-									<div class="buyingdata">
-										<h4>Estado de Compra</h4>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><b>Fecha de Compra: </b><?php echo date("d/m/Y", strtotime($datos_compra[0]['FECHACOMPRA'])); ?></p>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-12">
-												<p>
-													<b>Venta Concretada: </b>
-													<?php 
-													if ($datos_compra[0]['VENTACONCRETA']=='0') {
-														echo "Sin Concretar";
-													}else{
-														echo "Concrtetado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHAVENTACONCRETADO']));
-													}
-													?>
-												</p>
-											</div>
-											<div class="col-xs-12">
-												<p>
-													<b>Compra Concretada: </b>
-													<?php 
-													if ($datos_compra[0]['COMPRACONCRETA']=='0') {
-														echo "Sin Concretar";
-													}else{
-														echo "Concrtetado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHACOMPRACONCRETADO']));
-													}
-													?>
-												</p>
-											</div>
-											<div class="col-xs-12">
-												<p>
-													<b>Calificacion del Vendedor: </b>
-													<?php 
-													if (is_null($datos_compra[0]['IDCALVENDEDOR'])) {
-														echo "Sin Calificar";
-													}else{
-														echo "Calificado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHACALVENDEDOR']));
-													}
-													?>
-												</p>
-											</div>
-											<div class="col-xs-12">
-												<p>
-													<b>Calificacion del Comprador: </b>
-													<?php 
-													if (is_null($datos_compra[0]['IDCALCOMPRADOR'])) {
-														echo "Sin Calificar";
-													}else{
-														echo "Calificado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHACALCOMPRADOR']));
-													}
-													?>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12 product_img">
-										<div class="btn-ground">
-											<div class="buy-in-form">
-												<form action="../view/mybuys.php?idcompra=<?php echo $datos_compra['0']['ID']; ?>" method="POST">						
-													<button name="boton" type="submit" class="btn btn-warning" value="comprar">
-														<i class="fa fa-external-link"></i> Ver Compra completa
-													</button>
-												</form>	
+											<div class="row">
+												<div class="col-xs-12">
+													<p>
+														<b>Venta Concretada: </b>
+														<?php 
+														if ($datos_compra[0]['VENTACONCRETA']=='0') {
+															echo "Sin Concretar";
+														}else{
+															echo "Concrtetado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHAVENTACONCRETADO']));
+														}
+														?>
+													</p>
+												</div>
+												<div class="col-xs-12">
+													<p>
+														<b>Compra Concretada: </b>
+														<?php 
+														if ($datos_compra[0]['COMPRACONCRETA']=='0') {
+															echo "Sin Concretar";
+														}else{
+															echo "Concrtetado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHACOMPRACONCRETADO']));
+														}
+														?>
+													</p>
+												</div>
+												<div class="col-xs-12">
+													<p>
+														<b>Calificacion del Vendedor: </b>
+														<?php 
+														if (is_null($datos_compra[0]['IDCALVENDEDOR'])) {
+															echo "Sin Calificar";
+														}else{
+															echo "Calificado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHACALVENDEDOR']));
+														}
+														?>
+													</p>
+												</div>
+												<div class="col-xs-12">
+													<p>
+														<b>Calificacion del Comprador: </b>
+														<?php 
+														if (is_null($datos_compra[0]['IDCALCOMPRADOR'])) {
+															echo "Sin Calificar";
+														}else{
+															echo "Calificado el dia ".date("d/m/Y", strtotime($datos_compra[0]['FECHACALCOMPRADOR']));
+														}
+														?>
+													</p>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<?php
+									<div class="row">
+										<div class="col-md-12 product_img">
+											<div class="btn-ground">
+												<div class="buy-in-form">
+													<form action="../view/mybuys.php?idcompra=<?php echo $datos_compra['0']['ID']; ?>" method="POST">						
+														<button name="boton" type="submit" class="btn btn-warning" value="comprar">
+															<i class="fa fa-external-link"></i> Ver Compra completa
+														</button>
+													</form>	
+												</div>
+											</div>
+										</div>
+									</div>
+									<?php
 								break;
 								case 'BANEADO':
 									# code...mypublication.php?idpub
 								break;
 								case 'FINALIZADO':
-								$_SESSION['PubID']=$datos_notificacion[0]['LINK'];
-								$datos_publicacion = require_once('../logica/procesarCargaPublicacion.php');
-								unset($_SESSION['PubID']);
-								?>
-								<div class="col-md-6 product_img">
-									<?php
-									cargarimgtn($datos_notificacion[0]['IMGDEFAULT']);
+									$_SESSION['PubID']=$datos_notificacion[0]['LINK'];
+									$datos_publicacion = require_once('../logica/procesarCargaPublicacion.php');
+									unset($_SESSION['PubID']);
 									?>
-								</div>
-								<div class="col-md-6 product_content cppermuta">
-									<div class="buyingdata">
-										<h4>Datos de la Publicacion</h4>
-										<div class="row">
-											<div class="col-xs-12">
-												<p><b>Producto: </b> <?php echo utf8_encode($datos_publicacion[0]['TITULO'])?></p>
-												<p><b>Estado: </b> <?php echo $datos_publicacion[0]['ESTADOA']?></p>
-												<p><b>Precio: $</b><?php echo $datos_publicacion[0]['PRECIO']?></p>
+									<div class="col-md-6 product_img">
+										<?php
+										cargarimgtn($datos_notificacion[0]['IMGDEFAULT']);
+										?>
+									</div>
+									<div class="col-md-6 product_content cppermuta">
+										<div class="buyingdata">
+											<h4>Datos de la Publicacion</h4>
+											<div class="row">
+												<div class="col-xs-12">
+													<p><b>Producto: </b> <?php echo utf8_encode($datos_publicacion[0]['TITULO'])?></p>
+													<p><b>Estado: </b> <?php echo $datos_publicacion[0]['ESTADOA']?></p>
+													<p><b>Precio: $</b><?php echo $datos_publicacion[0]['PRECIO']?></p>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-12">
-												<div class="btn-ground">
-													<div class="buy-in-form">
-														<form action="../view/mypublication.php" method="POST">						
-															<button name="boton" type="submit" class="btn btn-warning" value="comprar">
-																<i class="fa fa-external-link"></i> Ir a publicaciones
-															</button>
-														</form>	
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="btn-ground">
+														<div class="buy-in-form">
+															<form action="../view/mypublication.php" method="POST">						
+																<button name="boton" type="submit" class="btn btn-warning" value="comprar">
+																	<i class="fa fa-external-link"></i> Ir a publicaciones
+																</button>
+															</form>	
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>			
-								</div>
-								<div class="row">
+										</div>			
+									</div>
+									<div class="row">
 
-								</div>
-								<?php
+									</div>
+									<?php
 								break;
 								case 'PERMUTA':
 								$_SESSION['ExcID']=$datos_notificacion[0]['LINK'];

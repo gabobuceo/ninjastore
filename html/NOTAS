@@ -1,102 +1,37 @@
 COMITEO:
 --------------------------------------
-CAMBIOS EN LA BD:
-	Se crea una entidad llamada CALIFICA (ID,IDCOMPRA,IDUSUARIO,IDPUBLICACION,FECHA,CALIFICACION,MENSAJE,BAJA)
-	Se cambia la clave primaria de FACTURA ya que no cumplica con el MER
-	En la tabla COMPRA:
-		Se agrega ID en COMPRA como Clave Primaria y se quita FECHA
-		Se le saca el atributo CALIFICA
-		Se modifican los nombres de los atributos CONCRETADO y FECHACONCRETADO por VENTACONCRETA y FECHAVENTACONCRETADO para que el vendedor pueda concretar la venta
-		Se agregan los atributos COMPRACONCRETA y FECHACOMPRACONCRETADO para que el comprador pueda concretar la compra
-	Se edita el archivo CreateTables.sql para cumplir con lo antes dicho
-
-Clase Compra:
-	Se edita la clase Compra para cumplir con los cambios en SQL
-
-Persistencia Compra:
-	Se edita la persistencia Compra para cumplir con los cambios en SQL y Clase
-
-Logica Alta Compra:
-	Se edita procesarAltaCompra para cumplir con los cambios en SQL y Clase
-
-Header:
-	El boton de visto en las notificaciones apuntaban a Baja Favoritos. Se agrega la logica procesarVistoNotificaciones para cumplir el objetivo del boton
-	
-Buyconfirmation:
-	Se modifica para que el vendedor y comprador puedan calificar y confirmar la venta / compra / permuta
-
-Se agrega Mis Ventas al panel del ususario y se actualiza el menu en todo el panel
-
-Buyconfirmation:
-	Ya pueden Confirmar y calificar tanto vendedor como Comprador y luego queda como ticket para ser impreso
-
-Historial
-	Se agrega la fecha 
-
-Ventas
-	* Ventas sin confirmar -> Listo
-	* Ventas sin calificar -> Listo
-	* Ventas cerradas 		-> Listo
-	* Listado de Ventas 	-> Listo
-	* Calificacion 			-> Chau
-	* Grafica de Ventas 	-> Chau
-
-Ventas Completo
-
-Compras
-	* Compras sin confirmar -> Listo
-	* Compras sin calificar -> Listo
-	* Compras cerradas 		-> Listo
-	* Listado de Compras 	-> Listo
-	* Calificacion 			-> Chau
-	* Grafica de Ventas 	-> Chau
-
-Compras Completo
-
-Publicaciones Completo
-
+Notificaciones	
+	Falta Factura, Baneo y Reporte
 Publicaciones:
-	Se saca calificacion y Grafica de ventas
-	Se mejoran los DateTable (problema de nombres)
-	Se cambia lista de ventas por listado de publicaciones
+	El usuario ya puede Activar y Desactivar las publicaciones
+	Solo publicaciones Desactivadas pueden ser editadas, no publicaciones activas
 
-Permutas:
-	Se crea la clase Permuta, PersistenciaPermuta, y los procesar listado de permutas abiertas y cerradas para origen y destino
-	Los usuarios pueden solicitar permutas, si la permuta es aceptada, se verifican las cantidades de las publicaciones y dan de baja.
-	Si a la hora de efectuar la permuta, todos los items fueron "comprados", el vendedor solo puede cancelar la permuta
-	El vendedor puere cancelar la permuta
-
-breadcrumb:
-	Se arregla para que muestre la categoria de los articulos y la categoria padre de ellas
-
-Notificaciones
-	Se trabaja para mostrar Permutas
+Varias cosas de Backend
 
 TRABAJANDO EN:
 --------------------------------------------
-Notificaciones Permutas
 
+EDITAR PUBLICACION (Editar, Cancelar, Borrador, Borrar)
 	http://192.168.1.15/ninjastore/html/view/publication.php?id=53 -> comprar esta
 
 	Si un admin cancela una compra, se debe añadir un +1 de item
-EDITAR PUBLICACION (Editar, Cancelar, Borrador, Borrar)
 ---------------------------------------------------------------------
 ESTADO DE FRONT END CPANEL: 40% aprox
 
-Resumen
+Resumen 0%
 	* Sin hacer
 
-Perfil
+Perfil 100%
 	* Pronto todo 100%
 
-Publicaciones
+Publicaciones 80%
 	* Publicaciones Activas 	-> 100%
 	* Publicaciones Desactivdas -> 100%
 	* Publicaciones Finalizadas -> 100%
 	* Listado de Publicaciones 	-> 100%
 	* VIP Alerta control stock  -> 0%
 
-Ventas
+Ventas 80%
 	* Ventas sin confirmar 			-> 100%
 	* Ventas sin calificar 			-> 100%
 	* Ventas cerradas 				-> 100%
@@ -104,23 +39,23 @@ Ventas
 	* VIP Grafica de ventas menual 	-> 0%	
 
 
-Compras
+Compras 100%
 	* Compras sin confirmar -> 100%
 	* Compras sin calificar -> 100%
 	* Compras cerradas 		-> 100%
 	* Listado de Compras 	-> 100%
 
-Permutas
+Permutas 100%
 	* Vista previa con Aceptar/Cencelar -> 100%
 	* Solicitadas por mi 				-> 100%
 	* Mis solicitudes cerradas 			-> 100%
 	* Solicitadas para mi 				-> 100%
 	* Cerradas por mi 					-> 100%
 
-Favoritos
+Favoritos 100%
 	* Pronto todo 	-> 100%
 
-Notificaciones
+Notificaciones 90%
 	PREGUNTA 		-> 100%
 	RESPUESTA 		-> 100%
 	COMPRA 			-> 100%
@@ -131,21 +66,21 @@ Notificaciones
 	Confi. Venta 	-> 100%
 	Calif. Venta 	-> 100%
 	Sol. Permuta 	-> 100%
-	Permuta Acep. 	-> Sin hacer
-	Permuta Canc. 	-> Sin hacer
+	Permuta Acep. 	-> 100%
+	Permuta Canc. 	-> 100%
 	Baneado 		-> Sin hacer
 	
 
-Mensajes
+Mensajes 100%
 	* Pronto todo 100%
 
-Calificaciones
+Calificaciones 0%
 	* Sin hacer
 
-Facturas
+Facturas 0%
 	* Sin hacer
 
-Denuncias
+Denuncias 0%
 	* Sin hacer
 
 Denuncias: Chau chat, hacerlo bien de boton

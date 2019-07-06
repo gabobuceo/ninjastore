@@ -273,12 +273,26 @@ class Publicacion
 		$datos= $pp->consUno($this,$conex);
 		return $datos;
 	}
-	public function consultaTodosUsuario($conex)
+	
+	public function consultaTodosUsuarioCerradas($conex)
 	{
 		$pp=new PersistenciaPublicacion;
-		$datos= $pp->consTodosUsu($this,$conex);
+		$datos= $pp->consTodosUsuCerradas($this,$conex);
 		return $datos;
 	}
+	public function consultaTodosUsuarioPublicadas($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consTodosUsuPublicadas($this,$conex);
+		return $datos;
+	}
+	public function consultaTodosUsuarioGuardadas($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consTodosUsuGuardadas($this,$conex);
+		return $datos;
+	}
+
 	public function consultaFecha($conex)
 	{
 		$pp=new PersistenciaPublicacion;
@@ -324,6 +338,12 @@ class Publicacion
 	{
 		$pp=new PersistenciaPublicacion;
 		$datos= $pp->consPubliVend($this,$conex);
+		return $datos;
+	}
+	public function consultaPublicacionesUsadas($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consPubliUsadas($this,$conex);
 		return $datos;
 	}
 }

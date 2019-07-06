@@ -364,8 +364,7 @@ class PersistenciaPublicacion
           return(false);
         }
 	}
-	public function modificarEstP($obj, $conex)
-	{
+	public function modificarEstP($obj, $conex){
 		$id= trim($obj->getId());
 		$estadoP = trim($obj->getEstadoP());
 		$sql = "UPDATE PUBLICACION SET ESTADOP=:ESTADOP WHERE ID=:ID";
@@ -378,4 +377,4 @@ class PersistenciaPublicacion
         }
 	}
 }
-?>
+?>	

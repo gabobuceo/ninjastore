@@ -24,12 +24,12 @@ if (!isset($_SESSION['id'])) {
     $c= new Pregunta("",$_SESSION['id'],$idpublicacion,$_POST['pregunta']);
     $datos_c=$c->alta($conex);
     if (!empty($datos_c)){
-      $_SESSION['mobjetivo']="publication.php";
+      $_SESSION['mobjetivo']="chat";
       $_SESSION['mtipo']="alert-success";
       $_SESSION['mtexto']="<strong>!Felicidades! </strong>Pregunta realizada con éxito";
       header('Location: ../view/publication.php?id='.$idpublicacion);
     }else{
-      $_SESSION['mobjetivo']="publication.php";
+      $_SESSION['mobjetivo']="chat";
       $_SESSION['mtipo']="alert-warning";
       $_SESSION['mtexto']="<strong>!Problema! </strong>La pregunta no fue ingresada";
       header('Location: ../view/publication.php?id='.$idpublicacion);

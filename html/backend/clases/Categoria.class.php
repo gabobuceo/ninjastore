@@ -23,7 +23,7 @@ class Categoria
 	{
 		$this->id= $id;
 	}
-	
+
 	public function setIdPadre($id)
 	{
 		$this->idPadre= $idp;
@@ -46,17 +46,17 @@ class Categoria
 	{
 		return $this->id;
 	}
-	
+
 	public function getIdPadre()
 	{
 		return $this->idPadre;
 	}
-	
+
 	public function getTitulo()
 	{
 		return $this->titulo;
 	}
-	
+
 	public function getBaja()
 	{
 		return $this->baja;
@@ -78,20 +78,72 @@ class Categoria
 		$datos= $cat->consUno($this,$conex);
 		return $datos;
 	}
-	
+
+	public function consultaActivas($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->consActivas($conex);
+		return $datos;
+	}
+
+	public function consultaInactivas($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->consInactivas($conex);
+		return $datos;
+	}
+
 	public function consultaPadres($conex)
 	{
 		$cat=new PersistenciaCategoria;
 		$datos= $cat->consPadres($conex);
 		return $datos;
 	}
-	
+
+	public function consultaPadresActivas($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->consPadresaActivas($conex);
+		return $datos;
+	}
+
+
 	public function consultaHijos($conex)
 	{
 		$cat=new PersistenciaCategoria;
 		$datos= $cat->consHijos($this, $conex);
 		return $datos;
 	}
-}
 
+	public function consultaTituloId($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->consTitulo($this, $conex);
+		return $datos;
+	}
+	public function modificarCategoria($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->modificarCat($this,$conex);
+		return $datos;
+	}
+	public function bajaCategoria($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->bajaCat($this, $conex);
+		return $datos;
+	}
+	public function activaCategoria($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->activaCat($this, $conex);
+		return $datos;
+	}
+	public function altaCategoria($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->altaCat($this, $conex);
+		return $datos;
+	}
+}
 ?>

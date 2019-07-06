@@ -1,3 +1,3 @@
 <?php
-	header('Location: view/login.php');
+	header('Location: view/sumary.php');
 ?>

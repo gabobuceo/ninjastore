@@ -6,92 +6,6 @@ require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
 <script type="text/javascript" src="../static/js/canvasjs.min.js"></script>
-<script>
-/*	window.onload = function () {
-		var chartbuy = new CanvasJS.Chart("chartseller", {
-			exportEnabled: true,
-			animationEnabled: true,
-			title:{
-				text: "Calificacion como Vendedor"
-			}, 
-			axisX: {
-				title: "Calificacion"
-			},
-			axisY: {
-				title: "Ventas",
-				titleFontColor: "#4F81BC",
-				lineColor: "#4F81BC",
-				labelFontColor: "#4F81BC",
-				tickColor: "#4F81BC"
-			},
-			toolTip: {
-				shared: true
-			},
-			legend: {
-				cursor: "pointer",
-				itemclick: toggleDataSeries
-			},
-			data: [{
-				type: "column",
-				name: "Ventas",
-				showInLegend: true,      
-				yValueFormatString: "#,##0.# votos",
-				dataPoints: [
-				{ label: "Estrella 1",  y: 2 },
-				{ label: "Estrella 2", y: 1 },
-				{ label: "Estrella 3", y: 4 },
-				{ label: "Estrella 4",  y: 8 },
-				{ label: "Estrella 5",  y: 200 }
-				]
-			}]
-		});
-		chartbuy.render();
-		var chartselling = new CanvasJS.Chart("chartselling", {
-			theme: "light2",
-			animationEnabled: true,
-			title:{
-				text: "Grafica de ventas mensuales - 2017"   
-			},
-			axisX: {
-				interval: 1,
-				intervalType: "month",
-				valueFormatString: "MMM"
-			},
-			axisY:{
-				title: "Ventas (en $)",
-				valueFormatString: "$#0"
-			},
-			data: [{        
-				type: "line",
-				markerSize: 12,
-				xValueFormatString: "MMM, YYYY",
-				yValueFormatString: "$###.#",
-				dataPoints: [        
-				{ x: new Date(2016, 00, 1), y: 61, indexLabel: "gain", markerType: "triangle",  markerColor: "#6B8E23" },
-				{ x: new Date(2016, 01, 1), y: 71, indexLabel: "gain", markerType: "triangle",  markerColor: "#6B8E23" },
-				{ x: new Date(2016, 02, 1) , y: 55, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 03, 1) , y: 50, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 04, 1) , y: 65, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 05, 1) , y: 85, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 06, 1) , y: 68, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 07, 1) , y: 28, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 08, 1) , y: 34, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 09, 1) , y: 24, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 10, 1) , y: 44, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 11, 1) , y: 34, indexLabel: "loss", markerType: "cross", markerColor: "tomato" }
-				]}]
-			});
-		chartselling.render();
-		function toggleDataSeries(e) {
-			if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-				e.dataSeries.visible = false;
-			} else {
-				e.dataSeries.visible = true;
-			}
-			e.chart.render();
-		}
-	}*/
-</script>
 
 <!--<link rel='stylesheet' href='../static/css/jquery.dataTables.min.css'>-->
 <link rel='stylesheet' href='../static/css/dataTables.bootstrap.min.css'>
@@ -160,7 +74,8 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 											<td class="text-center"><strong>Estado</strong></td>
 											<td class="text-center"><strong>Cant</strong></td>
 											<td class="text-center"><strong>Oferta</strong></td>
-											<td class="text-right"><strong>Enlace</strong></td>
+											<td class="text-center"><strong>Desac.</strong></td>
+											<td class="text-right"><strong>Ver</strong></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -175,7 +90,20 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 												<td class="text-center"><?php echo $datos_publicacion_activas[$i]['ESTADOA'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_activas[$i]['CANTIDAD'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_activas[$i]['OFERTA'] ?></td>
-												<td class="text-right"><a href="../view/publication.php?id=<?php echo $datos_publicacion_activas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_publicacion_activas[$i]['ID'] ?></a></td>
+												<td class="text-center">
+													<a href="../logica/procesarDesactivarPublicacion.php?id=<?php echo $datos_publicacion_activas[$i]['ID'] ?>">
+														<button class="btn btn-xs btn-warning">
+															<i class="fa fa-times" aria-hidden="true"></i>
+														</button>
+													</a>
+												</td>
+												<td class="text-right">
+													<a target="_blank" href="../view/publication.php?id=<?php echo $datos_publicacion_activas[$i]['ID'] ?>">
+														<button class="btn btn-xs btn-info">
+															<i class="fa fa-external-link"></i>
+														</button>
+													</a>
+												</td>
 											</tr>
 											<?php
 										}
@@ -207,7 +135,9 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 											<td class="text-center"><strong>Precio</strong></td>
 											<td class="text-center"><strong>Estado</strong></td>
 											<td class="text-center"><strong>Oferta</strong></td>
-											<td class="text-right"><strong>Enlace</strong></td>
+											<td class="text-center"><strong>Act.</strong></td>
+											<td class="text-center"><strong>Editar</strong></td>
+											<td class="text-right"><strong>Ver</strong></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -221,7 +151,27 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['PRECIO'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['ESTADOA'] ?></td>
 												<td class="text-center"><?php echo $datos_publicacion_guardadas[$i]['OFERTA'] ?></td>
-												<td class="text-right"><a href="../view/publication.php?id=<?php echo $datos_publicacion_guardadas[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_publicacion_guardadas[$i]['ID'] ?></a></td>
+												<td class="text-center">
+													<a href="../logica/procesarActivarPublicacion.php?id=<?php echo $datos_publicacion_guardadas[$i]['ID'] ?>">
+														<button class="btn btn-xs btn-success">
+															<i class="fa fa-check" aria-hidden="true"></i>
+														</button>
+													</a>
+												</td>
+												<td class="text-center">
+													<a href="../view/sell.php?edit=y&&id=<?php echo $datos_publicacion_guardadas[$i]['ID'] ?>">
+														<button class="btn btn-xs btn-success">
+															<i class="fa fa-check" aria-hidden="true"></i>
+														</button>
+													</a>
+												</td>
+												<td class="text-right">
+													<a target="_blank" href="../view/publication.php?id=<?php echo $datos_publicacion_guardadas[$i]['ID'] ?>">
+														<button class="btn btn-xs btn-info">
+															<i class="fa fa-external-link"></i>
+														</button>
+													</a>
+												</td>
 											</tr>
 											<?php
 										}

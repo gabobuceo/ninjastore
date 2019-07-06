@@ -19,7 +19,6 @@ try {
   $commiteo= new Commit();
   $commiteo->AutoCommitOFF($conex);
   $commiteo->TransactionStart($conex);
-
   $c= new Permuta($idpermuta);
   if ($c->cancelar($conex)!== TRUE){
     $commiteo->Rollbackeo($conex);
@@ -27,7 +26,7 @@ try {
   }else{
     $commiteo->Commiteo($conex);
   }
-  $commiteo->AutoCommitON($conex);
+  $commiteo->AutoCommitON($conex);*/
 } catch (PDOException $e) {
   print "Error: ".$e->getMessage();
   exit();
@@ -36,45 +35,43 @@ try {
 TAMBIEN DEBERIA DE CHECKEAR SI EL ARTICULO ES NUEVO PARA MANDARLE A LA FACTURA !!!!!!!!!!!
 */
  // ----------- PROCESO NOTIFICACION --------------------*/
-/*try {          
-  $_SESSION['ComID']= $_GET['id'];
-  $datos_vendedor = require_once('../logica/procesarCargaCompra.php');
-  if ($datos_vendedor[0]['COMISION'] > '0'){
-    $commiteo= new Commit();
-    $commiteo->AutoCommitOFF($conex);
-    $commiteo->TransactionStart($conex);
-    $c= new Factura('',$datos_vendedor[0]['ID'],$datos_vendedor[0]['IDUSUARIO'],$datos_vendedor[0]['IDPUBLICACION'],'','','',$datos_vendedor[0]['COMISION']);
-    if ($c->alta($conex)!== TRUE){
+try {  
+  $commiteo= new Commit();
+  $commiteo->AutoCommitOFF($conex);
+  $commiteo->TransactionStart($conex);
+  $_SESSION['ExcID']=$_POST['id'];
+  $datos_permutas = require_once('../logica/procesarCargaPermuta.php');   
+  unset($_SESSION['ExcID']);
+  $c= new notificacion('',$_SESSION['id'],'Has cancelado una permuta!',$datos_permutas[0]['ID'],$datos_permutas[0]['IDPUBLICACIONORIGEN']);
+  if ($c->altapermutaaceptada($conex)!== TRUE){
+    $commiteo->Rollbackeo($conex);
+    $fin=false;
+  }else{
+    $c= new notificacion('',$datos_permutas[0]['IDORIGEN'],'El vendedor ha cancelado tu permuta',$datos_permutas[0]['ID'],$datos_permutas[0]['IDPUBLICACIONDESTINO']);
+    if ($c->altapermutaaceptada($conex)!== TRUE){
       $commiteo->Rollbackeo($conex);
       $fin=false;
     }else{
       $commiteo->Commiteo($conex);
     }
-    $commiteo->AutoCommitON($conex);
-  }
+  } 
+  $commiteo->AutoCommitON($conex);
 } catch (PDOException $e) {
   print "Error: ".$e->getMessage();
   exit();
 }
-
-try {  
-  $idcomprador=$datos_vendedor[0]['IDCOMPRADOR'];
-  $idpublicacion=$datos_vendedor[0]['IDPUBLICACION'];
+try {          
+  $conex = conectar();
   $commiteo= new Commit();
   $commiteo->AutoCommitOFF($conex);
   $commiteo->TransactionStart($conex);
-  $c= new notificacion('',$_SESSION['id'],'Has confirmado una venta!',$_GET['idcompra'],$idpublicacion);
-  if ($c->altaconfirmadov($conex)!== TRUE){
+
+  $h= new Historial('',$_SESSION['id'],'Permuta Cancelada','El vendedor '.$_SESSION['id'].' cancelo la permuta '.$datos_permutas[0]['ID']);
+  if ($h->alta($conex)!== TRUE){
     $commiteo->Rollbackeo($conex);
     $fin=false;
   }else{
-    $c= new notificacion('',$idcomprador,'El vendedor ha confirmado tu compra',$_GET['idcompra'],$idpublicacion);
-    if ($c->altaconfirmadoc($conex)!== TRUE){
-      $commiteo->Rollbackeo($conex);
-      $fin=false;
-    }else{
-      $commiteo->Commiteo($conex);
-    }
+    $commiteo->Commiteo($conex);
   } 
   $commiteo->AutoCommitON($conex);
 } catch (PDOException $e) {

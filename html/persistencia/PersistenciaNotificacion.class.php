@@ -184,6 +184,44 @@ class PersistenciaNotificacion{
 			return(false);
 		}
 	}
+	public function agregarpermutaaceptada($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$descripcion=trim($obj->getDescripcion());
+		$link=trim($obj->getLink());
+		$publicacion=trim($obj->getPublicacion());
+		$tipo="PERMUTA";
+		$sql = "INSERT INTO NOTIFICACION (USUARIO,DESCRIPCION,LINK,TIPO,PUBLICACION) VALUES (:USUARIO,:DESCRIPCION,:LINK,:TIPO,:PUBLICACION)";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":USUARIO" => $idUsuario,
+			":DESCRIPCION" => $descripcion,
+			":LINK" => $link,
+			":TIPO" => $tipo,
+			":PUBLICACION" => $publicacion));
+		if($result){
+			return(true);
+		}else{
+			return(false);
+		}
+	}
+	public function agregarpermutacancelada($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$descripcion=trim($obj->getDescripcion());
+		$link=trim($obj->getLink());
+		$publicacion=trim($obj->getPublicacion());
+		$tipo="PERMUTA";
+		$sql = "INSERT INTO NOTIFICACION (USUARIO,DESCRIPCION,LINK,TIPO,PUBLICACION) VALUES (:USUARIO,:DESCRIPCION,:LINK,:TIPO,:PUBLICACION)";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":USUARIO" => $idUsuario,
+			":DESCRIPCION" => $descripcion,
+			":LINK" => $link,
+			":TIPO" => $tipo,
+			":PUBLICACION" => $publicacion));
+		if($result){
+			return(true);
+		}else{
+			return(false);
+		}
+	}
 	public function agregarbaneado($obj, $conex){
 		$idUsuario=trim($obj->getIdUsuario());
 		$descripcion=trim($obj->getDescripcion());

@@ -1,20 +1,20 @@
 <?php
 //require_once('config.php');
-function conectar()
-{
-	try {
-		static $conexion;
-		$config = include('../config/config.php');
-		$conexion = new PDO('mysql:host='.$config->bdhost.';port='.$config->bdport.';dbname='.$config->bdname, $config->bduser, $config->bdpass);
-		$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		return($conexion);
-	} catch (PDOException $e) {
-		
-		print "<p>Error: No puede conectarse con la base de datos.</p>".$e->getMessage();
-		exit();
-	}
-}
+function conectar(){
+  if (!isset($conexion)) {
+    try {
+      static $conexion;
+      $config = include('../config/config.php');
+      $conexion = new PDO('mysql:host='.$config->bdhost.';port='.$config->bdport.';dbname='.$config->bdname, $config->bduser, $config->bdpass);
+      $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      return($conexion);
+    } catch (PDOException $e) {
 
+      print "<p>Error: No puede conectarse con la base de datos.</p>".$e->getMessage();
+      exit();
+    }
+  }
+}
 
 function desconectar($conexion)
 {
@@ -24,14 +24,13 @@ function desconectar($conexion)
 function salir() {
 	session_unset();
 	session_destroy();
-
 }
 
 function obtenerFechaSistema()
 {
 	//Seteo la hora con la zona horaria.
 	date_default_timezone_set('America/Montevideo');
-	setlocale(LC_TIME, 'spanish');	 
+	setlocale(LC_TIME, 'spanish');
 	return date("Y-m-d");
 }
 
@@ -40,7 +39,7 @@ function calcularEdad($fecNac) {
 	$fecNacFormateada = date("Y-m-d", strtotime($fecNac));
 	$edad=round(((((strtotime($hoy)-strtotime($fecNacFormateada))/365)/24)/60)/60);
 	if ($edad>=18) {
-		$resultado=true;		
+		$resultado=true;
 	}else{
 		$resultado=false;
 	}
@@ -51,7 +50,7 @@ function insertarCalificacion($calificaccion){
 	if ($calificaccion == NULL) {
 		$calificaccion=0;
 	}
-	for ($i=1; $i < 6; $i++) { 
+	for ($i=1; $i < 6; $i++) {
 		if ($i<=$calificaccion) {
 			echo "<span class='fa fa-star checked'></span>";
 		}else{
@@ -59,7 +58,19 @@ function insertarCalificacion($calificaccion){
 		}
 	}
 }
-function cargarCategoriasHijos($id){
+//----------------------------------------------------
+// F U N C I O N E S     D E    C A T E G O R I A S
+function cargarUnaCategoria($id){
+	$conex=conectar();
+	require_once ('../clases/Categoria.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+	$cat= new Categoria($id);
+	return $cat->consultaUno($conex);
+}
+
+  function cargarCategoriasHijos($id){
 	$conex=conectar();
 	require_once ('../clases/Categoria.class.php');
 	if(session_id() == '') {
@@ -68,6 +79,17 @@ function cargarCategoriasHijos($id){
 	$cat= new Categoria('',$id);
 	return $cat->consultaHijos($conex);
 }
+
+function cargarTituloCategoria($id){
+	$conex=conectar();
+	require_once ('../clases/Categoria.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+	$cat= new Categoria($id);
+	return $cat->consultaTituloId($conex);
+}
+
 function cargarCategoriasPadres(){
 	$conex=conectar();
 	require_once ('../clases/Categoria.class.php');
@@ -77,7 +99,133 @@ function cargarCategoriasPadres(){
 	$cat= new Categoria('');
 	return $cat->consultaPadres($conex);
 }
-function getBrowser() { 
+
+function cargarCategoriasActivas(){
+	$conex=conectar();
+	require_once ('../clases/Categoria.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+	$cat= new Categoria('');
+	return $cat->consultaActivas($conex);
+}
+
+function cargarCategoriasPadreActivas(){
+	$conex=conectar();
+	require_once ('../clases/Categoria.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+	$cat= new Categoria('');
+	return $cat->consultaPadresActivas($conex);
+}
+
+function cargarCategoriasInactivas(){
+	$conex=conectar();
+	require_once ('../clases/Categoria.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+	$cat= new Categoria('');
+	return $cat->consultaInactivas($conex);
+}
+
+function cargarCategoriasTodas(){
+	$conex=conectar();
+	require_once ('../clases/Categoria.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+	$cat= new Categoria('');
+	return $cat->consultaTodos($conex);
+}
+// f i n     f u n c i o n e s     d e    c a t e g o r i a s
+//----------------------------------------------------
+// F U N C I O N E S     D E   U S U A R I O S
+//----------------------------------------------------
+function cargarUnUsuario($idUsu){
+	require_once ('../clases/Usuario.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+  try {
+    $conex = conectar();
+    $usu = new Usuario($idUsu);
+    $datos_usu=$usu->consultaUno($conex);
+    if (!empty($datos_usu)){
+      return $datos_usu;
+    }else{
+      return array('this'=>'Vacio');
+    }
+  } catch (PDOException $e) {
+    return "Error: ".$e->getMessage();
+    exit();
+  }
+}
+
+function cargarUsuarios(){
+	require_once ('../clases/Usuario.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+  try {
+    $conex = conectar();
+    $usu = new Usuario();
+    $datos_usu=$usu->consultaTodos($conex);
+    if (!empty($datos_usu)){
+      return $datos_usu;
+    }else{
+      return array('this'=>'Vacio');
+    }
+  } catch (PDOException $e) {
+    return "Error: ".$e->getMessage();
+    exit();
+  }
+}
+
+function cargaUsuarioMod($idUsu){
+	require_once ('../clases/Usuario.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+  try {
+    $conex = conectar();
+    $usu = new Usuario($idUsu);
+    $datos_usu=$usu->consultaUno($conex);
+    if (!empty($datos_usu)){
+        return $datos_usu;
+    }else{
+      return array('this'=>'Vacio');
+    }
+  } catch (PDOException $e) {
+    return "Error: ".$e->getMessage();
+    exit();
+  }
+}
+
+function cargaTelefonosMod($idUsu){
+	require_once ('../clases/Usuariotel.class.php');
+	if(session_id() == '') {
+		session_start();
+	}
+  try {
+    $conex = conectar();
+    $c= new UsuarioTel($idUsu);
+    $datos_c=$c->consultaTodos($conex);
+    if (!empty($datos_c)){
+      return $datos_c;
+    }else{
+      return array('this'=>'No tiene telefonos');
+    }
+  } catch (PDOException $e) {
+    return "Error: ".$e->getMessage();
+    exit();
+  }
+}
+
+//  f i n    f u n c  i o n e s    d e    u s u a r i o s
+//---------------------------------------------------------
+function getBrowser() {
   $u_agent = $_SERVER['HTTP_USER_AGENT'];
   $bname = 'Unknown';
   $platform = 'Unknown';
@@ -122,7 +270,7 @@ function getBrowser() {
   // finally get the correct version number
   $known = array('Version', $ub, 'other');
   $pattern = '#(?<browser>' . join('|', $known) .
-')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+  ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
   if (!preg_match_all($pattern, $u_agent, $matches)) {
     // we have no matching number just continue
   }
@@ -132,9 +280,9 @@ function getBrowser() {
     //we will have two since we are not using 'other' argument yet
     //see if version is before or after the name
     if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
-        $version= $matches['version'][0];
+      $version= $matches['version'][0];
     }else {
-        $version= $matches['version'][1];
+      $version= $matches['version'][1];
     }
   }else {
     $version= $matches['version'][0];
@@ -150,22 +298,33 @@ function getBrowser() {
     'platform'  => $platform,
     'pattern'    => $pattern
   );
-} 
+}
 function textovalido($texto){
   switch ($texto) {
     case null:
-      $_SESSION['eee']="caso null";
-      return false;
-      break;
+    $_SESSION['eee']="caso null";
+    return false;
+    break;
     case strlen($texto) < 4:
-      $_SESSION['eee']="strlen";
-      return false;
-      break;
+    $_SESSION['eee']="strlen";
+    return false;
+    break;
     default:
-      $_SESSION['eee']="ok";
-      return true;
-      break;
+    $_SESSION['eee']="ok";
+    return true;
+    break;
   }
 }
 
-?>    
+function cargarimgtn($imagen){
+  echo "<img src='../imagenes/".$imagen."_tn.".$_SESSION['EXT']."' onerror=this.onerror=null;this.src='../static/img/noimage_tn.".$_SESSION['EXT']."' />";
+}
+function cargarimgdi($imagen){
+  echo "<img src='../imagenes/".$imagen."_di.".$_SESSION['EXT']."' onerror=this.onerror=null;this.src='../static/img/noimage_di.".$_SESSION['EXT']."' />";
+}
+function cargarimg($imagen){
+  echo "<img src='../imagenes/".$imagen.".".$_SESSION['EXT']."' onerror=this.onerror=null;this.src='../static/img/noimage.".$_SESSION['EXT']."' />";
+}
+
+
+?>

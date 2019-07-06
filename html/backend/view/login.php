@@ -17,9 +17,9 @@ require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo control, puntual para esta pagina (Como la sesion).*/
 /*-----------------------------------------------------------------------------------------------------------*/
-if (isset($_SESSION['USERNAME'])){
-	header("Location: index.php");
-}
+// if (isset($_SESSION['USERNAME'])){
+// 	header("Location: index.php");
+// }
 if (isset($_POST) and !empty($_POST)){
 	/*$sender_name = stripslashes($_POST["sender_name"]);
 	$sender_email = stripslashes($_POST["sender_email"]);
@@ -36,7 +36,7 @@ if (isset($_POST) and !empty($_POST)){
 			'content' => http_build_query($data)
 		)
 	);
-	$context  = stream_context_create($options);
+	$context = stream_context_create($options);
 	$verify = file_get_contents($url, false, $context);
 	$captcha_success=json_decode($verify);
 	if ($captcha_success->success==false) {
@@ -65,7 +65,7 @@ require('header.php');
 			?>
 			<div class="sign-in-form">
 				<div class="sign-in-form-top">
-					<center><h1>Inicio de Sesion</h1></center>
+					<h1>Iniciar Sesion</h1>
 				</div>
 				<div class="signin">
 					<?php

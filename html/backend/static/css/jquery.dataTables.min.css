@@ -235,10 +235,6 @@ table.dataTable,table.dataTable th,table.dataTable td{
 .dataTables_wrapper .dataTables_length,.dataTables_wrapper .dataTables_filter,.dataTables_wrapper .dataTables_info,.dataTables_wrapper .dataTables_processing,.dataTables_wrapper .dataTables_paginate{
 	color:#333
 }
-.h11{
-  background-image: url("static/img/images/ico.png");
-}
-	
 .dataTables_wrapper .dataTables_scroll{
 	clear:both
 }

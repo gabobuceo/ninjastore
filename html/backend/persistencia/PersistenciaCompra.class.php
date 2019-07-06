@@ -36,7 +36,7 @@ class PersistenciaCompra
 	
 	public function consUno($obj, $conex){
 		$id= trim($obj->getId());
-		$sql = "SELECT * FROM VWPUBLICACION WHERE ID=:ID";
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE ID=:ID";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();
@@ -53,6 +53,16 @@ class PersistenciaCompra
 		$resultados=$result->fetchAll();
 		//Obtiene el registro de la tabla Usuario
 
+		return $resultados;
+	}
+	public function consMaxID($conex)
+	{
+		$sql = "SELECT MAX(ID) FROM COMPRA";
+
+		$result = $conex->prepare($sql);
+		$result->execute();
+		$resultados=$result->fetchAll();
+		
 		return $resultados;
 	}
 }

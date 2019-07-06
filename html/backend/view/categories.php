@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -7,7 +7,7 @@ require('definitions.php');
 ?>
 <link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
 <script type="text/javascript" src="../static/js/jquery.flexisel.js"></script>
-<?php 
+<?php
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin scripts de esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -40,13 +40,12 @@ require('header.php');
 		<h2 class="deals-logo">
 			<a href="javascript:void(0)">Categorias</a>
 		</h2>
-		<!--<a class="view-more" href="javascript:void(0)">Ver Todas</a>-->
 	</div>
 	<div class="superdeals-slider currentBox active">
 		<?php
 		$a=cargarCategoriasPadres();
 		$b=count($a);
-		for ($i=0; $i < $b; $i++) { 
+		for ($i=0; $i < $b; $i++) {
 			?>
 			<div class="categorias">
 				<ul>
@@ -54,20 +53,20 @@ require('header.php');
 					<?php
 					$c=cargarCategoriasHijos($a[$i]['ID']);
 					$d=count($c);
-					for ($j=0; $j < $d; $j++) { 
+					for ($j=0; $j < $d; $j++) {
 						?>
 						<a href="../view/search.php?categoria=<?php echo $c[$j]['ID'] ?>"><li><?php echo $c[$j]['TITULO'] ?></li></a>
 						<?php
 					}
 					echo "</ul>
-					</div>";	
+					</div>";
 				}
 				?>
 			</div>
 		</div>
 		<!-- ::::::::::::::  FIN PUBLICACIONES VARIAS  :::::::::::::: -->
 
-		<?php 
+		<?php
 		/*-----------------------------------------------------------------------------------------------------------*/
 		/* Fin contenido de esta pagina.*/
 		/*-----------------------------------------------------------------------------------------------------------*/

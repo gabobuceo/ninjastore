@@ -5,7 +5,7 @@ if(session_id() == '') {
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-require_once('../../logica/funciones.php');
+require_once('../logica/funciones.php');
 $ua=getBrowser();
 $_SESSION['CLIENT_SETTINGS_BROWSER']=$ua['name'];
 $_SESSION['CLIENT_SETTINGS_VERSION']=$ua['version'];
