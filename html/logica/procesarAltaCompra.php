@@ -14,8 +14,10 @@ $cantidad = $_SESSION['cantidad'];
 $precio = $_SESSION['precio'];
 $estado = $_SESSION['estado'];
 $total=$cantidad*$precio;
+$config = include('../config/config.php');
+$comi = $config->comisiones;
 if ($estado=="NUEVO") {
-	$comision=$total * 0.05;
+	$comision=$total * $comi;
 } else {
 	$comision=0;
 }
@@ -51,7 +53,7 @@ try {
 		$fin=false;
 	}else{
 		/* GENERAR COMPRA */
-		$c= new Compra('',$idusuario,$idpublicacion,'','','',$cantidad,$precio,$comision);
+		$c= new Compra('',$idusuario,$idpublicacion,'','','','','',$cantidad,$precio,$comision);
 		if ($c->alta($conex)!== TRUE){
 			$commiteo->Rollbackeo($conex);
 			$fin=false;

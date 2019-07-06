@@ -74,7 +74,7 @@ if (isset($_GET['idcambio'])) {
 					if (isset($_GET['idcambio'])) {
 						?>
 						<div class="col-md-12 product_img">
-							<h4 class="lestitle" style="text-align: center;">Tu item <br><span class="subtitle"><?php echo $datos_oferto['0']['TITULO']; ?></span></h4>
+							<h4 class="lestitle" style="text-align: center;">Tu item <br><span class="subtitle"><?php echo  utf8_encode($datos_oferto['0']['TITULO']); ?></span></h4>
 						</div>
 						<div class="col-md-6 product_img">
 							<?php
@@ -107,26 +107,25 @@ if (isset($_GET['idcambio'])) {
 								<?php
 							}else{
 								?>
-								<form action="../view/exchange.php?id=" metod="GET">
-									<input type="text" name="id" value="<?php echo $datos_publicacion[0]['ID']?>" hidden />
-									<select name="idcambio">
-										<?php
-										for ($i=0; $i < count($datos_oferto); $i++) { 
-											?>	
-											<option value="<?php echo $datos_oferto[$i]['ID']?>"><?php echo $datos_oferto[$i]['TITULO']?> ($ <?php echo $datos_oferto[$i]['PRECIO']?>)</option>
+								<label>Seleccione una publicacion</label>
+								<form class="form-inline" action="../view/exchange.php?id=" metod="GET">
+									<div class="form-group">
+										
+										<input type="text" name="id" value="<?php echo $datos_publicacion[0]['ID']?>" hidden />
+										<select class="form-control" name="idcambio">
 											<?php
-										}
-										?>
-									</select>
+											for ($i=0; $i < count($datos_oferto); $i++) { 
+												?>	
+												<option value="<?php echo $datos_oferto[$i]['ID']?>"><?php echo utf8_encode($datos_oferto[$i]['TITULO'])?> ($ <?php echo $datos_oferto[$i]['PRECIO']." | ".$datos_oferto[$i]['CANTIDAD'].' unidad/es'?>)</option>
+												<?php
+											}
+											?>
+										</select>
+									</div>
 									<button type="submit" class="btn btn-success">
 										<i class="fa fa-cart-arrow-down"></i> Cargar publicacion
 									</button>
 								</form>
-								<a href="../view/publication.php?id=<?php echo $datos_publicacion[0]['ID']?>">
-									<button name="boton" class="btn btn-warning" value="permuta">
-										<i class="fa fa-external-link"></i> Volver a la publicacion
-									</button>
-								</a>
 								<?php
 							}
 							?>
@@ -143,7 +142,7 @@ if (isset($_GET['idcambio'])) {
 			<div class="rightcpanel">
 				<div class="row">
 					<div class="col-md-12 product_img">
-						<h4 class="lestitle" style="text-align: center;">A cambio de este item <br><span class="subtitle"><?php echo $datos_publicacion['0']['TITULO']; ?></span></h4>
+						<h4 class="lestitle" style="text-align: center;">A cambio de este item <br><span class="subtitle"><?php echo utf8_encode($datos_publicacion['0']['TITULO']); ?></span></h4>
 					</div>
 					<div class="col-md-6 product_img">
 						<?php
@@ -184,10 +183,12 @@ if (isset($_GET['idcambio'])) {
 				<div class="col-md-6 product_img">
 					<div class="btn-ground">
 						<div class="buy-in-form">
-							<form action="../logica/procesarAltaPermuta.php" method="POST">						
+							<form action="../logica/procesarAltaPermuta.php?id=<?php echo $_GET['id']?>&idcambio=<?php echo $_GET['idcambio']?>" method="GET">	
 								<button name="boton" type="submit" class="btn btn-success" value="permuta">
 									<i class="fa fa-shopping-cart"></i> Confirmar Permuta
 								</button>
+								<input hidden name=id value="<?php echo $_GET['id']?>">
+								<input hidden name=idcambio value="<?php echo $_GET['idcambio']?>">
 							</form>	
 						</div>
 					</div>

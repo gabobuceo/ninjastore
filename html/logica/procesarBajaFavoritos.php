@@ -2,6 +2,7 @@
 session_start();
 require_once('../logica/funciones.php');
 require_once('../clases/Favorito.class.php');
+
 $idusuario = $_SESSION['id'];
 if (isset($_POST['idfavorito'])) {
 	$idpublicacion = $_POST['idfavorito'];
@@ -21,6 +22,7 @@ try {
 	}else{
 		return false;
 	}
+
 } catch (PDOException $e) {
 	return $e;
 }

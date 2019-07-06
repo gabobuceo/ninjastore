@@ -160,7 +160,10 @@ class Notificacion
 		$pu=new PersistenciaNotificacion;
 		return ($pu->agregarcalificacionv($this, $conex));
 	}
-
+	public function altapermuta($conex){
+		$pu=new PersistenciaNotificacion;
+		return ($pu->agregarpermuta($this, $conex));
+	}
 	public function altabaneado($conex){
 		$pu=new PersistenciaNotificacion;
 		return ($pu->agregarbaneado($this, $conex));

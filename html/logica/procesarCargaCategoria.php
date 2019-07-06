@@ -1,14 +1,14 @@
 <?php
 require_once('../logica/funciones.php');
-require_once('../clases/Favorito.class.php');
+require_once('../clases/Categoria.class.php');
 // -------- GET DATA ----
-$idpublicacion = $_SESSION['PubID'];
+$idcategoria = $_SESSION['CatID'];
 try {          
   $conex = conectar();      
-  $c= new Favorito('',$idpublicacion);
-  $datos_c=$c->consultaTodos($conex);
+  $c= new Categoria($idpublicacion);
+  $datos_c=$c->consultaBread($conex);
   if (!empty($datos_c)){
-    return true; 
+    return $datos_c; 
   }else{
     return false;
   }

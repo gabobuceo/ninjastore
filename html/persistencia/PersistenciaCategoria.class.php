@@ -25,6 +25,16 @@ CLASS PERSISTENCIACATEGORIA
 
 		return $resultados;
 	}
+	public function consBread($obj, $conex){
+		$id= trim($obj->getId());
+		$sql = "SELECT * FROM DATOS_CATEGORIAS_PADRE WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
+
+		return $resultados;
+	}
 
 	PUBLIC FUNCTION CONSTODOS( $CONEX)
 	{

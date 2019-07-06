@@ -66,10 +66,10 @@ class PersistenciaPregunta
     public function consultaPregUsuPublicacion($obj, $conex){
         $idUsuario= trim($obj->getIdUsuario());
         $idPublicacion= trim($obj->getIdPublicacion());
-        $SQL = "SELECT * FROM PREGUNTA WHERE IDPUBLICACION=:IDPUBLICACION AND IDUSUARIO=6";
+        $sql = "SELECT * FROM DATOS_CHAT WHERE IDPUBLICACION=:IDPUBLICACION AND IDCOMPRADOR=:IDCOMPRADOR";
         $result = $conex->prepare($sql);
         $result->execute(array(":IDPUBLICACION" => $idPublicacion,
-                               ":IDUSUARIO" => $idUsuario));
+                               ":IDCOMPRADOR" => $idUsuario));
         $resultados=$result->fetchAll();
         //Obtiene el registro de la tabla Usuario
         return $resultados;

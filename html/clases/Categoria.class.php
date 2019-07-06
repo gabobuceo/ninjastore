@@ -65,17 +65,21 @@ class Categoria
 	// ----------- ------------------ -----------
 	//  ----------- OTROS METODOS --------------
 
-	public function consultaTodos($conex)
-	{
+	public function consultaTodos($conex){
 		$cat=new PersistenciaCategoria;
 		$datos= $cat->consTodos($conex);
 		return $datos;
 	}
 
-	public function consultaUno($conex)
-	{
+	public function consultaUno($conex){
 		$cat=new PersistenciaCategoria;
 		$datos= $cat->consUno($this,$conex);
+		return $datos;
+	}
+
+	public function consultaBread($conex){
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->consBread($this,$conex);
 		return $datos;
 	}
 	

@@ -19,7 +19,7 @@ require('header.php');
 <div class="row affix-row">
 	<div class="col-sm-3 col-md-2 affix-sidebar">
 		<?php 
-		$_SESSION['menu']=10;
+		$_SESSION['menu']=11;
 		require('menu.php');
 		unset($_SESSION['menu']);
 		?>

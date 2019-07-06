@@ -1,5 +1,9 @@
 <?php 
 session_start();
+/* ------------------------------------------------------------- */
+var_dump($_FILES);
+echo "<hr>";
+/* ------------------------------------------------------------- */
 $config = include('../config/config.php');
 require_once('../clases/thumbnail.class.php');
 if (empty($_FILES['imagen'])) {
@@ -16,6 +20,11 @@ function reArrayFiles(&$file_post) {
     }
     return $file_ary;
 }
+/* ------------------------------------------------------------- */
+var_dump($file_ary);
+echo "<hr>";
+exit();
+/* ------------------------------------------------------------- */
 unset($_SESSION['IMAGEN']);
 $server = empty($_POST['server']) ? '' : $_POST['server'];
 $user = empty($_POST['user']) ? '' : $_POST['user'];

@@ -273,7 +273,11 @@ class Publicacion
 		$datos= $pp->consUno($this,$conex);
 		return $datos;
 	}
-	
+	public function consultaTodosUsuario($conex){
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consTodosUsu($this,$conex);
+		return $datos;
+	}
 	public function consultaTodosUsuarioCerradas($conex)
 	{
 		$pp=new PersistenciaPublicacion;

@@ -7,7 +7,7 @@ require('definitions.php');
 ?>
 <script type="text/javascript" src="../static/js/canvasjs.min.js"></script>
 <script>
-	window.onload = function () {
+/*	window.onload = function () {
 		var chartbuy = new CanvasJS.Chart("chartseller", {
 			exportEnabled: true,
 			animationEnabled: true,
@@ -90,7 +90,7 @@ require('definitions.php');
 			}
 			e.chart.render();
 		}
-	}
+	}*/
 </script>
 
 <!--<link rel='stylesheet' href='../static/css/jquery.dataTables.min.css'>-->
@@ -99,10 +99,10 @@ require('definitions.php');
 <script type="text/javascript" src="../static/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#listopen').DataTable();
-		$('#listconfirm').DataTable();
-		$('#listclosed').DataTable();
-		$('#liststock').DataTable();
+		$('#tablapublicacionesActivas').DataTable();
+		$('#tablapublicacionesDesactivadas').DataTable();
+		$('#tablapublicacionesFinalizadas').DataTable();
+		$('#tablapublicaciones').DataTable();
 	} );
 </script>
 <?php 
@@ -115,7 +115,7 @@ require('header.php');
 $datos_publicacion_activas = require_once('../logica/procesarListadoPublicacionesActivas.php');
 $datos_publicacion_guardadas = require_once('../logica/procesarListadoPublicacionesGuardadas.php');
 $datos_publicacion_cerradas = require_once('../logica/procesarListadoPublicacionesCerradas.php');
-$datos_ventas = require_once('../logica/procesarListadoVentas.php');
+$datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 /*var_dump($datos_publicacion_activas);
 echo "<hr>";
 var_dump($datos_publicacion_guardadas);
@@ -151,7 +151,7 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 							/*print_r($datos_publicacion_activas);*/
 							?>
 							<div class="table-responsive">
-								<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+								<table id="tablapublicacionesActivas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<td><strong>Publicacion</strong></td>
@@ -199,7 +199,7 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 						}else{
 							?>
 							<div class="table-responsive">
-								<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+								<table id="tablapublicacionesDesactivadas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<td><strong>Publicacion</strong></td>
@@ -245,7 +245,7 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 						}else{
 							?>
 							<div class="table-responsive">
-								<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+								<table id="tablapublicacionesFinalizadas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<td><strong>Publicacion</strong></td>
@@ -284,42 +284,38 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 			<div class="col-md-5">
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<h4>Listado de Ventas</h4>
+						<h4>Listado de Publicaciones</h4>
 						<?php				
-						if (isset($datos_ventas["this"])) {
+						if (isset($datos_publicacion["this"])) {
 							?>
 							<p>No tienes publicaciones desactivadas.</p>
 							<?php
 						}else{
 							?>
 							<div class="table-responsive">
-								<table id="tablaventas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+								<table id="tablapublicaciones" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<td><strong>Publicacion</strong></td>
 											<td class="text-center"><strong>Fecha</strong></td>
-											<td class="text-center"><strong>Concretada</strong></td>
-											<td class="text-right"><strong>Enlace</strong></td>
+											<td class="text-right"><strong>Ver</strong></td>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
-										for ($i=0; $i < count($datos_ventas); $i++) { 
+										for ($i=0; $i < count($datos_publicacion); $i++) { 
 											/*DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA*/
 											?>
 											<tr>
-												<td><?php echo utf8_encode($datos_ventas[$i]['TITULO']) ?></td>
-												<td class="text-center"><?php echo utf8_encode($datos_ventas[$i]['FECHACOMPRA']) ?></td>
-												<td class="text-center">
-												<?php
-													if ($datos_ventas[$i]['CONCRETADO']==0) {
-														echo "No";
-													}else{
-														echo "Si";
-													}
-												?>
+												<td><?php echo utf8_encode($datos_publicacion[$i]['TITULO']) ?></td>
+												<td class="text-center"><?php echo date("d/m/Y", strtotime($datos_publicacion[$i]['FECHA'])) ?></td>
+												<td class="text-right">
+													<a href="../view/publication.php?id=<?php echo $datos_publicacion[$i]['IDPUBLICACION'] ?>">
+														<button class="btn btn-xs btn-info">
+															<i class="fa fa-external-link" aria-hidden="true"></i>
+														</button>
+													</a>
 												</td>
-												<td class="text-right"><a href="mypublication?id='<?php echo $datos_ventas[$i]['IDCOMPRA'] ?>'"></i> ID: <?php echo $datos_ventas[$i]['IDCOMPRA'] ?></a></td>
 											</tr>
 											<?php
 										}
@@ -332,18 +328,19 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 						?>
 					</div>
 				</div>
+		<!--
 				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
-						<h4>Calificacion</h4>
-						<div id="chartseller" style="height: 370px;"></div>
+						<h4>Listado de Publicaciones con bajo stock</h4>
 					</div>
 				</div>
-				<div class="single-page main-grid-border">
+			-->
+<!--				<div class="single-page main-grid-border">
 					<div class="rightcpanel">
 						<h4>Grafica de Ventas</h4>
 						<div id="chartselling" style="height: 370px;"></div>
 					</div>
-				</div>
+				</div>-->
 				<!--
 					<div class="single-page main-grid-border">
 					<div class="rightcpanel">
@@ -590,13 +587,13 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 	</div>
 </div>
 <script>
-	$('#listopen').DataTable( {
+	$('#tablapublicacionesActivas').DataTable( {
 		"language": {
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
 			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfo":           "Total: _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 			"sInfoPostFix":    "",
@@ -621,13 +618,13 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 		'copy', 'excel', 'pdf'
 		]
 	});
-	$('#listconfirm').DataTable( {
+	$('#tablapublicacionesDesactivadas').DataTable( {
 		"language": {
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
 			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfo":           "Total: _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 			"sInfoPostFix":    "",
@@ -652,13 +649,13 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 		'copy', 'excel', 'pdf'
 		]
 	});
-	$('#listclosed').DataTable( {
+	$('#tablapublicacionesFinalizadas').DataTable( {
 		"language": {
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
 			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfo":           "Total: _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 			"sInfoPostFix":    "",
@@ -683,13 +680,13 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 		'copy', 'excel', 'pdf'
 		]
 	});
-	$('#liststock').DataTable( {
+	$('#tablapublicaciones').DataTable( {
 		"language": {
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
 			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfo":           "Total: _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 			"sInfoPostFix":    "",

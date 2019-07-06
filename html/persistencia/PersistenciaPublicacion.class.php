@@ -128,6 +128,17 @@ class PersistenciaPublicacion
 
 		return $resultados;
 	}
+	public function consTodosUsu($obj, $conex){
+		$id= trim($obj->getIdUsuario());
+		$sql = "SELECT DATOS_PUBLICACIONES.*,CREA.FECHA FROM 
+		CREA,DATOS_PUBLICACIONES WHERE CREA.IDPUBLICACION=DATOS_PUBLICACIONES.ID AND CREA.BAJA=0 AND CREA.IDUSUARIO=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		$resultados=$result->fetchAll();
+		//Obtiene el registro de la tabla Usuario
+
+		return $resultados;
+	}
 	public function consTodosUsuPublicadas($obj, $conex)
 	{
 		$id= trim($obj->getIdUsuario());
@@ -322,7 +333,7 @@ class PersistenciaPublicacion
 	public function consPubliUsadas($obj, $conex)
 	{
 		$id= trim($obj->getIdUsuario());
-		$sql = "SELECT DATOS_PRODUCTO_INDEX.* FROM DATOS_PUBLICACIONES,DATOS_PRODUCTO_INDEX WHERE DATOS_PUBLICACIONES.ID=DATOS_PRODUCTO_INDEX.ID AND DATOS_PUBLICACIONES.ESTADOA='USADO' AND DATOS_PRODUCTO_INDEX.USUARIO=:ID";
+		$sql = "SELECT DATOS_PRODUCTO_INDEX.*,DATOS_PUBLICACIONES.CANTIDAD FROM DATOS_PUBLICACIONES,DATOS_PRODUCTO_INDEX WHERE DATOS_PUBLICACIONES.ID=DATOS_PRODUCTO_INDEX.ID AND DATOS_PUBLICACIONES.ESTADOA='USADO' AND DATOS_PRODUCTO_INDEX.USUARIO=:ID";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();

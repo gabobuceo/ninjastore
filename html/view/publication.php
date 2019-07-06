@@ -56,7 +56,9 @@ require('header.php');
 	<?php
 	$_SESSION['PubID']=$_GET['id'];
 	require_once('../logica/procesarVistoPublicacion.php');		
-	$datos_publicacion = require_once('../logica/procesarCargaPublicacion.php');		
+	$datos_publicacion = require_once('../logica/procesarCargaPublicacion.php');	
+	/*	var_dump($datos_publicacion);*/
+
 	$datos_publicacionfecha = require_once('../logica/procesarCargaPublicacionFecha.php');		
 	$datos_publicacionimg = require_once('../logica/procesarCargaPublicacionImg.php');		
 	$datos_producto = require_once('../logica/procesarCompraPublicacion.php');
@@ -141,59 +143,55 @@ require('header.php');
 						<div class="interested text-center" name="pachamama" >
 							<h4>Lo quieres?</h4>
 							<?php
-							if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="publication.php"){
-								echo "<div class='alert ".$_SESSION['mtipo']." alert-dismissable'>
-								<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
-								unset($_SESSION['mobjetivo']);
-								unset($_SESSION['mtipo']);
-								unset($_SESSION['mtexto']);	
-								unset($_SESSION['debugeame']);				
-							}
 							echo "<img src='../imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' style='border: 1px black solid;' /><br />";
-							if ((isset($_SESSION['id'])) AND ($_SESSION['id']!=$datos_vendedor['0']['ID'])){
-								?>
-								<div class="buy-in-form">
-									<form action="../logica/procesarCompraOfavorito.php" method="POST">
-										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ComprarModal">
-											<i class="fa fa-shopping-cart"></i> Comprar
-										</button>
-										<?php
-										if (isset($_SESSION['usu'])) {
-											if ($datos_productofavorito==false) {
+							if ($datos_publicacion['0']['ESTADOP']!='PUBLICADA') {
+								echo "<h1>Publicación Finalizada</h1>";
+							}else{
+								if ((isset($_SESSION['id'])) AND ($_SESSION['id']!=$datos_vendedor['0']['ID'])){
+									?>
+									<div class="buy-in-form">
+										<form action="../logica/procesarCompraOfavorito.php" method="POST">
+											<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ComprarModal">
+												<i class="fa fa-shopping-cart"></i> Comprar
+											</button>
+											<?php
+											if (isset($_SESSION['usu'])) {
+												if ($datos_productofavorito==false) {
+													?>
+													<button name="boton" type="submit" class="btn btm-nofavs" value="favorito">
+														<i class="fa fa-heart"></i>
+													</button>
+													<?php
+												}else{
+													?>
+													<button name="boton" type="submit" class="btn btm-favs" value="desfavorito">
+														<i class="fa fa-heart"></i>
+													</button>
+													<?php	
+												}
+											}else{
 												?>
-												<button name="boton" type="submit" class="btn btm-nofavs" value="favorito">
+												<button name="boton" class="btn btm-nofavs" value="favorito">
 													<i class="fa fa-heart"></i>
 												</button>
 												<?php
-											}else{
-												?>
-												<button name="boton" type="submit" class="btn btm-favs" value="desfavorito">
-													<i class="fa fa-heart"></i>
-												</button>
-												<?php	
 											}
-										}else{
 											?>
-											<button name="boton" class="btn btm-nofavs" value="favorito">
-												<i class="fa fa-heart"></i>
-											</button>
+										</form>
+										<?php
+										if ($datos_publicacion['0']['ESTADOA']=="USADO") {
+											?>
+											<form action="../view/exchange.php" method="GET">
+												<button name="id" type="submit" class="btn btn-warning" value="<?php echo $_SESSION['PubID']; ?>">
+													<i class="fa fa-handshake-o"></i> Permutar
+												</button>
+											</form>
 											<?php
 										}
 										?>
-									</form>
+									</div>
 									<?php
-									if ($datos_publicacion['0']['ESTADOA']=="USADO") {
-										?>
-										<form action="../view/exchange.php" method="GET">
-											<button name="id" type="submit" class="btn btn-warning" value="<?php echo $_SESSION['PubID']; ?>">
-												<i class="fa fa-handshake-o"></i> Permutar
-											</button>
-										</form>
-										<?php
-									}
-									?>
-								</div>
-								<?php
+								}
 							}
 							?>
 						</div>
@@ -336,32 +334,34 @@ require('header.php');
 								</ul>
 								<?php
 							}
-							if ((!isset($_SESSION['id'])) OR ($_SESSION['id']!=$datos_vendedor['0']['ID'])) {
-								?>
-								<div class="bottom_wrapper clearfix">
-									<form name="hola" action="../logica/procesarAltaPregunta.php?idpublicacion=<?php echo $datos_publicacion['0']['ID']; ?>" method="POST">
-										<div class="message_input_wrapper">
-											<input name="pregunta" class="message_input" placeholder="Pregunta algo..." />
-										</div>
-										<div class="send_message">
-											<div class="icon">
-											</div>
-											<div class="text" onclick="hola.submit()">
-											Preguntar</div>
-										</div>
-									</form>
-									<?php
-									if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="chat"){
-										echo "<div name='popup' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
-										<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
-										unset($_SESSION['mobjetivo']);
-										unset($_SESSION['mtipo']);
-										unset($_SESSION['mtexto']);	
-										unset($_SESSION['debugeame']);				
-									}
+							if ($datos_publicacion['0']['ESTADOP']=='PUBLICADA') {
+								if ((!isset($_SESSION['id'])) OR ($_SESSION['id']!=$datos_vendedor['0']['ID'])) {
 									?>
-								</div>
-								<?php
+									<div class="bottom_wrapper clearfix">
+										<form name="hola" action="../logica/procesarAltaPregunta.php?idpublicacion=<?php echo $datos_publicacion['0']['ID']; ?>" method="POST">
+											<div class="message_input_wrapper">
+												<input name="pregunta" class="message_input" placeholder="Pregunta algo..." />
+											</div>
+											<div class="send_message">
+												<div class="icon">
+												</div>
+												<div class="text" onclick="hola.submit()">
+												Preguntar</div>
+											</div>
+										</form>
+										<?php
+										if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="chat"){
+											echo "<div name='popup' class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+											<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+											unset($_SESSION['mobjetivo']);
+											unset($_SESSION['mtipo']);
+											unset($_SESSION['mtexto']);	
+											unset($_SESSION['debugeame']);				
+										}
+										?>
+									</div>
+									<?php
+								}
 							}
 							?>
 						</div>

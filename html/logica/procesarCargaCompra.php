@@ -4,7 +4,7 @@ require_once('../clases/Compra.class.php');
 $config = include('../config/config.php');
 // -------- GET DATA ----
 $idcompra = $_SESSION['ComID'];
-
+unset($_SESSION['ComID']);
 try {          
   $conex = conectar();			
   $c= new Compra($idcompra);

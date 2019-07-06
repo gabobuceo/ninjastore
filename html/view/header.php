@@ -8,7 +8,7 @@
 						<img class='img-responsive logoempresa' src='../static/img/storefullsma.<?php echo $_SESSION['EXT']; ?>'>
 					</a>
 				</div>
-				<div class='store-navbar-search col-sm-6 col-xs-11'>
+				<div class='store-navbar-search col-md-6 col-xs-11'>
 					<div class='row'>
 						<form action='search.php' method='POST'>                
 							<input class='store-navbar-input col-xs-11' placeholder='Buscar' name='search' <?php if (isset($_SESSION['buscar'])) { echo utf8_encode("value='".$_SESSION['buscar']."'");  }?> >
@@ -18,7 +18,7 @@
 						</form>
 					</div>
 				</div>
-				<div class='col-sm-4 store-menu'>
+				<div class='col-md-4 col-sm-12 store-menu'>
 					<div class='navbar-right'>
 						<?php
 						if (isset($_SESSION['usu'])) {
@@ -72,6 +72,8 @@
 													</span>
 												</span>
 											</li>
+											<li class="divider"></li>
+											<li><a class="text-center" href="../view/myfavorites.php">Ir a Favoritos</a></li>
 											<?php
 										}else{
 											for ($i=0; $i < count($datos_favoritos_head); $i++) { 
@@ -135,44 +137,33 @@
 													</span>
 												</span>
 											</li>
+											<li class="divider"></li>
+											<li><a class="text-center" href="../view/mynotifications.php">Ir a Notificaciones</a></li>
 											<?php
 										}else{ 
 											for ($i=0; $i < count($datos_notificaciones_leidas); $i++) { 
-													?>
-													<form action="../logica/procesarBajaFavoritos.php?" method="GET">
-														<li>
-															<a href="../view/mynotifications.php?id=<?php echo $datos_notificaciones_leidas[$i]['ID']; ?>">
-																<span class="item">
-																	<span class="item-left">
-																		<img src="../imagenes/<?php echo $datos_notificaciones_leidas[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
-																		<span class="item-info">
-																			<span><?php echo $datos_notificaciones_leidas[$i]['TIPO']." (".date("d/m/Y", strtotime($datos_notificaciones_leidas[$i]['FECHA'])).")"; ?> </span>
-																			<span><?php echo $datos_notificaciones_leidas[$i]['DESCRIPCION']; ?></span>
-																		</span>
-																	</span>
-																	<span class="item-right">
-																		<?php
-																		if ($datos_notificaciones_leidas[$i]['VISTO']=='0') {
-																			?>
-																			<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
-																				<i class="fa fa-eye"></i>
-																			</button>
-																			<?php
-																		}else{
-																			?>
-																			<button name="idfavorito" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_favoritos_head[$i]['IDPUBLICACION']; ?>">
-																				<i class="fa fa-eye-slash"></i>
-																			</button>
-																			<?php
-																		}
-																		?>
+												?>
+												<form action="../logica/procesarVistoNotificacion.php?" method="GET">
+													<li>
+														<a href="../view/mynotifications.php?id=<?php echo $datos_notificaciones_leidas[$i]['ID']; ?>">
+															<span class="item">
+																<span class="item-left">
+																	<img src="../imagenes/<?php echo $datos_notificaciones_leidas[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																	<span class="item-info">
+																		<span><?php echo $datos_notificaciones_leidas[$i]['TIPO']." (".date("d/m/Y", strtotime($datos_notificaciones_leidas[$i]['FECHA'])).")"; ?> </span>
+																		<span><?php echo $datos_notificaciones_leidas[$i]['DESCRIPCION']; ?></span>
 																	</span>
 																</span>
-															</a>
-														</li>
-													</form>
-													<?php
-												
+																<span class="item-right">
+																	<button name="idnotificacion" type="submit" class="btn btn-xs btn-danger pull-right" value="<?php echo $datos_notificaciones_leidas[$i]['ID']; ?>">
+																		<i class="fa fa-eye"></i>
+																	</button>
+																</span>
+															</span>
+														</a>
+													</li>
+												</form>
+												<?php
 											}
 											?>
 											<li class="divider"></li>
