@@ -5,7 +5,7 @@ require_once('../clases/Categoria.class.php');
 $idcategoria = $_SESSION['CatID'];
 try {          
   $conex = conectar();      
-  $c= new Categoria($idpublicacion);
+  $c= new Categoria($idcategoria);
   $datos_c=$c->consultaBread($conex);
   if (!empty($datos_c)){
     return $datos_c; 

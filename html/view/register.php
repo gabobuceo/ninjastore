@@ -1,4 +1,7 @@
 <?php 
+if (!isset($_SESSION['id'])){
+	header('Location: ../view/index.php');
+}
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/

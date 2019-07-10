@@ -1,25 +1,57 @@
 COMITEO:
 --------------------------------------
+Front End Release
 Notificaciones	
 	Falta Factura, Baneo y Reporte
 Publicaciones:
 	El usuario ya puede Activar y Desactivar las publicaciones
 	Solo publicaciones Desactivadas pueden ser editadas, no publicaciones activas
+	Se puede editar publicaciones
 
 Varias cosas de Backend
+
+Calificaciones
+	Pronto
+
+Mensajes
+	Arreglos de CSS
+
+Factura
+	Se agrega Fechap para obtener la fecha en que se pago la factura
+	Se cambia el ID serial por BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT ya que el Alias de Serial hace que ID sea Unico además.
+	Factura Pronto
+
+Denuncia
+	Pronto (alta y listado y Select)
+
+Resumen 
+	Pronto
+
+Arreglos varios, controles de usuario logeado
 
 TRABAJANDO EN:
 --------------------------------------------
 
-EDITAR PUBLICACION (Editar, Cancelar, Borrador, Borrar)
-	http://192.168.1.15/ninjastore/html/view/publication.php?id=53 -> comprar esta
+	RESUMEN!
 
 	Si un admin cancela una compra, se debe añadir un +1 de item
+
+SI un VIP vende, la comision en comisionesvip (3%)
+
+Detalles para hacer (que no se va a hacer):
+	La factura genera hasta 18 items, a partir de ahi, se superpone. -> crear una nueva hoja
+
 ---------------------------------------------------------------------
-ESTADO DE FRONT END CPANEL: 40% aprox
+ESTADO DE FRONT END CPANEL: 70% aprox
 
 Resumen 0%
-	* Sin hacer
+	* Publicaciones Activas 			-> 100%
+	* Listado de Ventas 				-> 100%
+	* Listado de Compras 				-> 100%
+	* Ventana premium no premium 		-> 0%
+	* Listado de Facturas Pendientes	-> 100%
+	* Listado de Denuncuas Abiertas		-> 100%
+
 
 Perfil 100%
 	* Pronto todo 100%
@@ -53,9 +85,12 @@ Permutas 100%
 	* Cerradas por mi 					-> 100%
 
 Favoritos 100%
-	* Pronto todo 	-> 100%
+	* Vista previa 			-> 100%
+	* Listado de Favoritos 	-> 100%
 
 Notificaciones 90%
+	* Vista previa 				-> 100%
+	* Listado de Notificaciones -> 90%
 	PREGUNTA 		-> 100%
 	RESPUESTA 		-> 100%
 	COMPRA 			-> 100%
@@ -70,18 +105,26 @@ Notificaciones 90%
 	Permuta Canc. 	-> 100%
 	Baneado 		-> Sin hacer
 	
-
 Mensajes 100%
-	* Pronto todo 100%
+	* chat					-> 100%
+	* Mensajes de Compras 	-> 100%
+	* Mensajes de Ventas 	-> 100%
 
-Calificaciones 0%
-	* Sin hacer
+Calificaciones 100%
+	* Calificacion como Vendedor 				-> 100%
+	* Calificacion como Comprador 				-> 100%
+	* Listado de Calificaciones de Vendedor 	-> 100%
+	* Listado de Calificaciones de comprador 	-> 100%
 
-Facturas 0%
-	* Sin hacer
+Facturas 100%
+	* Ver Factura 			-> 100%
+	* Facturas Pendientes 	-> 100%
+	* Historial de Facturas -> 100%
 
-Denuncias 0%
-	* Sin hacer
+Denuncias 100%
+	* Ver Denuncias 				-> 100%
+	* Listado Denuncias Abiertas 	-> 100%
+	* Listado Denuncias Cerradas 	-> 100%
 
 Denuncias: Chau chat, hacerlo bien de boton
 re nazi

@@ -1,5 +1,8 @@
 <?php 
 session_start();
+if (!isset($_SESSION['id'])){
+	header('Location: ../view/index.php');
+}
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
@@ -137,7 +140,7 @@ echo "<hr>";*/
 											<td><strong>Publicacion</strong></td>
 											<td class="text-center"><strong>Estado</strong></td>
 											<td class="text-center"><strong>Fecha</strong></td>
-											<td class="text-right"><strong>Leer</strong></td>
+											<td class="text-right"><strong>Ver</strong></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -156,7 +159,13 @@ echo "<hr>";*/
 												?>
 												</td>
 												<td class="text-center"><?php echo date("d/m/Y H:i", strtotime($datos_compras[$i]['FECHAM'])); ?></td>
-												<td class="text-right"><a href="../view/mymessages.php?idmensaje=<?php echo $datos_compras[$i]['ID'] ?>"><i class="fa fa-external-link" aria-hidden="true"></i> ID: <?php echo $datos_compras[$i]['ID'] ?></a></td>
+												<td class="text-right">
+													<a href="../view/mymessages.php?idmensaje=<?php echo $datos_compras[$i]['ID'] ?>">
+														<button class="btn btn-xs btn-info">
+															<i class="fa fa-external-link"></i>
+														</button>
+													</a>
+												</td>
 											</tr>
 											<?php
 										}
@@ -232,7 +241,7 @@ echo "<hr>";*/
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
 			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfo":           "Total: _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 			"sInfoPostFix":    "",
@@ -263,7 +272,7 @@ echo "<hr>";*/
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
 			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfo":           "Total: _TOTAL_ registros",
 			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 			"sInfoPostFix":    "",

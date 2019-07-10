@@ -17,10 +17,14 @@ if (empty($_POST['g-recaptcha-response']) and $config->modotest=false) {
 		$u= new Usuario ('','',$usuario,$password);
 		$datos_u=$u->coincideLoginPassword($conex);
 		if (!empty($datos_u)){
+			/*var_dump($datos_u);
+			exit();*/
 			$_SESSION["usu"]=$datos_u[0]["USUARIO"];
 			$_SESSION["name"]=$datos_u[0]["PNOMBRE"];
 			$_SESSION["sname"]=$datos_u[0]["PAPELLIDO"];
 			$_SESSION["id"]=$datos_u[0]["ID"];
+			$_SESSION["tipo"]=$datos_u[0]["TIPO"];
+			$_SESSION["rol"]=$datos_u[0]["ROL"];
 			header('Location: ../view/index.php');
 		} else {
 			$_SESSION['mobjetivo']="login.php";

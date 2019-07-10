@@ -15,12 +15,15 @@ $precio = $_SESSION['precio'];
 $estado = $_SESSION['estado'];
 $total=$cantidad*$precio;
 $config = include('../config/config.php');
+
 $comi = $config->comisiones;
 if ($estado=="NUEVO") {
-	$comision=$total * $comi;
+	$porcentaje=$config->comisiones;
+	$comision=(($total*$porcentaje)/100);
 } else {
 	$comision=0;
 }
+
 // ----------- DEBUG -----------------
 
 /*var_dump($idusuario);

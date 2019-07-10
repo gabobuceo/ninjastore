@@ -1,19 +1,13 @@
 <?php
 require_once('../logica/funciones.php');
-require_once('../clases/Usuario.class.php');
+require_once('../clases/Factura.class.php');
 $config = include('../config/config.php');
 // -------- GET DATA ----
 
-
-try {    
-  if (isset($_SESSION['idbuscar'])) {
-    $id=$_SESSION['idbuscar'];
-  }else{
-    $id=$_SESSION['id'];  
-  }      
+try {          
   $conex = conectar();      
-  $pu= new Usuario($id);
-  $datos_pu=$pu->consultaUno($conex);
+  $pu= new Factura('','',$_SESSION["id"],'',$_SESSION['vence'],$_SESSION['vencefin']);
+  $datos_pu=$pu->consultaUnoFechas($conex);
   if (!empty($datos_pu)){
     return $datos_pu;
   }else{

@@ -241,6 +241,25 @@ class PersistenciaNotificacion{
 			return(false);
 		}
 	}
+	public function agregardenuncia($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$descripcion=trim($obj->getDescripcion());
+		$link=trim($obj->getLink());
+		$publicacion=trim($obj->getPublicacion());
+		$tipo="DENUNCIA";
+		$sql = "INSERT INTO NOTIFICACION (USUARIO,DESCRIPCION,LINK,TIPO,PUBLICACION) VALUES (:USUARIO,:DESCRIPCION,:LINK,:TIPO,:PUBLICACION)";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":USUARIO" => $idUsuario,
+			":DESCRIPCION" => $descripcion,
+			":LINK" => $link,
+			":TIPO" => $tipo,
+			":PUBLICACION" => $publicacion));
+		if($result){
+			return(true);
+		}else{
+			return(false);
+		}
+	}
 	public function agregarfinalizado($obj, $conex){
 		$idUsuario=trim($obj->getIdUsuario());
 		$descripcion=trim($obj->getDescripcion());

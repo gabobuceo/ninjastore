@@ -12,6 +12,7 @@ require_once('../clases/Notificacion.class.php');
 session_start();
 $fin=true;
 // ----------- PROCESO COMPRA --------------------
+
 try {
   $fin=true;
   $idcompra=$_GET['idcompra'];
@@ -36,14 +37,44 @@ try {
 TAMBIEN DEBERIA DE CHECKEAR SI EL ARTICULO ES NUEVO PARA MANDARLE A LA FACTURA !!!!!!!!!!!
 */
  // ----------- PROCESO NOTIFICACION --------------------*/
-try {          
+
+
+try {   
+ /*
+  ----------------------------------------------------------------------------------------------------------------------
+  */      
+  
+  $commiteo= new Commit();
+  $commiteo->AutoCommitOFF($conex);
+  $commiteo->TransactionStart($conex); 
   $_SESSION['ComID']= $_GET['idcompra'];
   $datos_vendedor = require_once('../logica/procesarCargaCompra.php');
+
+  var_dump($datos_vendedor);
   if ($datos_vendedor[0]['COMISION'] > '0'){
-    $commiteo= new Commit();
-    $commiteo->AutoCommitOFF($conex);
-    $commiteo->TransactionStart($conex);
-    $c= new Factura('',$datos_vendedor[0]['ID'],$datos_vendedor[0]['IDUSUARIO'],$datos_vendedor[0]['IDPUBLICACION'],'','','',$datos_vendedor[0]['COMISION']);
+    echo "<hr>";
+
+    $date = date("Y-m-d");
+    $date = strtotime(date("Y-m-d", strtotime($date)) . " +1 month");
+    $date = date("Y-m-d",$date);
+
+    $vence=date("Y-m-t", strtotime($date));
+    $vencefin=strtotime(date("Y-m-d", strtotime($vence)) . " +1 day");
+    $vencefin = date("Y-m-d",$vencefin);
+    echo $vence.'<hr>'.$vencefin;
+
+    $_SESSION['vence']=$vence;
+    $_SESSION['vencefin']=$vencefin;
+
+    $datos_factura = require_once('../logica/procesarCargaFacturaFecha.php');
+    //var_dump($datos_factura);
+    if (isset($datos_factura[0]['ID'])) {
+      /*Ya existe una factura en el mes correspondiente de vencimiento*/
+      $c= new Factura($datos_factura[0]['ID'],$datos_vendedor[0]['ID'],$datos_vendedor[0]['IDVENDEDOR'],$datos_vendedor[0]['IDPUBLICACION'],'',$vence,'',$datos_vendedor[0]['COMISION']);
+    }else{
+      /*No existe factura en el mes correspondiente de vencimiento, se crea una nueva factura*/
+      $c= new Factura('',$datos_vendedor[0]['ID'],$datos_vendedor[0]['IDVENDEDOR'],$datos_vendedor[0]['IDPUBLICACION'],'',$vence,'',$datos_vendedor[0]['COMISION']);
+    }
     if ($c->alta($conex)!== TRUE){
       $commiteo->Rollbackeo($conex);
       $fin=false;
@@ -57,6 +88,11 @@ try {
   exit();
 }
 
+  /*
+  ----------------------------------------------------------------------------------------------------------------------
+  */
+  
+  /* $c= new Factura('',$datos_vendedor[0]['ID'],$datos_vendedor[0]['IDVENDEDOR'],$datos_vendedor[0]['IDPUBLICACION'],'','','',$datos_vendedor[0]['COMISION']);*/
 try {  
   $idcomprador=$datos_vendedor[0]['IDCOMPRADOR'];
   $idpublicacion=$datos_vendedor[0]['IDPUBLICACION'];

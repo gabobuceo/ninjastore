@@ -63,8 +63,13 @@ if ($error) {
 		$conex = conectar();
 		$commiteo= new Commit();
 		$commiteo->AutoCommitOFF($conex);
-		$commiteo->TransactionStart($conex);		
-		$comision=(($total*1.05)-$total);
+		$commiteo->TransactionStart($conex);
+		if ($_SESSION["tipo"]=="COMUN") {
+			$porcentaje=$config->comisiones;
+		}else{
+			$porcentaje=$config->comisionesvip;
+		}
+		$comision=(($total*$porcentaje)/100);
 		$u = new Compra('',$idusuario,$idpublicacion,'','','',$cantidad,$total,$comision);
 		$p = new Publicacion($idpublicacion);
 		if ($u->alta($conex)!== TRUE){	

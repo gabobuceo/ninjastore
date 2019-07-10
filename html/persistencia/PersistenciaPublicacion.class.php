@@ -173,31 +173,50 @@ class PersistenciaPublicacion
 		return $resultados;
 	}
 
-	public function modificar($obj, $conex)
-	{
+	public function modificar($obj, $conex){
+
 		$id= trim($obj->getId());
-		$nombre=$obj->getNombre();
-		$apellido=$obj->getApellido();
-		$categoria = $obj->getCategoria();
-		$ci = $obj->getCedula();
-		$correo = $obj->getCorreo();
-		$celular = $obj->getCelular();
-		$horario = $obj->getHorario();
-		$fecNac = $obj->getFecNac();
+		$titulo=$obj->getTitulo();
+		$desc=$obj->getDescripcion();
+		$precio = $obj->getPrecio();
+		$cantidad = $obj->getCantidad();
+		$categoria = $obj->getIdCategoria();
+		$img = $obj->getImgDef();
+		$tipo = $obj->getEstadoA();
 
-		$sql = "UPDATE USUARIO SET NOMBRE=:NOMBRE,APELLIDO=:APELLIDO ,CATEGORIA=:CATEGORIA, CI=:CI, CORREO=:CORREO, CELULAR=:CELULAR,HORARIO=:HORARIO,FECNAC=:FECNAC WHERE ID=:ID";
+		/*
+		echo "DEBUG MODE ON <br />------------<br />id=$id<br />titulo = $titulo<br />desc = $desc<br />precio = $precio<br />cantidad = $cantidad<br />categoria = $categoria<br />img = $img<br />";
+		exit();*/
 
+		if (empty($img)) {
+			$sql = "UPDATE PUBLICACION SET TITULO=:TITULO ,DESCRIPCION=:DESCRIPCION, PRECIO=:PRECIO, CANTIDAD=:CANTIDAD, IDCATEGORIA=:IDCATEGORIA,ESTADOA=:ESTADOA WHERE ID=:ID";
+			$result = $conex->prepare($sql);
+			$result->execute(array(":TITULO" => $titulo,
+							":DESCRIPCION" => $desc,
+							":PRECIO" => $precio,
+							":CANTIDAD" => $cantidad,
+							":IDCATEGORIA" => $categoria,
+							":ESTADOA" => $tipo,
+							":ID" => $id));
+		
+		}else{
+			$sql = "UPDATE PUBLICACION SET TITULO=:TITULO ,DESCRIPCION=:DESCRIPCION, PRECIO=:PRECIO, CANTIDAD=:CANTIDAD, IDCATEGORIA=:IDCATEGORIA,ESTADOA=:ESTADOA,IMGDEFAULT=:IMGDEFAULT WHERE ID=:ID";
+			$result = $conex->prepare($sql);
+			$result->execute(array(":TITULO" => $titulo,
+							":DESCRIPCION" => $desc,
+							":PRECIO" => $precio,
+							":CANTIDAD" => $cantidad,
+							":IDCATEGORIA" => $categoria,
+							":ESTADOA" => $tipo,
+							":IMGDEFAULT" => $img,
+							":ID" => $id));
+		}
 
-		$result = $conex->prepare($sql);
-
-		$result->execute(array(":nombre" => $nombre,":apellido" => $apellido,
-			":categoria" => $categoria,":ci" => $ci,
-			":correo" => $correo,":celular" => $celular,
-			":horario" => $horario,
-			":fecnac" => $fecNac,
-			":id"=>$id));
-
-		return $result;
+		if($result){
+          return(true);
+        }else{
+          return(false);
+        }
 	}
 	public function modificarCantidad($obj, $conex)
 	{
@@ -274,7 +293,7 @@ class PersistenciaPublicacion
 	public function consPubliIndex( $conex)
 	{
 
-		$sql = "SELECT * FROM DATOS_PRODUCTO_INDEX LIMIT 12";
+		$sql = "SELECT * FROM DATOS_PRODUCTO_INDEX LIMIT 36";
 
 		$result = $conex->prepare($sql);
 		$result->execute();

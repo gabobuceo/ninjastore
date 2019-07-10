@@ -57,7 +57,7 @@ require('header.php');
 	$_SESSION['PubID']=$_GET['id'];
 	require_once('../logica/procesarVistoPublicacion.php');		
 	$datos_publicacion = require_once('../logica/procesarCargaPublicacion.php');	
-	/*	var_dump($datos_publicacion);*/
+		/*var_dump($datos_publicacion);*/
 
 	$datos_publicacionfecha = require_once('../logica/procesarCargaPublicacionFecha.php');		
 	$datos_publicacionimg = require_once('../logica/procesarCargaPublicacionImg.php');		
@@ -81,7 +81,7 @@ require('header.php');
 			<div class="product-desc">
 				<div class="col-md-7 product-view">
 					<h2><?php echo utf8_encode($datos_publicacion['0']['TITULO']); ?></h2>
-					<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_publicacion['0']['ID']; ?>">denunciar publicacion</a>| creado el <?php echo date("d/m/Y", strtotime($datos_publicacionfecha['0']['FECHA'])); ?> a las <?php echo date("H:i", strtotime($datos_publicacionfecha['0']['FECHA'])); ?>, Publicacion: <?php echo $datos_publicacion['0']['ID']; ?></p>
+					<p><i class="fa fa-flag" aria-hidden="true"></i><a data-toggle="modal" data-target="#DenunciaPublicacionModal" href="javascript:void(0)">denunciar publicacion</a>| creado el <?php echo date("d/m/Y", strtotime($datos_publicacionfecha['0']['FECHA'])); ?> a las <?php echo date("H:i", strtotime($datos_publicacionfecha['0']['FECHA'])); ?>, Publicacion: <?php echo $datos_publicacion['0']['ID']; ?></p>
 					<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
 						<?php
 						if (count($datos_publicacionimg)>1){
@@ -313,7 +313,7 @@ require('header.php');
 										<li class="message left appeared">
 											<div class="text_wrapper">
 												<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['MENSAJE']); ?></div>
-												<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAM'])); ?></p>
+												<p><i class="fa fa-flag" aria-hidden="true"></i><a data-toggle="modal" data-target="#DenunciaChatModal<?php echo $i?>" href="javascript:void(0)"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAM'])); ?></p>
 											</div>
 										</li>
 										<?php
@@ -322,12 +322,13 @@ require('header.php');
 											<li class="message right appeared">
 												<div class="text_wrapper">
 													<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['RESPUESTA']); ?></div>
-													<p><i class="fa fa-flag" aria-hidden="true"></i><a href="report.php?id=<?php echo $datos_preguntas[$i]['ID']; ?>"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAR'])); ?></p>
+													<p><i class="fa fa-flag" aria-hidden="true"></i><a data-toggle="modal" data-target="#DenunciaChatModal<?php echo $i?>" href="javascript:void(0)"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAR'])); ?></p>
 												</div>
 											</li>
 											<?php
 										}
 										?>
+										<!-- ********************************************************************************************************************************************* -->
 										<?php
 									}
 									?>
@@ -372,9 +373,9 @@ require('header.php');
 			<div class="container superdeals-entry">
 				<div class="superdeals-top">
 					<h2 class="deals-logo">
-						<a href="javascript:void(0)">Más productos del vendedor</a>
+						<a href="javascript:void(0)(0)">Más productos del vendedor</a>
 					</h2>
-					<a class="view-more" href="javascript:void(0)">Ver Todos</a>
+					<a class="view-more" href="javascript:void(0)(0)">Ver Todos</a>
 				</div>
 				<div class="superdeals-slider currentBox active">
 					<div class="trend-ads">
@@ -446,9 +447,9 @@ require('header.php');
 		<div class="container superdeals-entry">
 			<div class="superdeals-top">
 				<h2 class="deals-logo">
-					<a href="javascript:void(0)">Otros productos similares</a>
+					<a href="javascript:void(0)(0)">Otros productos similares</a>
 				</h2>
-				<a class="view-more" href="javascript:void(0)">Ver Todos</a>
+				<a class="view-more" href="javascript:void(0)(0)">Ver Todos</a>
 			</div>
 			<div class="superdeals-slider currentBox active">
 				<div class="trend-ads">
@@ -557,46 +558,102 @@ require('header.php');
 		</div>
 	</div>
 </div>
-<!-- ********************************************************************************************************************************************* 
-<div class="modal fade" id="PermutaModal" tabindex="-1" role="dialog" aria-labelledby="PermutaModalLabel" aria-hidden="true">
+<!-- *********************************************************************************************************************************************  -->
+<div class="modal fade" id="DenunciaPublicacionModal" tabindex="-1" role="dialog" aria-labelledby="DenunciaPublicacionModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12 product_img">
-						<h4 class="lestitle" style="text-align: center;">Confirmacion de compra del articulo <br><span class="subtitle"><?php echo $datos_publicacion['0']['TITULO']; ?></span></h4>
-						<hr>
-					</div>
-					<div class="col-md-6 product_img">
-						<?php
-						cargarimgtn($datos_publicacion[0]['IMGDEFAULT']);
-						?>
-					</div>
-					<div class="col-md-6 product_content cppermuta">
-						
-						<h4 class="lestitle">Estado: <span class="subtitle"><?php echo $datos_publicacion['0']['ESTADOA']; ?></span></h4>
-						<h4 class="lestitle">Cantidad: <span class="subtitle"><?php echo $datos_publicacion['0']['CANTIDAD']; ?></span></h4>
-						<h5 class="lestitle">Descripcion: </h5>
-						<div class="product-details">
-							<?php echo htmlspecialchars_decode($datos_publicacion['0']['DESCRIPCION'], ENT_NOQUOTES); ?>
+				<form action="../logica/procesarAltaDenuncia.php" method="POST">
+					<div class="row">
+						<div class="col-md-12 product_img">
+							<h4 class="lestitle" style="text-align: center;">Denuncia de publicacion <br><span class="subtitle"><?php echo $datos_publicacion['0']['TITULO']; ?></span></h4>
+							<hr>
 						</div>
-						<h3 class="cost lestitle">Precio: <span class="subtitle"><i class="fa fa-usd" aria-hidden="true"></i><span id="subtotal"><?php echo $datos_publicacion['0']['PRECIO']; ?></span></span></h3>
-						<div class="space-ten"></div>
+						<div class="col-md-6 product_img">
+							<?php
+							cargarimgtn($datos_publicacion[0]['IMGDEFAULT']);
+							?>
+						</div>
+						<div class="col-md-6 product_content cppermuta">
+							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
+							<textarea class="form-control" rows="5" name="comentario"></textarea>
+							<input type="text" name="pubid" value="<?php echo $datos_publicacion['0']['ID']; ?>" hidden>
+							<input type="text" name="tipo" value="publicacion" hidden>
+							<div class="space-ten"></div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<form action="../logica/procesarCompraOfavorito.php" method="POST">
+				<div class="modal-footer">
 					<button name="boton" type="submit" class="btn btn-success" value="permuta">
-						<i class="fa fa-handshake-o"></i> Permutar
+						<i class="fa fa-handshake-o"></i> Denunciar
 					</button>
 					<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
-********************************************************************************************************************************************* -->
+<!-- ********************************************************************************************************************************************* -->
+<?php
+if (!isset($datos_preguntas['this'])) {
+	for ($i=0; $i < count($datos_preguntas); $i++) { 
+		?>
+		<div class="modal fade" id="DenunciaChatModal<?php echo $i?>" tabindex="-1" role="dialog" aria-labelledby="DenunciaChatModal<?php echo $i?>Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<form action="../logica/procesarAltaDenuncia.php" method="POST">
+							<div class="row">
+								<div class="col-md-12 product_img">
+									<h4 class="lestitle" style="text-align: center;">Denuncia de Chat <br></h4>
+									<hr>
+								</div>
+								<div class="col-md-12 product_img">
+									<ul class="messages">
+										<li class="message left appeared">
+											<div class="text_wrapper">
+												<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['MENSAJE']); ?></div>
+												<p><i class="fa fa-flag" aria-hidden="true"></i><a data-toggle="modal" data-target="#DenunciaChatModal<?php echo $i?>" href="javascript:void(0)"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAM'])); ?></p>
+											</div>
+										</li>
+										<?php
+										if (!empty($datos_preguntas[$i]['RESPUESTA'])) {
+											?>
+											<li class="message right appeared">
+												<div class="text_wrapper">
+													<div class="text"><?php echo utf8_encode($datos_preguntas[$i]['RESPUESTA']); ?></div>
+													<p><i class="fa fa-flag" aria-hidden="true"></i><a data-toggle="modal" data-target="#DenunciaChatModal<?php echo $i?>" href="javascript:void(0)"> denunciar </a>| creado el <?php echo date("d/m/Y H:i", strtotime($datos_preguntas[$i]['FECHAR'])); ?></p>
+												</div>
+											</li>
+											<?php 
+										}
+										?>
+									</ul>
+								</div>
+								<div class="col-md-12 product_content cppermuta">
+									<h4 class="lestitle">Cuentanos porque denuncias el chat:</h4>
+									<textarea class="form-control" rows="5" name="comentario"></textarea>
+									<input type="text" name="pubid" value="<?php echo $datos_preguntas[$i]['ID']; ?>" hidden>
+									<input type="text" name="tipo" value="chat" hidden>
+									<div class="space-ten"></div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button name="boton" type="submit" class="btn btn-success" value="permuta">
+								<i class="fa fa-handshake-o"></i> Denunciar
+							</button>
+							<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- ********************************************************************************************************************************************* -->
+		<?php
+	}	
+}
+?>
 <script type="text/javascript">
 	function marksel(id){
 		$('div[name=itemperm]').removeClass("vip-pub");

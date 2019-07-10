@@ -2,6 +2,9 @@
 if (!isset($_GET['id'])){
 	header('Location: ../view/index.php');
 }
+if (!isset($_SESSION['id'])){
+	header('Location: ../view/index.php');
+}
 require('definitions.php');
 ?>
 <link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />

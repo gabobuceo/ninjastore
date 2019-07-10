@@ -29,32 +29,6 @@ require('header.php');
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<?php
-/*
-select PUBLICACION.* from PUBLICACION where TITULO LIKE "%ubl%" or TITULO LIKE "%cion%" or TITULO LIKE "%Cama%" 
-UNION ALL
-select P.* from PUBLICACION P, CATEGORIA C where C.ID = P.IDCATEGORIA
-and (C.TITULO LIKE "%ubl%" or C.TITULO LIKE "%cion%" or C.TITULO LIKE "%Cama%")
-order by locate('ubl', TITULO) asc, locate('cion', TITULO) asc, locate('Cama', TITULO) asc, TITULO asc
-*/
-
-
-/*var_dump($datos_publicaciones);*/
-?>
-<!--
-		<div class="container superdeals-entry">
-			<div class="superdeals-top">
-				<h2 class="deals-logo">
-					<a href="javascript:void(0)">Filtros</a>
-				</h2>
-				
-			</div>
-			<div class="superdeals-slider currentBox active">
-				
-			</div>
-		</div>
-	-->
-	
 	<div class="row"  style="width: 100% !important ;">
 		<div class="col-sm-12 col-md-12">
 			<div class="container superdeals-entry" style="width: 100% !important ;">
@@ -119,7 +93,7 @@ order by locate('ubl', TITULO) asc, locate('cion', TITULO) asc, locate('Cama', T
 													<span class="price">&#36; <?php echo $datos_publicaciones[$i]['PRECIO']; ?></span>
 												</a> 
 												<div class="ad-info">
-													<h5><?php echo $datos_publicaciones[$i]['TITULO']; ?></h5>
+													<h5><?php echo utf8_encode($datos_publicaciones[$i]['TITULO']); ?></h5>
 													<span><?php echo $datos_publicaciones[$i]['FECHA']; ?></span>
 												</div>
 											</div>

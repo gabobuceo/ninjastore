@@ -10,7 +10,9 @@
         'windowswebp' => 'C:\\xampp\\htdocs\\ninjastore\\html\\static\\libwebp-windows\\bin\\',
         'windowsimagenes' => 'C:\\xampp\\htdocs\\ninjastore\\html\\imagenes\\',
         'modotest' => true,
-        'comisiones' => '0.05',
+        'comisiones' => '5',
+        'comisionesvip' => '3',
+        'iva' => '22',
         'app_info' => array(
             'appName'=>"Ninja Store",
             'appURL'=> "http://www.nijastore.uy/"

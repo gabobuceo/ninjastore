@@ -37,13 +37,16 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 	/*var_dump($datos_publicaciones);
 	echo "<br><br>";*/
 	?>
+	<!--
 	<div class="container superdeals-entry">
+		
 		<div class="superdeals-top">
 			<h2 class="deals-logo">
 				<a href="javascript:void(0)">Las Mejores Ofertas</a>
 			</h2>
 			<a class="view-more" href="../view/search.php?buscar=ofertas">Ver Todos</a>
 		</div>
+
 		<div class="superdeals-slider currentBox active">
 			<div class="trend-ads">
 				<?php
@@ -63,7 +66,7 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 							}
 							$j++;
 							?>
-							<div class="col-md-3 biseller-column">
+							<div class="col-md-3 biseller-column <>">
 								<a href="publication.php?id=<?php echo $datos_ofertas[$i]['ID']; ?>">
 									<img src="../imagenes/<?php echo $datos_ofertas[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
 									<span class="price">&#36; <?php echo $datos_ofertas[$i]['PRECIO']; ?></span>
@@ -110,6 +113,7 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 			?>
 		</div>
 	</div>
+-->
 </div>
 <!-- ::::::::::::::  FIN OFERTAS  :::::::::::::: -->
 
@@ -127,7 +131,7 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 			if (!isset($datos_publicaciones['this'])) {
 				for ($i=0; $i < count($datos_publicaciones); $i++) { 
 					?>
-					<div class="col-md-3 biseller-column">
+					<div class="col-md-3 biseller-column <?php if($datos_publicaciones[$i]['TIPO']=='VIP'){ echo 'vip-pub'; } ?>">
 						<a href="publication.php?id=<?php echo $datos_publicaciones[$i]['ID']; ?>">
 							<img src="../imagenes/<?php echo $datos_publicaciones[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
 							<span class="price">&#36; <?php echo $datos_publicaciones[$i]['PRECIO']; ?></span>

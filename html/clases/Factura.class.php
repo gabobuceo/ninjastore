@@ -29,9 +29,10 @@ class Factura{
 	private $fechav;
 	private $estado;
 	private $subtotal;
+	private $fechap;
 	private $baja;
 
-	function __construct($id='',$ic='',$iu='',$ip='',$fc='',$fv='',$es='',$su='',$ba=''){
+	function __construct($id='',$ic='',$iu='',$ip='',$fc='',$fv='',$es='',$su='',$fp='',$ba=''){
 		$this->id= $id;
 		$this->idCompra= $ic;
 		$this->idUsuario= $iu;
@@ -40,6 +41,7 @@ class Factura{
 		$this->fechav= $fv;
 		$this->estado= $es;
 		$this->subtotal= $su;
+		$this->fechap= $fp;
 		$this->baja= $ba;
 	}
 
@@ -69,6 +71,9 @@ class Factura{
 	}
 	public function setSubtotal($su){
 		$this->subtotal= $su;
+	}
+	public function setFechap($fp){
+		$this->fechap= $fp;
 	}
 	public function setBaja($ba){
 		$this->baja=$ba;
@@ -102,6 +107,9 @@ class Factura{
 	public function getSubtotal(){
 		return $this->subtotal;
 	}
+	public function getFechap(){
+		return $this->fechap;
+	}
 	public function getBaja(){
 		return $this->baja;
 	}
@@ -114,13 +122,23 @@ class Factura{
     }
 	public function consultaTodos($conex){
 		$cat=new PersistenciaFactura;
-		$datos= $cat->consTodos($conex);
+		$datos= $cat->consTodos($this,$conex);
 		return $datos;
 	}
 
 	public function consultaUno($conex){
 		$cat=new PersistenciaFactura;
 		$datos= $cat->consUno($this,$conex);
+		return $datos;
+	}
+	public function consultaPendientes($conex){
+		$cat=new PersistenciaFactura;
+		$datos= $cat->consPendientes($this,$conex);
+		return $datos;
+	}
+	public function consultaUnoFechas($conex){
+		$cat=new PersistenciaFactura;
+		$datos= $cat->consUnoFechas($this,$conex);
 		return $datos;
 	}
 }

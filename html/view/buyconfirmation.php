@@ -2,6 +2,9 @@
 if (!isset($_GET['id'])){
 	header('Location: ../view/index.php');
 }
+if (!isset($_SESSION['id'])){
+	header('Location: ../view/index.php');
+}
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
@@ -93,7 +96,7 @@ require('header.php');
 				</div>
 				<div class="signin">
 					<div class="buyingdata">
-						<h4>Datos de la Compra</h4>
+						<h4 style="float: left;">Datos de la Compra</h4><h4 style="float: right; text-align: right;"><a data-toggle="modal" data-target="#DenunciaCompraModal" href="javascript:void(0)">Denunciar Compra</a></h4> 
 						<div class="row">
 							<div class="col-xs-12">
 								<p><b>Producto: </b> <?php echo utf8_encode($datos_compra[0]['TITULO'])?></p>
@@ -104,7 +107,7 @@ require('header.php');
 						</div>
 					</div>			
 					<div class="buyingdata">
-						<h4>Datos del Vendedor</h4>
+						<h4 style="float: left;">Datos del Vendedor</h4><h4 style="float: right; text-align: right;"><a data-toggle="modal" data-target="#DenunciaVendedorModal" href="javascript:void(0)">Denunciar Vendedor</a></h4> 
 						<div class="row">
 							<div class="col-xs-12">
 								<p><b>Nombre Completo: </b><?php echo utf8_encode($nombrecompleto) ?></p>
@@ -152,7 +155,7 @@ require('header.php');
 						</div>
 					</div>
 					<div class="buyingdata">
-						<h4>Datos de Comprador</h4>
+						<h4 style="float: left;">Datos del Comprador</h4><h4 style="float: right; text-align: right;"><a data-toggle="modal" data-target="#DenunciaCompradorModal" href="javascript:void(0)">Denunciar Vendedor</a></h4>
 						<div class="row">
 							<div class="col-xs-12">
 								<p><b>Nombre Completo: </b><?php echo utf8_encode($datos_compra[0]['PNOMBRECOMPRADOR'].' '.$datos_compra[0]['PAPELLIDOCOMPRADOR']) ?></p>
@@ -463,6 +466,143 @@ require('header.php');
 		</div>
 	</div>
 </section>
+<!-- *********************************************************************************************************************************************  -->
+<div class="modal fade" id="DenunciaCompraModal" tabindex="-1" role="dialog" aria-labelledby="DenunciaPublicacionModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form action="../logica/procesarAltaDenuncia.php" method="POST">
+					<div class="row">
+						<div class="col-md-12 product_img">
+							<h4 class="lestitle" style="text-align: center;">Denuncia de Compra</h4>
+							<hr>
+						</div>
+						<div class="col-md-6 product_img">
+							<h4">Datos de la Compra</h4>
+							<div class="row">
+								<div class="col-xs-12">
+									<p><b>Producto: </b> <?php echo utf8_encode($datos_compra[0]['TITULO'])?></p>
+									<p><b>Precio unitario: $</b><?php echo $datos_compra[0]['TOTAL']?></p>
+									<p><b>Cantidad: </b> <?php echo $datos_compra[0]['CANTIDAD']?> unidad/es</p>
+									<p><b>Total: $</b><?php echo $datos_compra[0]['TOTAL'] * $datos_compra[0]['CANTIDAD']?></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 product_content cppermuta">
+							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
+							<textarea class="form-control" rows="5" name="comentario"></textarea>
+							<input type="text" name="pubid" value="<?php echo $datos_compra['0']['ID']; ?>" hidden>
+							<input type="text" name="tipo" value="compra" hidden>
+							<div class="space-ten"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button name="boton" type="submit" class="btn btn-success" value="permuta">
+						<i class="fa fa-handshake-o"></i> Denunciar
+					</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- *********************************************************************************************************************************************  -->
+<div class="modal fade" id="DenunciaVendedorModal" tabindex="-1" role="dialog" aria-labelledby="DenunciaPublicacionModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form action="../logica/procesarAltaDenuncia.php" method="POST">
+					<div class="row">
+						<div class="col-md-12 product_img">
+							<h4 class="lestitle" style="text-align: center;">Denuncia de Usuario</h4>
+							<hr>
+						</div>
+						<div class="col-md-6 product_img">
+							<h4>Datos del Vendedor</h4>
+							<div class="row">
+								<div class="col-xs-12">
+									<p><b>Nombre Completo: </b><?php echo utf8_encode($nombrecompleto) ?></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<p><b>Email: </b><a href="mailto:<?php echo $datos_compra[0]['EMAIL']?>"><?php echo $datos_compra[0]['EMAIL']?></a></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<p><b>Dirección: </b><?php echo $datos_compra[0]['CALLE']?> <?php echo utf8_encode($datos_compra[0]['NUMERO'])?></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 product_content cppermuta">
+							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
+							<textarea class="form-control" rows="5" name="comentario"></textarea>
+							<input type="text" name="pubid" value="<?php echo $datos_compra['0']['IDVENDEDOR']; ?>" hidden>
+							<input type="text" name="tipo" value="usuario" hidden>
+							<div class="space-ten"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button name="boton" type="submit" class="btn btn-success" value="permuta">
+						<i class="fa fa-handshake-o"></i> Denunciar
+					</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- *********************************************************************************************************************************************  -->
+<div class="modal fade" id="DenunciaCompradorModal" tabindex="-1" role="dialog" aria-labelledby="DenunciaPublicacionModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form action="../logica/procesarAltaDenuncia.php" method="POST">
+					<div class="row">
+						<div class="col-md-12 product_img">
+							<h4 class="lestitle" style="text-align: center;">Denuncia de Usuario</h4>
+							<hr>
+						</div>
+						<div class="col-md-6 product_img">
+							<h4>Datos del Comprador</h4>
+							<div class="row">
+								<div class="col-xs-12">
+									<p><b>Nombre Completo: </b><?php echo utf8_encode($datos_compra[0]['PNOMBRECOMPRADOR'].' '.$datos_compra[0]['PAPELLIDOCOMPRADOR']) ?></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<p><b>Email: </b><a href="mailto:<?php echo $datos_compra[0]['EMAILCOMPRADOR']?>"><?php echo $datos_compra[0]['EMAILCOMPRADOR']?></a></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<p><b>Cedula: </b><?php echo $datos_compra[0]['CEDULACOMPRADOR']?></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 product_content cppermuta">
+							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
+							<textarea class="form-control" rows="5" name="comentario"></textarea>
+							<input type="text" name="pubid" value="<?php echo $datos_compra['0']['IDCOMPRADOR']; ?>" hidden>
+							<input type="text" name="tipo" value="usuario" hidden>
+							<div class="space-ten"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button name="boton" type="submit" class="btn btn-success" value="permuta">
+						<i class="fa fa-handshake-o"></i> Denunciar
+					</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 <!-- ::::::::::::::  FIN LOGIN  :::::::::::::: -->
 <?php 
 /*-----------------------------------------------------------------------------------------------------------*/

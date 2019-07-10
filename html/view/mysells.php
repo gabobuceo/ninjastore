@@ -1,101 +1,15 @@
 <?php 
 session_start();
+if (!isset($_SESSION['id'])){
+	header('Location: ../view/index.php');
+}
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
 <script type="text/javascript" src="../static/js/canvasjs.min.js"></script>
-<script>
-	/*
-	window.onload = function () {
-		var chartbuy = new CanvasJS.Chart("chartseller", {
-			exportEnabled: true,
-			animationEnabled: true,
-			title:{
-				text: "Calificacion como Comprador"
-			}, 
-			axisX: {
-				title: "Calificacion"
-			},
-			axisY: {
-				title: "Compras",
-				titleFontColor: "#4F81BC",
-				lineColor: "#4F81BC",
-				labelFontColor: "#4F81BC",
-				tickColor: "#4F81BC"
-			},
-			toolTip: {
-				shared: true
-			},
-			legend: {
-				cursor: "pointer",
-				itemclick: toggleDataSeries
-			},
-			data: [{
-				type: "column",
-				name: "Compras",
-				showInLegend: true,      
-				yValueFormatString: "#,##0.# votos",
-				dataPoints: [
-				{ label: "Estrella 1",  y: 2 },
-				{ label: "Estrella 2", y: 1 },
-				{ label: "Estrella 3", y: 4 },
-				{ label: "Estrella 4",  y: 8 },
-				{ label: "Estrella 5",  y: 200 }
-				]
-			}]
-		});
-		chartbuy.render();
-		var chartselling = new CanvasJS.Chart("chartselling", {
-			theme: "light2",
-			animationEnabled: true,
-			title:{
-				text: "Grafica de compras mensuales - 2017"   
-			},
-			axisX: {
-				interval: 1,
-				intervalType: "month",
-				valueFormatString: "MMM"
-			},
-			axisY:{
-				title: "Gastos (en $U)",
-				valueFormatString: "$#0"
-			},
-			data: [{        
-				type: "line",
-				markerSize: 12,
-				xValueFormatString: "MMM, YYYY",
-				yValueFormatString: "$###.#",
-				dataPoints: [        
-				{ x: new Date(2016, 00, 1), y: 61, indexLabel: "gain", markerType: "triangle",  markerColor: "#6B8E23" },
-				{ x: new Date(2016, 01, 1), y: 71, indexLabel: "gain", markerType: "triangle",  markerColor: "#6B8E23" },
-				{ x: new Date(2016, 02, 1) , y: 55, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 03, 1) , y: 50, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 04, 1) , y: 65, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 05, 1) , y: 85, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 06, 1) , y: 68, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 07, 1) , y: 28, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 08, 1) , y: 34, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 09, 1) , y: 24, indexLabel: "loss", markerType: "cross", markerColor: "tomato" },
-				{ x: new Date(2016, 10, 1) , y: 44, indexLabel: "gain", markerType: "triangle", markerColor: "#6B8E23" },
-				{ x: new Date(2016, 11, 1) , y: 34, indexLabel: "loss", markerType: "cross", markerColor: "tomato" }
-				]}]
-			});
-		chartselling.render();
-		function toggleDataSeries(e) {
-			if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-				e.dataSeries.visible = false;
-			} else {
-				e.dataSeries.visible = true;
-			}
-			e.chart.render();
-		}
-	}
-	*/
-</script>
 
-<!--<link rel='stylesheet' href='../static/css/jquery.dataTables.min.css'>-->
 <link rel='stylesheet' href='../static/css/dataTables.bootstrap.min.css'>
 
 <script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
