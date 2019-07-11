@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['idbk'])){
+	header('Location: ../view/login.php');
+}
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/

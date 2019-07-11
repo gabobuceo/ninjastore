@@ -127,6 +127,12 @@ class Categoria
 		$datos= $cat->modificarCat($this,$conex);
 		return $datos;
 	}
+	public function modificarPadre($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->modificarPad($this,$conex);
+		return $datos;
+	}
 	public function bajaCategoria($conex)
 	{
 		$cat=new PersistenciaCategoria;

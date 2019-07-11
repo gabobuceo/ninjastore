@@ -16,10 +16,12 @@ require('definitions.php');
 require('header.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo el contenido de esta pagina aqui.*/
-$datos_categoria = cargarUnaCategoria($_GET['idCatMod']);
-$tituloPadre = cargarTituloCategoria($datos_categoria[0]['PADRE']);
-$categorias_padre = cargarCategoriasPadreActivas();
-if (!(is_null($_GET['padre']))) {
+$_SESSION['CatID']=1;
+							$datos_categoria = require_once('../logica/procesarCargaCategoria.php');
+							unset($_SESSION['CatID']);
+//$tituloPadre = cargarTituloCategoria($datos_categoria[0]['PADRE']);
+//$categorias_padre = cargarCategoriasPadreActivas();
+/*if (!(is_null($_GET['padre']))) {
 	$esPadre = $_GET['padre'];
 }else {
 	$esPadre = 0;
@@ -27,7 +29,7 @@ if (!(is_null($_GET['padre']))) {
 unset($_SESSION['idCatMod']);
 unset($_GET['padre']);
 // var_dump($esPadre);
-// die();
+// die();*/
 ?>
 <div class="row affix-row">
 	<div class="col-sm-3 col-md-2 affix-sidebar">

@@ -4,33 +4,17 @@ require_once('../../logica/funciones.php');
 require_once('../clases/Categoria.class.php');
 require_once('../clases/commit.class.php');
 // -------- CHECK AND GET DATA ----
-//Consultamos el modo en que
 $error=false;
-
-if (!isset($_POST['titulo'])){
-  $mensaje[] =  "No se ingresó el titulo<br>";
-  $error=true;
-}else{
-  if ($_POST['titulo']==""){
-    $mensaje[] =  "El titulo no puede estar vacio<br>";
-    $error=true;
-  }
-  if (is_null($_POST['titulo'])){
-    $mensaje[] =  "El titulo no puede ser nulo<br>";
-    $error=true;
-  }
-}
-
 if (!isset($_POST['categoria'])){
-  $mensaje[] =  "No se ingresó categoría padre<br>";
+  $mensaje[] =  "No se ingresó el categoria<br>";
   $error=true;
 }else{
   if ($_POST['categoria']==""){
-    $mensaje[] =  "La categoría padre no puede estar vacía<br>";
+    $mensaje[] =  "El categoria no puede estar vacio<br>";
     $error=true;
   }
   if (is_null($_POST['categoria'])){
-    $mensaje[] =  "La categoría padre no puede ser nulo<br>";
+    $mensaje[] =  "El categoria no puede ser nulo<br>";
     $error=true;
   }
 }
@@ -39,10 +23,9 @@ if ($error==true){
   $_SESSION['mobjetivo']="misdatos";
   $_SESSION['mtipo']="alert-info";
   $_SESSION['mtexto']="<strong>!Ojo! </strong>".implode($mensaje);
-  header("Location: ../view/mgmtcategories.php");
+  header("Location: ../view/mgmtcategories.php?id=".$_POST['idcat']);
 }else{
-
-  $titulo=$_POST['titulo'];
+  $idcat=$_POST['idcat'];
   $categoria=$_POST['categoria'];
 
   try {
@@ -50,21 +33,19 @@ if ($error==true){
     $commiteo= new Commit();
     $commiteo->AutoCommitOFF($conex);
     $commiteo->TransactionStart($conex);
-    $c= new Categoria('',$categoria,$titulo,'');
-    // var_dump($c);
-    // die();
-    if ($c->altaCategoria($conex)!= TRUE){
+    $c= new Categoria($idcat,$categoria);
+    if ($c->modificarPadre($conex)!= TRUE){
       $commiteo->Rollbackeo($conex);
       $_SESSION['mobjetivo']="misdatos";
       $_SESSION['mtipo']="alert-warning";
-      $_SESSION['mtexto']="<strong>!Problema! </strong>Error al crear la categoría";
-      header("Location: ../view/mgmtcategories.php");
+      $_SESSION['mtexto']="<strong>!Problema! </strong>No se pudo modificar los datos de la categoria";
+      header("Location: ../view/mgmtcategories.php?id=".$idcat);
     }else{
       $commiteo->Commiteo($conex);
       $_SESSION['mobjetivo']="misdatos";
       $_SESSION['mtipo']="alert-info";
-      $_SESSION['mtexto']="<strong>!Se creó la categoría con exito! </strong>";
-      header("Location: ../view/mgmtcategories.php");
+      $_SESSION['mtexto']="<strong>!Cambios realizados con exito! </strong>";
+      header("Location: ../view/mgmtcategories.php?id=".$idcat);
 
     }
   } catch (PDOException $e) {
@@ -72,7 +53,7 @@ if ($error==true){
     $_SESSION['mobjetivo']="misdatos";
     $_SESSION['mtipo']="alert-danger";
     $_SESSION['mtexto']="<strong>!Error! </strong>".$e->getMessage();;
-    header("Location: ../view/mgmtcategories.php");
+    header("Location: ../view/mgmtcategories.php?id=".$idcat);
 
   }
 }

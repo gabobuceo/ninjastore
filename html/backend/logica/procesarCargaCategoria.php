@@ -1,7 +1,6 @@
 <?php
-require_once('../logica/funciones.php');
+require_once('../../logica/funciones.php');
 require_once('../clases/Categoria.class.php');
-$config = include('../config/config.php');
 // -------- GET DATA ----
 $idcategoria = $_SESSION['CatID'];
 

@@ -1,11 +1,10 @@
-<?PHP
+<?php
 
-CLASS PERSISTENCIACATEGORIA
-{
+class PersistenciaCategoria{
 
 	public function consUno($obj, $conex){
 		$id= trim($obj->getId());
-		$sql = "SELECT * FROM CATEGORIA WHERE ID=:ID";
+		$sql = "SELECT DATOS_CATEGORIAS.*,CATEGORIA.TITULO AS TITULOPADRE FROM DATOS_CATEGORIAS,CATEGORIA WHERE CATEGORIA.ID=DATOS_CATEGORIAS.PADRE AND DATOS_CATEGORIAS.ID=:ID";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();
@@ -14,7 +13,7 @@ CLASS PERSISTENCIACATEGORIA
 
 	public function consActivas($conex)
 	{
-		$sql = "SELECT * FROM CATEGORIA WHERE BAJA=0";
+		$sql = "SELECT DATOS_CATEGORIAS.*,CATEGORIA.TITULO AS TITULOPADRE FROM DATOS_CATEGORIAS,CATEGORIA WHERE CATEGORIA.ID=DATOS_CATEGORIAS.PADRE AND DATOS_CATEGORIAS.BAJA=0";
 		$result = $conex->prepare($sql);
 		$result->execute();
 		$resultados=$result->fetchall();
@@ -23,7 +22,7 @@ CLASS PERSISTENCIACATEGORIA
 
 	public function consInactivas($conex)
 	{
-		$sql = "SELECT * FROM CATEGORIA WHERE BAJA=1";
+		$sql = "SELECT DATOS_CATEGORIAS.*,CATEGORIA.TITULO AS TITULOPADRE FROM DATOS_CATEGORIAS,CATEGORIA WHERE CATEGORIA.ID=DATOS_CATEGORIAS.PADRE AND DATOS_CATEGORIAS.BAJA=1";
 		$result = $conex->prepare($sql);
 		$result->execute();
 		$resultados=$result->fetchall();
@@ -32,7 +31,7 @@ CLASS PERSISTENCIACATEGORIA
 
 	public function consTodos($conex)
 	{
-		$sql = "SELECT * FROM CATEGORIA";
+		$sql = "SELECT DATOS_CATEGORIAS.*,CATEGORIA.TITULO AS TITULOPADRE FROM DATOS_CATEGORIAS,CATEGORIA WHERE CATEGORIA.ID=DATOS_CATEGORIAS.PADRE";
 		$result = $conex->prepare($sql);
 		$result->execute();
 		$resultados=$result->fetchall();
@@ -42,7 +41,7 @@ CLASS PERSISTENCIACATEGORIA
 	//Devuelve las categorias padre
 	public function consPadres($conex)
 	{
-		$sql = "SELECT * FROM CATEGORIA WHERE PADRE=1";
+		$sql = "SELECT * FROM DATOS_CATEGORIAS WHERE PADRE=1 AND BAJA=0";
 		$result = $conex->prepare($sql);
 		$result->execute();
 		$resultados=$result->fetchall();
@@ -52,7 +51,7 @@ CLASS PERSISTENCIACATEGORIA
 	//Devuelve las catorias padre y activas
 	public function consPadresaActivas($conex)
 	{
-		$sql = "SELECT * FROM CATEGORIA WHERE PADRE=1 AND BAJA=0";
+		$sql = "SELECT * FROM DATOS_CATEGORIAS WHERE PADRE=1 AND BAJA=0";
 		$result = $conex->prepare($sql);
 		$result->execute();
 		$resultados=$result->fetchall();
@@ -60,20 +59,20 @@ CLASS PERSISTENCIACATEGORIA
 	}
 
 
-	PUBLIC FUNCTION CONSHIJOS($OBJ, $CONEX)
+	public function consHijos($obj, $conex)
 	{
-		$ID= TRIM($OBJ->GETIDPADRE());
-		//DIE(VAR_DUMP($IDPADRE));
-		$SQL = "SELECT * FROM CATEGORIA WHERE PADRE=:ID";
-		$RESULT = $CONEX->PREPARE($SQL);
-		$RESULT->EXECUTE(ARRAY(":ID" => $ID));
-		$RESULTADOS=$RESULT->FETCHALL();
-		RETURN $RESULTADOS;
+		$idpadre= trim($obj->getidpadre());
+		//die(var_dump($idpadre));
+		$sql = "SELECT * FROM CATEGORIA WHERE PADRE=:PADRE AND BAJA=0";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":PADRE" => $idpadre));
+		$resultados=$result->fetchall();
+		return $resultados;
 	}
 	//Pasando ID de una categoria que devuelva el titulo
 	public function consTitulo($obj, $conex){
 		$id= trim($obj->getId());
-		$sql = "SELECT TITULO FROM CATEGORIA WHERE ID=:ID";
+		$sql = "SELECT TITULO FROM DATOS_CATEGORIAS WHERE ID=:ID AND BAJA=0";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();
@@ -102,12 +101,28 @@ CLASS PERSISTENCIACATEGORIA
 	public function modificarCat($obj, $conex)
 	{
 			$id= trim($obj->getId());
-			$padre= trim($obj->getIdPadre());
 			$titulo= trim($obj->getTitulo());
-			$sql = "UPDATE CATEGORIA SET PADRE=:PADRE,TITULO=:TITULO WHERE ID=:ID";
+			$sql = "UPDATE CATEGORIA SET TITULO=:TITULO WHERE ID=:ID";
+			$result = $conex->prepare($sql);
+			$result->execute(array(":TITULO" => $titulo,					
+									":ID" => $id));
+					//Para saber si ocurrió un error
+			if($result)
+			{
+				return(true);
+			}
+			else
+			{
+			return(false);
+			}
+	}
+	public function modificarPad($obj, $conex)
+	{
+			$id= trim($obj->getId());
+			$padre= trim($obj->getIdPadre());
+			$sql = "UPDATE CATEGORIA SET PADRE=:PADRE WHERE ID=:ID";
 			$result = $conex->prepare($sql);
 			$result->execute(array(":PADRE" => $padre,
-					":TITULO" => $titulo,					
 					":ID" => $id));
 					//Para saber si ocurrió un error
 			if($result)
@@ -122,9 +137,11 @@ CLASS PERSISTENCIACATEGORIA
 	public function bajaCat($obj, $conex)
 	{
 			$id= trim($obj->getId());
-			$sql = "UPDATE CATEGORIA SET BAJA=1 WHERE ID=:ID";
+			$baja= trim($obj->getBaja());
+			$sql = "UPDATE CATEGORIA SET BAJA=:BAJA, PADRE=1 WHERE ID=:ID";
 			$result = $conex->prepare($sql);
-			$result->execute(array(":ID" => $id));
+			$result->execute(array(":ID" => $id,
+									":BAJA" => $baja));
 			//Para saber si ocurrió un error
 			if($result)
 			{

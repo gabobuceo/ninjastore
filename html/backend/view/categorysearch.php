@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('definitions.php');
-require_once('../logica/funciones.php');
+require_once('../../logica/funciones.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/

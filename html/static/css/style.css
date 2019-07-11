@@ -1728,7 +1728,8 @@ h4.rate {
 }
 @media (min-width: 1220px){
   .affix-row{
-    overflow: hidden;
+    /*overflow: hidden;*/
+    overflow: inherit !important;
     background-color: white;1
   }
   .affix-content{
