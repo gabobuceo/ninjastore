@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -11,19 +11,16 @@ require('definitions.php');
 		alert("grecaptcha is ready!");
 	};
 </script>
-<?php
+<?php 
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin scripts de esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo control, puntual para esta pagina (Como la sesion).*/
 /*-----------------------------------------------------------------------------------------------------------*/
-// if (isset($_SESSION['USERNAME'])){
-// 	header("Location: index.php");
-// }
+if (isset($_SESSION['USERNAMEBK'])){
+	header("Location: index.php");
+}
 if (isset($_POST) and !empty($_POST)){
-	/*$sender_name = stripslashes($_POST["sender_name"]);
-	$sender_email = stripslashes($_POST["sender_email"]);
-	$sender_message = stripslashes($_POST["sender_message"]);*/
 	$response = $_POST["g-recaptcha-response"];
 	$url = 'https://www.google.com/recaptcha/api/siteverify';
 	$data = array(
@@ -36,15 +33,15 @@ if (isset($_POST) and !empty($_POST)){
 			'content' => http_build_query($data)
 		)
 	);
-	$context = stream_context_create($options);
+	$context  = stream_context_create($options);
 	$verify = file_get_contents($url, false, $context);
 	$captcha_success=json_decode($verify);
-	if ($captcha_success->success==false) {
+	if ($captcha_success->success==false) {		
 		$errmess=1;
 
 	} else if ($captcha_success->success==true) {
-		$_SESSION['USERNAME']=$_POST['user'];
-		$_SESSION['PASSWORD']=$_POST['pass'];
+		$_SESSION['USERNAMEBK']=$_POST['user'];
+		$_SESSION['PASSWORDBK']=$_POST['pass'];
 		header("Location: index.php");
 		exit();
 	}
@@ -54,7 +51,6 @@ require('header.php');
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<!-- ::::::::::::::  LOGIN  :::::::::::::: -->
 <section>
 	<div id="page-wrapper" class="sign-in-wrapper">
 		<div class="graphs">
@@ -65,19 +61,17 @@ require('header.php');
 			?>
 			<div class="sign-in-form">
 				<div class="sign-in-form-top">
-					<h1>Iniciar Sesion</h1>
+					<center><font color="green"><h2>Iniciar Sesión</h2></font></center>
 				</div>
 				<div class="signin">
 					<?php
 					if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="login.php"){
-						/*debugconsola($_SESSION['debugeame']);
-						debugconsola($_SESSION['mobjetivo']);*/
 						echo "<div class='alert ".$_SESSION['mtipo']." alert-dismissable'>
 						<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
 						unset($_SESSION['mobjetivo']);
 						unset($_SESSION['mtipo']);
-						unset($_SESSION['mtexto']);
-						unset($_SESSION['debugeame']);
+						unset($_SESSION['mtexto']);	
+						unset($_SESSION['debugeame']);				
 					}
 					?>
 					<form action="../logica/procesarLogin.php" method="POST">
@@ -97,14 +91,13 @@ require('header.php');
 							<div class="g-recaptcha" data-sitekey="6LdtADUUAAAAAEWxW3NrYhsHPteqlpiezGNGwWS-"></div>
 						</div>
 						<input type="submit" value="Acceder">
-					</form>
+					</form>	 
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<!-- ::::::::::::::  FIN LOGIN  :::::::::::::: -->
-<?php
+<?php 
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin contenido de esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/

@@ -11,14 +11,14 @@
 		</div>
 		<div class="navbar-collapse collapse sidebar-navbar-collapse">
 			<ul class="nav navbar-nav" id="sidenav01">
-				<li <?php if ($_SESSION['menu']==1) { echo "class='active'"; } ?>><a href="sumary.php"><i class="fa fa-book" aria-hidden="true"></i> Resumen</a></li>
-				<li <?php if ($_SESSION['menu']==2) { echo "class='active'"; } ?>><a href="myprofile.php"><i class="fa fa-id-card" aria-hidden="true"></i> Mi Perfil</a></li>
-        <li <?php if ($_SESSION['menu']==3) { echo "class='active'"; } ?>><a href="profilesearch.php"><i class="fa fa-id-card" aria-hidden="true"></i> Buscar Perfil</a></li>
-				<li <?php if ($_SESSION['menu']==4) { echo "class='active'"; } ?>><a href="register.php"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Crear Perfil</a></li>
-				<li <?php if ($_SESSION['menu']==5) { echo "class='active'"; } ?>><a href="mymessages.php"><i class="fa fa-commenting" aria-hidden="true"></i> Mensajes</a></li>
-				<li <?php if ($_SESSION['menu']==6) { echo "class='active'"; } ?>><a href="myreports.php"><i class="fa fa-user-secret" aria-hidden="true"></i> Denuncias</a></li>
-				<li <?php if ($_SESSION['menu']==7) { echo "class='active'"; } ?>><a href="categorysearch.php"><i class="fa fa-edit" aria-hidden="true"></i> Modificar Categoría</a></li>
-				<li <?php if ($_SESSION['menu']==8) { echo "class='active'"; } ?>><a href="categoryAlta.php"><i class="fa fa-edit" aria-hidden="true"></i> Alta Categoría</a></li>
+				<li <?php if ($_SESSION['menu']==1) { echo "class='active'"; } ?>><a href="sumary.php"><i class="fa fa-book" aria-hidden="true"></i> Inicio</a></li>
+				<li <?php if ($_SESSION['menu']==2) { echo "class='active'"; } ?>><a href="mgmtusers.php"><i class="fa fa-id-card" aria-hidden="true"></i> Gestion de Usuarios</a></li>
+        		<li <?php if ($_SESSION['menu']==3) { echo "class='active'"; } ?>><a href="profilesearch.php"><i class="fa fa-id-card" aria-hidden="true"></i> Gestion de Categorias</a></li>
+				<li <?php if ($_SESSION['menu']==4) { echo "class='active'"; } ?>><a href="register.php"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Gestion de Publicaciones</a></li>
+				<li <?php if ($_SESSION['menu']==5) { echo "class='active'"; } ?>><a href="mymessages.php"><i class="fa fa-usd" aria-hidden="true"></i> Gestion de Ventas</a></li>
+				<li <?php if ($_SESSION['menu']==6) { echo "class='active'"; } ?>><a href="myreports.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Gestion de Compras</a></li>
+				<li <?php if ($_SESSION['menu']==7) { echo "class='active'"; } ?>><a href="categorysearch.php"><i class="fa fa-money" aria-hidden="true"></i> Gestion de Facturas</a></li>
+				<li <?php if ($_SESSION['menu']==8) { echo "class='active'"; } ?>><a href="categoryAlta.php"><i class="fa fa-bug" aria-hidden="true"></i> Gestion de Denuncias</a></li>
 			</ul>
 		</div>
 	</div>

@@ -7,7 +7,7 @@ session_start();
 $usuario= strip_tags(trim($_POST['usuario']));
 $password = strip_tags(trim($_POST['password']));
 
-if (empty($_POST['g-recaptcha-response'])) {
+if (empty($_POST['g-recaptcha-response']) and $config->modotest=false) {
 	$_SESSION['mobjetivo']="login.php";
 	$_SESSION['mtipo']="alert-warning";
 	$_SESSION['mtexto']="<strong>!Problema! </strong>No fue comprobado el capcha";
@@ -18,11 +18,15 @@ if (empty($_POST['g-recaptcha-response'])) {
 		$u= new Usuario ('','',$usuario,$password);
 		$datos_u=$u->coincideLoginPassword($conex);
 		if (!empty($datos_u)){
-			$_SESSION["usu"]=$datos_u[0]["USUARIO"];
-			$_SESSION["name"]=$datos_u[0]["PNOMBRE"];
-			$_SESSION["sname"]=$datos_u[0]["PAPELLIDO"];
-			$_SESSION["id"]=$datos_u[0]["ID"];
-			header('Location: ../view/sumary.php');
+			/*var_dump($datos_u);
+			exit();*/
+			$_SESSION["usubk"]=$datos_u[0]["USUARIO"];
+			$_SESSION["namebk"]=$datos_u[0]["PNOMBRE"];
+			$_SESSION["snamebk"]=$datos_u[0]["PAPELLIDO"];
+			$_SESSION["idbk"]=$datos_u[0]["ID"];
+			$_SESSION["tipobk"]=$datos_u[0]["TIPO"];
+			$_SESSION["rolbk"]=$datos_u[0]["ROL"];
+			header('Location: ../view/index.php');
 		} else {
 			$_SESSION['mobjetivo']="login.php";
 			$_SESSION['mtipo']="alert-warning";
@@ -35,7 +39,6 @@ if (empty($_POST['g-recaptcha-response'])) {
 		$_SESSION['mtipo']="alert-danger";
 		$_SESSION['mtexto']="<strong>!Error! </strong>".$e->getMessage();
 		header('Location: ../view/login.php');
-
 	}
 }
 ?>

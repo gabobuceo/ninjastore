@@ -7,10 +7,6 @@ require_once('../clases/Usuario.class.php');
 $debug=0;
 //------------ V A L I D A C I O N E S ------------------
 $error=false;    
-if (empty($_POST['g-recaptcha-response'])) {
-  $error=true;
-  $mensaje[] = "No se confirmó el captcha"."<br/>";
-}
 //VALIDO PRIMER NOMBRE
 if (isset($_POST['pNombre']) and !empty($_POST['pNombre'])){
   $pNombre = strip_tags($_POST['pNombre']);
@@ -43,18 +39,7 @@ if (isset($_POST['password']) and !empty($_POST['password'])){
   $error=true;
   $mensaje[] = "No se ingreso Password"."<br/>";
 }   
-if (isset($_POST['password2']) and !empty($_POST['password2'])){
-  $password2 = strip_tags($_POST['password2']);
-}else {
-  $password2='';
-  $error=true;
-  $mensaje[] = "No se ingreso password2"."<br/>";
-}  
-if ($password!==$password2){
-  $password='';
-  $error=true;
-  $mensaje[] = "Paswords no iguales"."<br/>";
-}
+
 //VALIDO EMAIL
 if (isset($_POST['email']) and !empty($_POST['email'])){
   $email= strip_tags($_POST['email']);
@@ -82,43 +67,53 @@ if (isset($_POST['fNacimiento']) and !empty($_POST['fNacimiento'])){
   $error=true;
   $mensaje[] = "No se ingreso correctamente la fecha"."<br/>";
 }
+if (isset($_POST['rol']) and !empty($_POST['rol'])){
+  $rol= strip_tags($_POST['rol']);
+}else {
+  $rol='';
+  $error=true;
+  $mensaje[] = "No se ingreso el rol"."<br/>";
+}
 
 //-------------F I N    V  A  L  I  D  A  C  I  O  N  E  S ---------------
 // MODO DEBUG
+//$debug=1;
 if ($debug==1){
-  $debugmsg ="DEBUG MODE ON \\n------------\\npNombre = $pNombre \\npApellido = $pApellido \\nusuario = $usuario \\npassword = $password \\npassword2 = $password2 \\nemail = $email \\ncedula = $cedula \\nfNacimiento = $fNacimiento";
+  $debugmsg ="DEBUG MODE ON \\n------------\\npNombre = $pNombre \\npApellido = $pApellido \\nusuario = $usuario \\npassword = $password \\nemail = $email \\ncedula = $cedula \\nfNacimiento = $fNacimiento \\rol = $rol";
 }
+/*var_dump($debugmsg );
+exit();*/
 if ($error==true){
   session_start();
-    $_SESSION['mobjetivo']="register.php";
+    $_SESSION['mobjetivo']="mgmtusers.php";
     $_SESSION['mtipo']="alert-warning";
     $_SESSION['mtexto']="<strong>!Problema! </strong>".implode($mensaje);
-    header('Location: ../view/register.php');
+    header('Location: ../view/mgmtusers.php');
 }else{
 try {          
   $conex = conectar();			
-  $u = new Usuario('',$cedula,$usuario,$password,$pNombre,'',$pApellido,'',$fNacimiento,$email);
+  $u = new Usuario('',$cedula,$usuario,$password,$pNombre,'',$pApellido,'',$fNacimiento,$email,'','','','','','','',0,$rol);
   $ejecucionOK=$u->alta($conex);		
   if ($ejecucionOK){
     session_start();
-    $_SESSION['mobjetivo']="login.php";
+    $_SESSION['mobjetivo']="mgmtusers.php";
     $_SESSION['mtipo']="alert-success";
     $_SESSION['mtexto']="<strong>!Felicidades! </strong>El usuario $usuario se ha creado con exito. Favor entre a su correo para confirmar su usuario";
-    header('Location: ../view/login.php');
+    header('Location: ../view/mgmtusers.php');
   }else{
       session_start();
-    $_SESSION['mobjetivo']="register.php";
+    $_SESSION['mobjetivo']="mgmtusers.php";
     $_SESSION['mtipo']="alert-warning";
     $_SESSION['mtexto']="<strong>!Problema! </strong>No se pudo crear el usuario, comuniquese con el centro de atención al usuario";
-    header('Location: ../view/register.php');
+    header('Location: ../view/mgmtusers.php');
   }
   desconectar($conex);
 } catch (Exception $e) {
   session_start();
-    $_SESSION['mobjetivo']="register.php";
+    $_SESSION['mobjetivo']="mgmtusers.php";
     $_SESSION['mtipo']="alert-danger";
     $_SESSION['mtexto']="<strong>!Error! </strong>".$e->getMessage();
-    header('Location: ../view/register.php');
+    header('Location: ../view/mgmtusers.php');
 }
 }
 ?>

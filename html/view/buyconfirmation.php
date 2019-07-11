@@ -1,4 +1,5 @@
 <?php 
+session_start();
 if (!isset($_GET['id'])){
 	header('Location: ../view/index.php');
 }
@@ -155,7 +156,7 @@ require('header.php');
 						</div>
 					</div>
 					<div class="buyingdata">
-						<h4 style="float: left;">Datos del Comprador</h4><h4 style="float: right; text-align: right;"><a data-toggle="modal" data-target="#DenunciaCompradorModal" href="javascript:void(0)">Denunciar Vendedor</a></h4>
+						<h4 style="float: left;">Datos del Comprador</h4><h4 style="float: right; text-align: right;"><a data-toggle="modal" data-target="#DenunciaCompradorModal" href="javascript:void(0)">Denunciar Comprador</a></h4>
 						<div class="row">
 							<div class="col-xs-12">
 								<p><b>Nombre Completo: </b><?php echo utf8_encode($datos_compra[0]['PNOMBRECOMPRADOR'].' '.$datos_compra[0]['PAPELLIDOCOMPRADOR']) ?></p>

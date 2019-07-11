@@ -42,7 +42,7 @@ if ($error==true){
   header('Location: ../view/myprofile.php');
 }else{
 
-  $id=$_SESSION['id'];
+  $id=$_POST['idusumod'];
   $geox=$_POST['latitud'];
   $geoy=$_POST['longitud'];
   
@@ -51,26 +51,26 @@ if ($error==true){
     $commiteo= new Commit();
     $commiteo->AutoCommitOFF($conex);
     $commiteo->TransactionStart($conex);
-    $c= new Usuario($id,'','','','','','','','','','','','','','','','','','','','',$geox,$geoy);
+    $c= new Usuario($id,'','','','','','','','','','','','','','','','','','','',$geox,$geoy);
     if ($c->CambiarGeoUsuario($conex)!= TRUE){
       $commiteo->Rollbackeo($conex);
       $_SESSION['mobjetivo']="migeo";
       $_SESSION['mtipo']="alert-warning";
       $_SESSION['mtexto']="<strong>!Problema! </strong>No se pudo modificar los datos del usuario";
-      header('Location: ../view/myprofile.php');
+      header('Location: ../view/mgmtusers.php?id='.$id);
     }else{
       $commiteo->Commiteo($conex);
       $_SESSION['mobjetivo']="migeo";
       $_SESSION['mtipo']="alert-info";
       $_SESSION['mtexto']="<strong>!Cambios realizados con exito! </strong>";
-      header('Location: ../view/myprofile.php');
+      header('Location: ../view/mgmtusers.php?id='.$id);
     }
   } catch (PDOException $e) {
     $commiteo->Rollbackeo($conex);
     $_SESSION['mobjetivo']="migeo";
     $_SESSION['mtipo']="alert-danger";
     $_SESSION['mtexto']="<strong>!Error! </strong>".$e->getMessage();;
-    header('Location: ../view/myprofile.php');
+    header('Location: ../view/mgmtusers.php?id='.$id);
   }
 }
 ?>

@@ -1,103 +1,68 @@
-<!-- 	-->
-<p>ESTE SITIO ES UN SITIO DE PRUEBA</p>
-<p>Deploy de POST</p>
 <?php
-	session_start();
-	print_r($_POST);
-	echo '<pre>';
-		echo htmlspecialchars($_POST['editor1']);
-	echo '</pre>';
+session_start();
+echo "POST<br>";
+var_dump($_POST);
+echo "<hr>GET<br>";
+var_dump($_GET);
+echo "<hr>FILES<br>";
+var_dump($_FILES);
+echo "<hr>SESSION<br>";
+var_dump($_SESSION);
+echo "<hr>SERVER<br>";
+var_dump($_SERVER);
+echo "<hr>";
 ?>
-<p>Deploy de SESION</p>
+<form action="test.php" method="POST" enctype='multipart/form-data'>
+	<input type="file" name="pepe">
+	<input type="submit" name="a">
+</form>
 <?php
-	print_r($_SESSION);
-?>
-<p>Deploy de SERVER</p>
-<?php
-	print_r($_SERVER);
-?>
-<p>Browser</p>
-<?php
-function getBrowser() { 
-  $u_agent = $_SERVER['HTTP_USER_AGENT'];
-  $bname = 'Unknown';
-  $platform = 'Unknown';
-  $version= "";
+/*echo "<hr>";
+class UploadException extends Exception
+{
+	public function __construct($code) {
+		$message = $this->codeToMessage($code);
+		parent::__construct($message, $code);
+	}
 
-  //First get the platform?
-  if (preg_match('/linux/i', $u_agent)) {
-    $platform = 'linux';
-  }elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
-    $platform = 'mac';
-  }elseif (preg_match('/windows|win32/i', $u_agent)) {
-    $platform = 'windows';
-  }
+	private function codeToMessage($code)
+	{
+		switch ($code) {
+			case UPLOAD_ERR_INI_SIZE:
+			$message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+			break;
+			case UPLOAD_ERR_FORM_SIZE:
+			$message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+			break;
+			case UPLOAD_ERR_PARTIAL:
+			$message = "The uploaded file was only partially uploaded";
+			break;
+			case UPLOAD_ERR_NO_FILE:
+			$message = "No file was uploaded";
+			break;
+			case UPLOAD_ERR_NO_TMP_DIR:
+			$message = "Missing a temporary folder";
+			break;
+			case UPLOAD_ERR_CANT_WRITE:
+			$message = "Failed to write file to disk";
+			break;
+			case UPLOAD_ERR_EXTENSION:
+			$message = "File upload stopped by extension";
+			break;
 
-  // Next get the name of the useragent yes seperately and for good reason
-  if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)){
-    $bname = 'Internet Explorer';
-    $ub = "MSIE";
-  }elseif(preg_match('/Firefox/i',$u_agent)){
-    $bname = 'Mozilla Firefox';
-    $ub = "Firefox";
-  }elseif(preg_match('/OPR/i',$u_agent)){
-    $bname = 'Opera';
-    $ub = "Opera";
-  }elseif(preg_match('/Chrome/i',$u_agent) && !preg_match('/Edge/i',$u_agent)){
-    $bname = 'Google Chrome';
-    $ub = "Chrome";
-  }elseif(preg_match('/Safari/i',$u_agent) && !preg_match('/Edge/i',$u_agent)){
-    $bname = 'Apple Safari';
-    $ub = "Safari";
-  }elseif(preg_match('/Netscape/i',$u_agent)){
-    $bname = 'Netscape';
-    $ub = "Netscape";
-  }elseif(preg_match('/Edge/i',$u_agent)){
-    $bname = 'Edge';
-    $ub = "Edge";
-  }elseif(preg_match('/Trident/i',$u_agent)){
-    $bname = 'Internet Explorer';
-    $ub = "MSIE";
-  }
+			default:
+			$message = "Unknown upload error";
+			break;
+		}
+		return $message;
+	}
+}
 
-  // finally get the correct version number
-  $known = array('Version', $ub, 'other');
-  $pattern = '#(?<browser>' . join('|', $known) .
-')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
-  if (!preg_match_all($pattern, $u_agent, $matches)) {
-    // we have no matching number just continue
-  }
-  // see how many we have
-  $i = count($matches['browser']);
-  if ($i != 1) {
-    //we will have two since we are not using 'other' argument yet
-    //see if version is before or after the name
-    if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
-        $version= $matches['version'][0];
-    }else {
-        $version= $matches['version'][1];
-    }
-  }else {
-    $version= $matches['version'][0];
-  }
-
-  // check if we have a number
-  if ($version==null || $version=="") {$version="?";}
-
-  return array(
-    'userAgent' => $u_agent,
-    'name'      => $bname,
-    'version'   => $version,
-    'platform'  => $platform,
-    'pattern'    => $pattern
-  );
-} 
-
-// now try it
-$ua=getBrowser();
-$yourbrowser= "Your browser: " . $ua['name'] . " " . $ua['version'] . " on " .$ua['platform'] . " reports: <br >" . $ua['userAgent'];
-print_r($yourbrowser);
+// Use
+if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
+	echo "uploading successfully done ";
+} else {
+	throw new UploadException($_FILES['file']['error']);
+}*/
 ?>
 
-
-<!-- 	-->

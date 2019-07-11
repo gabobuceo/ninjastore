@@ -419,6 +419,29 @@ class Usuario
       $datos= $pu->consPerfil($this,$conex);
       return $datos;
     }
+    public function BuscarUsuariosFrontend($conex){
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->BusUsuariosFrontend($conex);
+      return $datos;
+    }
+    public function BuscarUsuariosBackend($conex){
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->BusUsuariosBackend($conex);
+      return $datos;
+    }
+     public function CambiarTipo($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->CamTipo($this,$conex);
+      return $datos;
+    }
+     public function CambiarRol($conex)
+    {
+      $pu=new PersistenciaUsuario();
+      $datos= $pu->CamRol($this,$conex);
+      return $datos;
+    }
+
 }
 
 ?>

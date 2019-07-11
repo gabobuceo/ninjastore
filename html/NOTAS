@@ -1,54 +1,50 @@
 COMITEO:
 --------------------------------------
-Front End Release
-Notificaciones	
-	Falta Factura, Baneo y Reporte
-Publicaciones:
-	El usuario ya puede Activar y Desactivar las publicaciones
-	Solo publicaciones Desactivadas pueden ser editadas, no publicaciones activas
-	Se puede editar publicaciones
+Backend
+	Gestion de Usuarios:
+		Derecha:
+			* Perfil completo del usuario 	-> 100%
+		Izquierda:
+			* Alta de usuarios Backend (Si es admin) -> 100%
+			* Listado de Usuarios Frontend  -> 100%
+			* Listado de Usuarios Backend  	-> 100%
+		Nota:
+			Solo el Admin puede editar: 
+				Perfil - CI
+				Perfil - Usuario
+				Tipo - Comun/VIP
+				Tipo - Rol
+				Tipo - Eliminado
 
-Varias cosas de Backend
+SQL
+	Tabla Usuario
+		Default en GeoX y GeoY con los valores de la empresa
 
-Calificaciones
-	Pronto
-
-Mensajes
-	Arreglos de CSS
-
-Factura
-	Se agrega Fechap para obtener la fecha en que se pago la factura
-	Se cambia el ID serial por BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT ya que el Alias de Serial hace que ID sea Unico además.
-	Factura Pronto
-
-Denuncia
-	Pronto (alta y listado y Select)
-
-Resumen 
-	Pronto
-
-Arreglos varios, controles de usuario logeado
 
 TRABAJANDO EN:
 --------------------------------------------
 
-	RESUMEN!
+	Backend! -> mgmtusers. Esta pronta el alta de usuarios de backend, esta faltando que se muestre la data de los usuarios.
+
+
 
 	Si un admin cancela una compra, se debe añadir un +1 de item
-
-SI un VIP vende, la comision en comisionesvip (3%)
-
 Detalles para hacer (que no se va a hacer):
 	La factura genera hasta 18 items, a partir de ahi, se superpone. -> crear una nueva hoja
 
----------------------------------------------------------------------
-ESTADO DE FRONT END CPANEL: 70% aprox
 
-Resumen 0%
+
+VIP Alerta control stock  -> 0%
+VIP Grafica de ventas menual 	-> 0%
+Baneado 		-> Sin hacer
+---------------------------------------------------------------------
+ESTADO DE FRONT END CPANEL: 90% aprox
+
+Resumen 100%
 	* Publicaciones Activas 			-> 100%
 	* Listado de Ventas 				-> 100%
 	* Listado de Compras 				-> 100%
-	* Ventana premium no premium 		-> 0%
+	* Ventana premium no premium 		-> 100%
 	* Listado de Facturas Pendientes	-> 100%
 	* Listado de Denuncuas Abiertas		-> 100%
 
@@ -131,6 +127,60 @@ re nazi
 
 Pensar en un tipo de Strike por las denuncias y multas del moderador hacia el usuario
 ----------------------------------------------------------------------------------------------------------------------------
-Preguntas para el gordo:
+Backend
 
-quiere selinux + shorewall o solo shorwall o sin firewall esta todo bien?
+Resumen 
+	??? NADA
+
+
+Gestion de Usuarios:
+	Derecha:
+		* Perfil completo del usuario
+	Izquierda:
+		* Alta de usuarios Backend (Si es admin)
+		* Listado de Usuarios Frontend (Ver / Editar / Banear / Bajar)
+		* Listado de Usuarios Backend (admin -> Ver / Editar / Banear / Bajar)
+
+Gestion de Categorias:
+	Derecha:
+		* Arbol de categorias
+	Izquierda:
+		* Listado de categorias
+		* Alta / Baja / Modificar (Admin)
+
+Gestion de Publicaciones
+	Derecha:
+		* Vista previa de Publicacion
+	Izquierda:
+		* Listado de publicaciones (Ver / Editar / Banear / Bajar)
+		* Listado de publicaciones baneadas (Ver / Editar / Banear / Bajar)
+
+Gestion de Ventas
+	Derecha:
+		* Vista previa de Ventas
+	Izquierda:
+		* Listado de Ventas (Ver / Editar / Banear / Bajar)
+		* Listado de Ventas baneadas (Ver / Editar / Banear / Bajar)
+
+Gestion de Compras
+	Derecha:
+		* Vista previa de Compras
+	Izquierda:
+		* Listado de Compras (Ver / Editar / Banear / Bajar)
+		* Listado de Compras baneadas (Ver / Editar / Banear / Bajar)
+
+Gestion de Facturas
+	Derecha:
+		* Vista previa de Facturas
+	Izquierda:
+		* Ingreso de Factura / Compra paga (Admin)
+		* Listado de Factura Abiertas (Ver / Editar / Banear / Bajar)
+		* Listado de Factura Vencida (Añadir mora y dar nuevo vencimiento)
+
+Gestion de Denuncias
+	Derecha:
+		* Vista previa de Denuncias
+	Izquierda:
+		* Listado de Denuncias (Moderador Autoasignarse / Admin -> selecciona aquien asignar)
+		* Listado de Denuncias asignadas a mi pendientes
+		* Listado de Denuncias cerradas

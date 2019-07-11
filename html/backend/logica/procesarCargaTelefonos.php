@@ -1,13 +1,12 @@
 <?php
-require_once('../logica/funciones.php');
+require_once('../../logica/funciones.php');
 require_once('../clases/Usuariotel.class.php');
-$config = include('../config/config.php');
 // -------- GET DATA ----
-$id = $_SESSION['IDVENDEDOR'];
-unset($_SESSION['IDVENDEDOR']);
+/*$id = $_SESSION['IDVENDEDOR'];
+unset($_SESSION['IDVENDEDOR']);*/
 try {
   $conex = conectar();
-  $c= new UsuarioTel($id);
+  $c= new UsuarioTel($_GET['id']);
   $datos_c=$c->consultaTodos($conex);
   if (!empty($datos_c)){
     return $datos_c;
