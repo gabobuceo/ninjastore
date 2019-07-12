@@ -57,6 +57,15 @@ class PersistenciaCategoria{
 		$resultados=$result->fetchall();
 		return $resultados;
 	}
+	public function consCatHijas($conex)
+	{
+		$sql = "SELECT * FROM DATOS_CATEGORIAS WHERE PADRE!=1 AND BAJA=0";
+		$result = $conex->prepare($sql);
+		$result->execute();
+		$resultados=$result->fetchall();
+		return $resultados;
+	}
+
 
 
 	public function consHijos($obj, $conex)

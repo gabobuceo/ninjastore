@@ -1,17 +1,25 @@
 COMITEO:
 --------------------------------------
-	Gestion de Categorias:
+Backend
+
+Gestion de Publicaciones Pronto
 	Derecha:
-		* Arbol de categorias -> 100%
+		* Vista previa de Publicacion (Lectura, Escritura)
 	Izquierda:
-		* Listado de categorias -> 100%
-		* Alta / Baja / Modificar -> 100%
+		* Listado de publicaciones -> 100%
+		* Listado de publicaciones baneadas -> 100%
+
 
 TRABAJANDO EN:
 --------------------------------------------
 
 	
+mgmtpublicaciones
+Falta agregar categoria
+Cargar solo hijas!
 
+Error en persistenciapublicacion al modificar el articulo
+Verificar
 
 
 	Si un admin cancela una compra, se debe añadir un +1 de item
@@ -120,19 +128,27 @@ Resumen
 
 
 Gestion de Usuarios:
-	Derecha:
-		* Perfil completo del usuario
-	Izquierda:
-		* Alta de usuarios Backend (Si es admin)
-		* Listado de Usuarios Frontend (Ver / Editar / Banear / Bajar)
-		* Listado de Usuarios Backend (admin -> Ver / Editar / Banear / Bajar)
-
+		Derecha:
+			* Perfil completo del usuario 	-> 100%
+		Izquierda:
+			* Alta de usuarios Backend (Si es admin) -> 100%
+			* Listado de Usuarios Frontend  -> 100%
+			* Listado de Usuarios Backend  	-> 100%
+		Nota:
+			Solo el Admin puede editar: 
+				Perfil - CI
+				Perfil - Usuario
+				Tipo - Comun/VIP
+				Tipo - Rol
+				Tipo - Eliminado
+				
 Gestion de Categorias:
 	Derecha:
-		* Arbol de categorias
+		* Arbol de categorias -> 100%
 	Izquierda:
-		* Listado de categorias
-		* Alta / Baja / Modificar (Admin)
+		* Listado de categorias -> 100%
+		* Alta / Baja / Modificar -> 100%
+
 
 Gestion de Publicaciones
 	Derecha:

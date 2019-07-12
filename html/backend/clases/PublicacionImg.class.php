@@ -37,5 +37,9 @@ class PublicacionImg{
     $datos= $ppi->consTodos($this,$conex);
     return $datos;
   }
+   public function baneo($conex){
+    $ppi=new PersistenciaPublicacionImg;
+    return ($ppi->baneoimg($this, $conex));
+  }
 }
 ?>

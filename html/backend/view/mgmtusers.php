@@ -434,7 +434,7 @@ var_dump($datos_telefono);
 							?>
 							<div class="row">
 								<div class="col-md-12 product_img">
-									<p>Para cargar los mensajes haga click en su enlace</p>
+									<p>Para cargar un usuario. haga click en su enlace</p>
 								</div>
 							</div>
 							<?php

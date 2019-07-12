@@ -346,6 +346,18 @@ class Publicacion
 		$datos= $pp->consPubliUsadas($this,$conex);
 		return $datos;
 	}
+	public function consultaTodasActivas($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consTodasActivas($conex);
+		return $datos;
+	}
+	public function consultaTodasBaneadas($conex)
+	{
+		$pp=new PersistenciaPublicacion;
+		$datos= $pp->consTodasBaneadas($conex);
+		return $datos;
+	}
 }
 
 ?>

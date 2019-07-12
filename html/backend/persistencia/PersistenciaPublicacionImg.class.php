@@ -28,10 +28,28 @@ class PersistenciaPublicacionImg
 	}
 	public function consTodos($obj, $conex){
 		$id = $obj->getId();
-		$sql = "SELECT IMAGENES FROM PUBLICACIONIMG WHERE ID=:id";
+		$sql = "SELECT * FROM PUBLICACIONIMG WHERE ID=:id";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":id" => $id));
 		$resultados=$result->fetchAll();
 		return $resultados;
+	}
+	public function baneoimg($obj, $conex) {
+		$id = $obj->getId();
+		$sql = "DELETE FROM PUBLICACIONIMG WHERE ID=:ID";
+		$result = $conex->prepare($sql);		
+		$result->execute(array(":ID" => $id));
+		if($result) {
+			$sql = "INSERT INTO PUBLICACIONIMG (ID,IMAGENES) VALUES (:ID,'noimage')";
+			$result = $conex->prepare($sql);		
+			$result->execute(array(":ID" => $id));
+			if($result) {
+				return(true);
+			}else{
+				return(false);
+			}
+		}else{
+			return(false);
+		}
 	}
 }

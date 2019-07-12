@@ -19,18 +19,18 @@ class PersistenciaPublicacion
 //print_r ("DEBUG MODE ON <br />------------<br />titulo = $titulo<br />desc = $descripcion<br />precio = $precio<br />cantidad = $cantidad<br />estadoP = $estadoP<br />categoria = $idCategoria<br />estadoA = $estadoA");
 		$result = $conex->prepare($sql);
 		$result->execute(array(":IDCATEGORIA" => $idCategoria,
-							":TITULO" => $titulo,
-							":DESCRIPCION" => $descripcion,
-							":IMGDEFAULT" => $imgdefault,
-							":PRECIO" => $precio,
-							":ESTADOP" => $estadoP,
-							":ESTADOA" => $estadoA,
-							":CANTIDAD" => $cantidad));
+			":TITULO" => $titulo,
+			":DESCRIPCION" => $descripcion,
+			":IMGDEFAULT" => $imgdefault,
+			":PRECIO" => $precio,
+			":ESTADOP" => $estadoP,
+			":ESTADOA" => $estadoA,
+			":CANTIDAD" => $cantidad));
 		if($result){
-          return(true);
-        }else{
-          return(false);
-        }
+			return(true);
+		}else{
+			return(false);
+		}
 		//$temp = $result->fetch(PDO::FETCH_ASSOC);
 		//Para saber si ocurrió un error
 		//return $temp;
@@ -44,12 +44,12 @@ class PersistenciaPublicacion
 //print_r ("DEBUG MODE ON <br />------------<br />titulo = $titulo<br />desc = $descripcion<br />precio = $precio<br />cantidad = $cantidad<br />estadoP = $estadoP<br />categoria = $idCategoria<br />estadoA = $estadoA");
 		$result = $conex->prepare($sql);
 		$result->execute(array(":IDUSUARIO" => $idusuario,
-							":IDPUBLICACION" => $idpublicacion));
+			":IDPUBLICACION" => $idpublicacion));
 		if($result){
-          return(true);
-        }else{
-          return(false);
-        }
+			return(true);
+		}else{
+			return(false);
+		}
 	}
 	public function consMaxID($conex)
 	{
@@ -128,6 +128,23 @@ class PersistenciaPublicacion
 
 		return $resultados;
 	}
+	public function consTodasActivas($conex){
+		$sql = "SELECT DATOS_PUBLICACIONES.*,CREA.FECHA FROM 
+		CREA,DATOS_PUBLICACIONES WHERE CREA.IDPUBLICACION=DATOS_PUBLICACIONES.ID AND CREA.BAJA=0 AND ESTADOP!='BANEADA'";
+		$result = $conex->prepare($sql);
+		$result->execute();
+		$resultados=$result->fetchAll();
+		return $resultados;
+		
+	}
+	public function consTodasBaneadas($conex){
+		$sql = "SELECT DATOS_PUBLICACIONES.*,CREA.FECHA FROM 
+		CREA,DATOS_PUBLICACIONES WHERE CREA.IDPUBLICACION=DATOS_PUBLICACIONES.ID AND CREA.BAJA=0 AND ESTADOP='BANEADA'";
+		$result = $conex->prepare($sql);
+		$result->execute();
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
 	public function consTodosUsuPublicadas($obj, $conex)
 	{
 		$id= trim($obj->getIdUsuario());
@@ -162,31 +179,40 @@ class PersistenciaPublicacion
 		return $resultados;
 	}
 
-	public function modificar($obj, $conex)
-	{
+	public function modificar($obj, $conex){
+
 		$id= trim($obj->getId());
-		$nombre=$obj->getNombre();
-		$apellido=$obj->getApellido();
-		$categoria = $obj->getCategoria();
-		$ci = $obj->getCedula();
-		$correo = $obj->getCorreo();
-		$celular = $obj->getCelular();
-		$horario = $obj->getHorario();
-		$fecNac = $obj->getFecNac();
+		$titulo=$obj->getTitulo();
+		$desc=$obj->getDescripcion();
+		$precio = $obj->getPrecio();
+		$cantidad = $obj->getCantidad();
+		$categoria = $obj->getIdCategoria();
+		$tipo = $obj->getEstadoA();
+		$estado = $obj->getEstadoP();
 
-		$sql = "UPDATE USUARIO SET NOMBRE=:NOMBRE,APELLIDO=:APELLIDO ,CATEGORIA=:CATEGORIA, CI=:CI, CORREO=:CORREO, CELULAR=:CELULAR,HORARIO=:HORARIO,FECNAC=:FECNAC WHERE ID=:ID";
+		/*
+		echo "DEBUG MODE ON <br />------------<br />id=$id<br />titulo = $titulo<br />desc = $desc<br />precio = $precio<br />cantidad = $cantidad<br />categoria = $categoria<br />img = $img<br />";
+		exit();*/
 
-
+		
+		$sql = "UPDATE PUBLICACION SET TITULO=:TITULO ,DESCRIPCION=:DESCRIPCION, PRECIO=:PRECIO, CANTIDAD=:CANTIDAD, IDCATEGORIA=:IDCATEGORIA, ESTADOP=:ESTADOP, ESTADOA=:ESTADOA WHERE ID=:ID";
 		$result = $conex->prepare($sql);
+		$result->execute(array(":TITULO" => $titulo,
+			":DESCRIPCION" => $desc,
+			":PRECIO" => $precio,
+			":CANTIDAD" => $cantidad,
+			":IDCATEGORIA" => $categoria,
+			":ESTADOA" => $tipo,
+			":ESTADOP" => $estado,
+			":ID" => $id));
+		
+		
 
-		$result->execute(array(":nombre" => $nombre,":apellido" => $apellido,
-			":categoria" => $categoria,":ci" => $ci,
-			":correo" => $correo,":celular" => $celular,
-			":horario" => $horario,
-			":fecnac" => $fecNac,
-			":id"=>$id));
-
-		return $result;
+		if($result){
+			return(true);
+		}else{
+			return(false);
+		}
 	}
 	public function modificarCantidad($obj, $conex)
 	{
@@ -197,10 +223,10 @@ class PersistenciaPublicacion
 		$result = $conex->prepare($sql);
 		$result->execute(array(":CANTIDAD" => $cantidad,":ID" => $id));
 		if($result){
-          return(true);
-        }else{
-          return(false);
-        }
+			return(true);
+		}else{
+			return(false);
+		}
 	}
 	public function modificarCerrar($obj, $conex)
 	{
@@ -209,19 +235,21 @@ class PersistenciaPublicacion
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		if($result){
-          return(true);
-        }else{
-          return(false);
-        }
+			return(true);
+		}else{
+			return(false);
+		}
 	}
 	public function eliminar($obj, $conex)
 	{
 		$id= trim($obj->getId());
-		$sql = "delete from usuario where id=:id";
+		$baja= trim($obj->getBaja());
+		$sql = "UPDATE PUBLICACION SET BAJA=:BAJA WHERE ID=:ID";
 
 		$result = $conex->prepare($sql);
 
-		$result->execute(array(":id"=>$id));
+		$result->execute(array(":ID"=>$id,
+								":BAJA"=>$baja));
 
 		return $result;
 	}
@@ -245,10 +273,10 @@ class PersistenciaPublicacion
 		$result = $conex->prepare($sql);
 		$result->execute(array(":VISTO" => $visto,":ID" => $id));
 		if($result){
-          return(true);
-        }else{
-          return(false);
-        }
+			return(true);
+		}else{
+			return(false);
+		}
 	}
 	public function consVisto($obj, $conex)
 	{

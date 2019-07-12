@@ -106,6 +106,12 @@ class Categoria
 		$datos= $cat->consPadresaActivas($conex);
 		return $datos;
 	}
+	public function consultaCatHijas($conex)
+	{
+		$cat=new PersistenciaCategoria;
+		$datos= $cat->consCatHijas($conex);
+		return $datos;
+	}
 
 
 	public function consultaHijos($conex)

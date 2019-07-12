@@ -6,7 +6,7 @@ $config = include('../config/config.php');
 try {          
   $conex = conectar();			
   $pu= new Publicacion();
-  $datos_pu=$pu->consultaTodasActivas($conex);
+  $datos_pu=$pu->consultaTodasBaneadas($conex);
   if (!empty($datos_pu)){
     return $datos_pu;
   }else{
