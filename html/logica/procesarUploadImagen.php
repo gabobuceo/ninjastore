@@ -1,9 +1,5 @@
 <?php 
 session_start();
-/* ------------------------------------------------------------- */
-var_dump($_FILES);
-echo "<hr>";
-/* ------------------------------------------------------------- */
 $config = include('../config/config.php');
 require_once('../clases/thumbnail.class.php');
 if (empty($_FILES['imagen'])) {
@@ -20,11 +16,6 @@ function reArrayFiles(&$file_post) {
     }
     return $file_ary;
 }
-/* ------------------------------------------------------------- */
-var_dump($file_ary);
-echo "<hr>";
-exit();
-/* ------------------------------------------------------------- */
 unset($_SESSION['IMAGEN']);
 $server = empty($_POST['server']) ? '' : $_POST['server'];
 $user = empty($_POST['user']) ? '' : $_POST['user'];
@@ -34,9 +25,9 @@ $file_ary = reArrayFiles($_FILES['imagen']);
 foreach ($file_ary as $file) {
     $ext = explode('.',$file['name']);
     $imgname=md5(uniqid());
-    $target = $config->staticsrv . "/" . $imgname . "." . $ext[1];
-    $targettn = $config->staticsrv . "/" . $imgname . "_tn." . $ext[1];
-    $targetdi = $config->staticsrv . "/" . $imgname . "_di." . $ext[1];
+    $target = $config->staticsrv . "/" . $imgname . "." . $ext[count($ext)-1];
+    $targettn = $config->staticsrv . "/" . $imgname . "_tn." . $ext[count($ext)-1];
+    $targetdi = $config->staticsrv . "/" . $imgname . "_di." . $ext[count($ext)-1];
     $webp = $config->staticsrv . "/" . $imgname . ".webp";
     $webptn = $config->staticsrv . "/" . $imgname . "_tn.webp";
     $webpdi = $config->staticsrv . "/" . $imgname . "_di.webp";
@@ -57,9 +48,10 @@ foreach ($file_ary as $file) {
         /* ------------------------------------------------ */
         /* Verificar si el server es linux o windows */
         /* ------------------------------------------------ */
-        if ($config->bdhost=="centos") {
+        $sistema=$config->serverso;
+        if ($sistema=="centos") {
             if ($file['type']=="image/gif") {
-                /* Imagen en GIF usa otro binario*/
+                //Imagen en GIF usa otro binario
                 exec("gif2webp -q 80 " . $target . " -o " . $webp); // Tamaño original
             }else{
                 exec("cwebp -q 80 " . $target . " -o " . $webp); // Tamaño original
@@ -75,7 +67,6 @@ foreach ($file_ary as $file) {
                 exec($config->windowswebp . "cwebp.exe -q 80 " . $config->windowsimagenes . $targettn . " -o " . $webptn); // Tamaño 250*250
                 exec($config->windowswebp . "cwebp.exe -q 80 " . $config->windowsimagenes . $targetdi . " -o " . $webpdi); // Tamaño 640*360
             }
-            /*var_dump(str_replace("/","\\",$target));*/
         }
         /* ------------------------------------------------ */
         $_SESSION['IMAGEN'][]=$imgname;

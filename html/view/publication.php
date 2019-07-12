@@ -578,7 +578,7 @@ require('header.php');
 							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
 							<textarea class="form-control" rows="5" name="comentario"></textarea>
 							<input type="text" name="pubid" value="<?php echo $datos_publicacion['0']['ID']; ?>" hidden>
-							<input type="text" name="tipo" value="publicacion" hidden>
+							<input type="text" name="tipo" value="PUBLICACION" hidden>
 							<div class="space-ten"></div>
 						</div>
 					</div>
@@ -634,7 +634,7 @@ if (!isset($datos_preguntas['this'])) {
 									<h4 class="lestitle">Cuentanos porque denuncias el chat:</h4>
 									<textarea class="form-control" rows="5" name="comentario"></textarea>
 									<input type="text" name="pubid" value="<?php echo $datos_preguntas[$i]['ID']; ?>" hidden>
-									<input type="text" name="tipo" value="chat" hidden>
+									<input type="text" name="tipo" value="COMENTARIO" hidden>
 									<div class="space-ten"></div>
 								</div>
 							</div>

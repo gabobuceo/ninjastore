@@ -64,5 +64,22 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
 } else {
 	throw new UploadException($_FILES['file']['error']);
 }*/
-?>
+$src="56340081bfa175.31899910.jpg";
+$type = strtolower(substr(strrchr($src,"."),1));
+echo $type;
+echo "<hr>";
+$ext = explode('.',$src);
+echo $ext[count($ext)-1];
+var_dump(count($ext));
 
+
+/*
+$ext = explode('.',$src);
+    $imgname=md5(uniqid());
+    $target = $config->staticsrv . "/" . $imgname . "." . $ext[1];
+    $targettn = $config->staticsrv . "/" . $imgname . "_tn." . $ext[1];
+    $targetdi = $config->staticsrv . "/" . $imgname . "_di." . $ext[1];
+    $webp = $config->staticsrv . "/" . $imgname . ".webp";
+    $webptn = $config->staticsrv . "/" . $imgname . "_tn.webp";
+    $webpdi = $config->staticsrv . "/" . $imgname . "_di.webp";*/
+?>

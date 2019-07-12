@@ -85,6 +85,14 @@ class PersistenciaPregunta
         //Obtiene el registro de la tabla Usuario
         return $resultados;
     }
+    public function consUno($obj, $conex){
+        $id= trim($obj->getId());
+        $sql = "SELECT * FROM PREGUNTA WHERE ID=:ID";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":ID" => $id));
+        $resultados=$result->fetchAll();
+        return $resultados;
+    }
 }
 ?>
 

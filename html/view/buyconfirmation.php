@@ -493,7 +493,7 @@ require('header.php');
 							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
 							<textarea class="form-control" rows="5" name="comentario"></textarea>
 							<input type="text" name="pubid" value="<?php echo $datos_compra['0']['ID']; ?>" hidden>
-							<input type="text" name="tipo" value="compra" hidden>
+							<input type="text" name="tipo" value="COMPRA" hidden>
 							<div class="space-ten"></div>
 						</div>
 					</div>
@@ -541,7 +541,7 @@ require('header.php');
 							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
 							<textarea class="form-control" rows="5" name="comentario"></textarea>
 							<input type="text" name="pubid" value="<?php echo $datos_compra['0']['IDVENDEDOR']; ?>" hidden>
-							<input type="text" name="tipo" value="usuario" hidden>
+							<input type="text" name="tipo" value="USUARIO" hidden>
 							<div class="space-ten"></div>
 						</div>
 					</div>
@@ -589,7 +589,7 @@ require('header.php');
 							<h4 class="lestitle">Cuentanos porque denuncias la publicacion:</h4>
 							<textarea class="form-control" rows="5" name="comentario"></textarea>
 							<input type="text" name="pubid" value="<?php echo $datos_compra['0']['IDCOMPRADOR']; ?>" hidden>
-							<input type="text" name="tipo" value="usuario" hidden>
+							<input type="text" name="tipo" value="USUARIO" hidden>
 							<div class="space-ten"></div>
 						</div>
 					</div>

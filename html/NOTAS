@@ -1,14 +1,30 @@
 COMITEO:
 --------------------------------------
+FRONTEND
+Se editaron los valore de denuncia para que estos sean como solicita el Check
+
 Backend
 
-Gestion de Publicaciones Pronto
+Gestion de Denuncias
 	Derecha:
-		* Vista previa de Publicacion (Lectura, Escritura)
+		* Vista previa de Denuncias (Al verla se autoasigna / Si sos admin, podes cambiar su asignacion)
 	Izquierda:
-		* Listado de publicaciones -> 100%
-		* Listado de publicaciones baneadas -> 100%
+		* Listado de Denuncias --> 100%
+		* Listado de Denuncias asignadas a mi pendientes --> 100%
+		* Listado de Denuncias cerradas --> 100%
 
+CREATE TABLE GESTIONA(
+	ID				SERIAL			NOT NULL,
+	IDUSUARIO 		BIGINT(20)		UNSIGNED NOT NULL,
+	IDDENUNCIA 		BIGINT(20)		UNSIGNED NOT NULL,
+	FECHA 			TIMESTAMP 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	DESCRIPCION 	TEXT,
+	HTML 			TEXT,
+	BAJA			BOOLEAN			DEFAULT 0,
+	PRIMARY KEY		(ID,IDUSUARIO,IDDENUNCIA),
+	FOREIGN KEY		(IDUSUARIO) REFERENCES USUARIO(ID),
+	FOREIGN KEY		(IDDENUNCIA) REFERENCES DENUNCIA(ID)
+);
 
 TRABAJANDO EN:
 --------------------------------------------
