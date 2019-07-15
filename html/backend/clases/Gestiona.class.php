@@ -109,5 +109,17 @@ class Gestiona
 		$datos= $pu->consAsignado($this,$conex);
 		return $datos;
 	}
+	public function altaAsignacion($conex){
+		$pu=new PersistenciaGestiona;
+		return ($pu->altaAsigna($this, $conex));
+	}
+	public function altaReasignacion($conex){
+		$pu=new PersistenciaGestiona;
+		return ($pu->altaReasigna($this, $conex));
+	}
+	public function resolverIncidencia($conex){
+		$pu=new PersistenciaGestiona;
+		return ($pu->resIncidencia($this, $conex));
+	}
 }
 ?>

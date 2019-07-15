@@ -28,10 +28,18 @@ class PersistenciaPublicacionImg
 	}
 	public function consTodos($obj, $conex){
 		$id = $obj->getId();
-		$sql = "SELECT IMAGENES FROM PUBLICACIONIMG WHERE ID=:id";
-		$result = $conex->prepare($sql);
-		$result->execute(array(":id" => $id));
-		$resultados=$result->fetchAll();
-		return $resultados;
+		if ($id=="") {
+			$sql = "SELECT IMAGENES FROM PUBLICACIONIMG";
+			$result = $conex->prepare($sql);
+			$result->execute();
+			$resultados=$result->fetchAll();
+			return $resultados;
+		}else{
+			$sql = "SELECT IMAGENES FROM PUBLICACIONIMG WHERE ID=:id";
+			$result = $conex->prepare($sql);
+			$result->execute(array(":id" => $id));
+			$resultados=$result->fetchAll();
+			return $resultados;
+		}
 	}
 }

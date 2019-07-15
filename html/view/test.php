@@ -1,5 +1,6 @@
 <?php
 session_start();
+$config = include('../config/config.php');
 echo "POST<br>";
 var_dump($_POST);
 echo "<hr>GET<br>";
@@ -17,69 +18,46 @@ echo "<hr>";
 	<input type="submit" name="a">
 </form>
 <?php
-/*echo "<hr>";
-class UploadException extends Exception
-{
-	public function __construct($code) {
-		$message = $this->codeToMessage($code);
-		parent::__construct($message, $code);
-	}
-
-	private function codeToMessage($code)
-	{
-		switch ($code) {
-			case UPLOAD_ERR_INI_SIZE:
-			$message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
-			break;
-			case UPLOAD_ERR_FORM_SIZE:
-			$message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
-			break;
-			case UPLOAD_ERR_PARTIAL:
-			$message = "The uploaded file was only partially uploaded";
-			break;
-			case UPLOAD_ERR_NO_FILE:
-			$message = "No file was uploaded";
-			break;
-			case UPLOAD_ERR_NO_TMP_DIR:
-			$message = "Missing a temporary folder";
-			break;
-			case UPLOAD_ERR_CANT_WRITE:
-			$message = "Failed to write file to disk";
-			break;
-			case UPLOAD_ERR_EXTENSION:
-			$message = "File upload stopped by extension";
-			break;
-
-			default:
-			$message = "Unknown upload error";
-			break;
-		}
-		return $message;
-	}
-}
-
-// Use
-if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
-	echo "uploading successfully done ";
-} else {
-	throw new UploadException($_FILES['file']['error']);
-}*/
-$src="56340081bfa175.31899910.jpg";
-$type = strtolower(substr(strrchr($src,"."),1));
+$src=$_SERVER['SERVER_SOFTWARE'];
+$type = strtolower(substr(strrchr($src,"("),1));
+$type = substr($type,1);
 echo $type;
 echo "<hr>";
 $ext = explode('.',$src);
 echo $ext[count($ext)-1];
 var_dump(count($ext));
+echo "<hr>";
+$str = $_SERVER['SERVER_SOFTWARE'];
+$start = strpos ($str, '(');
+$end = strpos ($str, ')', $start + 1);
+$length = $end - $start;
+$result = substr ($str, $start + 1, $length - 1); 
+echo $result;
+echo "<hr>";
+echo $config->serverso;
+
+echo "<hr>";
 
 
-/*
-$ext = explode('.',$src);
-    $imgname=md5(uniqid());
-    $target = $config->staticsrv . "/" . $imgname . "." . $ext[1];
-    $targettn = $config->staticsrv . "/" . $imgname . "_tn." . $ext[1];
-    $targetdi = $config->staticsrv . "/" . $imgname . "_di." . $ext[1];
-    $webp = $config->staticsrv . "/" . $imgname . ".webp";
-    $webptn = $config->staticsrv . "/" . $imgname . "_tn.webp";
-    $webpdi = $config->staticsrv . "/" . $imgname . "_di.webp";*/
+$directorio = '../imagenes';
+$ficheros1  = scandir($directorio);
+$datos_imagenes = require_once('../logica/procesarCargaImagenes.php');
+for ($i=0; $i < count($datos_imagenes); $i++) { 
+	$a[]=$datos_imagenes[$i]['IMAGENES'];
+}
+for ($i=0; $i < count($ficheros1); $i++) { 
+	$tiene = strpos ($ficheros1[$i], '_',0);
+	if (($tiene=="") && ($ficheros1[$i]!="..") && ($ficheros1[$i]!=".") && ($ficheros1[$i]!="noimage")) {
+		$end = strpos ($ficheros1[$i], '.',0);
+		$result = substr ($ficheros1[$i], 0, $end); 
+		$b[]=$result;
+	}	
+}
+var_dump($b);
+echo "<hr>";
+var_dump($a);
+echo "<hr>";
+
+$result=array_diff($b,$a);
+print_r($result);
 ?>

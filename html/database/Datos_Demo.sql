@@ -1,5 +1,3 @@
-INSERT INTO CATEGORIA (ID,TITULO) VALUES 
-('1','Categorias Padre');
 INSERT INTO CATEGORIA (ID,TITULO,PADRE) VALUES 
 ('2','Accesorios para Vehículos','1'),
 ('3','Accesorios Autos y Camionetas','2'),
@@ -313,7 +311,6 @@ INSERT INTO CATEGORIA (ID,TITULO,PADRE) VALUES
 ('311','Útiles Escolares','302');
 
 INSERT INTO USUARIO(CEDULA,USUARIO,PASSWORD,PNOMBRE,SNOMBRE,PAPELLIDO,SAPELLIDO,FNACIMIENTO,EMAIL,CALLE,NUMERO,ESQUINA,CPOSTAL,LOCALIDAD,DEPARTAMENTO,GEOX,GEOY,ESTADO,ACTIVACION) VALUES
-('11111111','ninjastore','f7c3bc1d808e04732adf679965ccc34ca7ae3441','Ninja','','Store','','1980-01-01','hola@ninjastore.uy','Bulevar General Artigas','3035','Antonio Machado','11400','Jaciento Vera','Montevideo','-34.871116','-56.167731','ACTIVADO','0'),
 ('19918890','ahurtado','f7c3bc1d808e04732adf679965ccc34ca7ae3441','Arapey','Silvio','Hurtado','Brito','1947-05-09','ahurtado@gmail.com','Garzon','646','Justino Muniz','37000','Melo','Cerro largo','-32.377925','-54.170704','ACTIVADO','0'),
 ('72940202','zfajardo','f7c3bc1d808e04732adf679965ccc34ca7ae3441','Zofía','Clímaco','Fajardo','Tovar','1983-03-13','zfajardo@gmail.com','Gral Juan Antonio Lavalleja ','1224','Wilson Ferreira Alduante','80100','Libertad','San José','-34.639277','-56.620507','ACTIVADO','0'),
 ('54790312','hmaya','f7c3bc1d808e04732adf679965ccc34ca7ae3441','Herminda','Josías',' Maya','Tovar','1949-11-25','hmaya@gmail.com','Ansina','6818','Federico Garcia Lorca','15800','Ciudad de la Costa','Canelones','-34.852552','-56.048759','ACTIVADO','0'),
@@ -326,7 +323,6 @@ INSERT INTO USUARIO(CEDULA,USUARIO,PASSWORD,PNOMBRE,PAPELLIDO,FNACIMIENTO,EMAIL,
 ('51652357','gabobuceo','4e4800c9e622ec10c62c4bf2ca9aa88136d88bdf','Gabriel','Fernandez','1990-11-28','emgabo@gmail.com','ACTIVADO','0');
 
 INSERT INTO USUARIOTEL VALUES 
-((SELECT ID FROM USUARIO WHERE USUARIO.CEDULA='11111111'),'29254596'),
 ((SELECT ID FROM USUARIO WHERE USUARIO.CEDULA='34190881'),'495131497'),
 ((SELECT ID FROM USUARIO WHERE USUARIO.CEDULA='19918890'),'291766058'),
 ((SELECT ID FROM USUARIO WHERE USUARIO.CEDULA='72940202'),'493160386'),
@@ -342,7 +338,6 @@ INSERT INTO USUARIOTEL VALUES
 ((SELECT ID FROM USUARIO WHERE USUARIO.CEDULA='32206929'),'099426475');
 
 INSERT INTO PUBLICACION (ID, IDCATEGORIA, TITULO, DESCRIPCION, IMGDEFAULT, PRECIO, OFERTA, DESCUENTO, FOFERTA, ESTADOP, ESTADOA, CANTIDAD, VISTO, BAJA) VALUES
-(1, 228, 'Usuario Premium', 'Usuario Premium', '', 159, 0, 0, NULL, 'FINALIZADO', 'NUEVO', 99999, 0, 0),
 (2, 255, 'CARTERA BOLSO KORIUM CON DOBLE CIERRE FRONTAL ', '&lt;p&gt;Cartera tipo bolso Korium con doble cierre frontal y cierre central. Material sint&amp;eacute;tico s&amp;iacute;mil cuero.&lt;/p&gt;\r\n', '273a2311c486376604393b73d8d0c12f', 890, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 6, 1, 0),
 (3, 255, 'Cartera Bolso Korium Tramada con Rafia', '&lt;p&gt;Cartera tipo bolso Korium con cierre de material textil con detalles de tramado de rafia alrededor.&lt;/p&gt;\r\n', '3b20b15cb14ede7dd082d11634607eee', 890, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 1, 1, 0),
 (4, 255, 'CARTERA KORIUM CLÁSICA CON MANIJA A MEDIDA', '&lt;p&gt;Cartera tipo bolso Korium con cierre de material textil con detalles de tramado de rafia alrededor.&lt;/p&gt;\r\n', '531262b335faba33437d97a88adb3476', 990, 0, 0, NULL, 'PUBLICADA', 'NUEVO', 10, 1, 0),
@@ -577,7 +572,6 @@ INSERT INTO PUBLICACIONIMG (ID, IMAGENES) VALUES
 (66,'ebad02c778900d80810b2dcd46241802');
 
 INSERT INTO CREA (ID, IDUSUARIO, IDPUBLICACION) VALUES
-(1,1,1),
 (2,10,2),
 (3,9,3),
 (4,8,4),

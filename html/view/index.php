@@ -60,7 +60,7 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 							<span class="price">&#36; <?php echo $datos_publicaciones[$i]['PRECIO']; ?></span>
 						</a> 
 						<div class="ad-info">
-							<h5><?php echo $datos_publicaciones[$i]['TITULO']; ?></h5>
+							<h5><?php echo utf8_encode($datos_publicaciones[$i]['TITULO']); ?></h5>
 							<span><?php echo date("d/m/Y H:i", strtotime($datos_publicaciones[$i]['FECHA'])); ?></span>
 						</div>
 					</div>

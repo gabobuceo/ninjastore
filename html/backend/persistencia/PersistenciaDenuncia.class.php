@@ -1,26 +1,4 @@
 <?php
-/*
-CREATE TABLE DENUNCIA(
-    ID              SERIAL          NOT NULL,
-    FECHA           TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    TIPO            VARCHAR(15)     NOT NULL,
-    IDOBJETO        BIGINT(20)      UNSIGNED NOT NULL,
-    COMENTARIO      VARCHAR(150),
-    ESTADO          VARCHAR(10)     DEFAULT 'ABIERTA',
-    BAJA            BOOLEAN         DEFAULT 0,
-    PRIMARY KEY     (ID),
-    INDEX           (IDOBJETO),
-    CHECK           (TIPO='PUBLICACION' AND TIPO='COMENTARIO' AND TIPO='COMPRA' AND TIPO='CATEGORIAS' AND TIPO='USUARIO'),
-    CHECK           (ESTADO='ABIERTA' AND ESTADO='CERRADA' AND ESTADO='EN PROCESO')
-);
-    private $id;
-    private $fecha;
-    private $tipo;
-    private $idobjeto;
-    private $comentario;
-    private $estado;
-    private $baja;
-*/
 class PersistenciaDenuncia{
     public function agregar($obj, $conex){
         $tipo= trim($obj->getTipo());
@@ -29,8 +7,8 @@ class PersistenciaDenuncia{
         $sql = "INSERT INTO DENUNCIA (TIPO,IDOBJETO,COMENTARIO) VALUES (:TIPO,:IDOBJETO,:COMENTARIO)";
         $result = $conex->prepare($sql);
         $result->execute(array(":TIPO" => $tipo,
-                                ":IDOBJETO" => $idobjeto,
-                                ":COMENTARIO" => $comentario));
+            ":IDOBJETO" => $idobjeto,
+            ":COMENTARIO" => $comentario));
         if($result){
             return(true);
         }else{
@@ -49,7 +27,7 @@ class PersistenciaDenuncia{
         }
     }
     public function consTodos($conex){
-        $sql = "SELECT * FROM DENUNCIA WHERE BAJA=0";
+        $sql = "SELECT * FROM DATOS_DENUNCIA";
         $result = $conex->prepare($sql);
         $result->execute();
         $resultados=$result->fetchAll();
@@ -72,7 +50,7 @@ class PersistenciaDenuncia{
     }
     public function consAsignadas($obj, $conex){
         $id= trim($obj->getId());
-        $sql = "SELECT * FROM DATOS_DENUNCIA WHERE ESTADO='EN PROCESO'";
+        $sql = "SELECT DATOS_DENUNCIA.IDDENUNCIA, DATOS_DENUNCIA.IDUSUARIO,DATOS_DENUNCIA.FECHADENUNCIA,DATOS_DENUNCIA.TIPO,DATOS_DENUNCIA.IDOBJETO,DATOS_DENUNCIA.COMENTARIO,DATOS_DENUNCIA.ESTADO,GESTIONA.ID AS IDGESTIONA,GESTIONA.IDUSUARIO as IDUSUARIOADMIN,GESTIONA.FECHA,GESTIONA.DESCRIPCION,USUARIO.USUARIO FROM DATOS_DENUNCIA,GESTIONA,USUARIO WHERE DATOS_DENUNCIA.IDDENUNCIA=GESTIONA.IDDENUNCIA AND DATOS_DENUNCIA.ESTADO='EN PROCESO' AND GESTIONA.IDUSUARIO=:ID AND GESTIONA.IDUSUARIO=USUARIO.ID";
         $result = $conex->prepare($sql);
         $result->execute(array(":ID" => $id));
         $resultados=$result->fetchAll();
@@ -91,6 +69,28 @@ class PersistenciaDenuncia{
         $result->execute();
         $resultados=$result->fetchAll();
         return $resultados;
+    }
+    public function altaAsigna($obj, $conex){
+        $id= trim($obj->getId());
+        $sql = "UPDATE DENUNCIA SET ESTADO='EN PROCESO' WHERE ID=:ID";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":ID" => $id));
+        if($result){
+            return(true);
+        }else{
+            return(false);
+        }
+    }
+    public function resIncidencia($obj, $conex){
+        $id= trim($obj->getId());
+        $sql = "UPDATE DENUNCIA SET ESTADO='CERRADA' WHERE ID=:ID";
+        $result = $conex->prepare($sql);
+        $result->execute(array(":ID" => $id));
+        if($result){
+            return(true);
+        }else{
+            return(false);
+        }
     }
 }
 ?>

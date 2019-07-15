@@ -35,6 +35,9 @@ foreach ($file_ary as $file) {
         copy($file['tmp_name'], $targettn);
         copy($file['tmp_name'], $targetdi);
         require_once('../logica/procesarRecorteImagen.php');
+        /*var_dump($target);
+        var_dump($targettn);
+        var_dump($targetdi);*/
 
         $magicianObj = new imageLib($targettn);
         $magicianObj -> resizeImage(250, 250, 'crop');
@@ -49,7 +52,7 @@ foreach ($file_ary as $file) {
         /* Verificar si el server es linux o windows */
         /* ------------------------------------------------ */
         $sistema=$config->serverso;
-        if ($sistema=="centos") {
+        if ($sistema=="CentOS") {
             if ($file['type']=="image/gif") {
                 //Imagen en GIF usa otro binario
                 exec("gif2webp -q 80 " . $target . " -o " . $webp); // Tamaño original

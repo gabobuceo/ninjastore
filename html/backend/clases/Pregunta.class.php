@@ -90,72 +90,74 @@ class Pregunta
 
 	// ----------- ------------------ -----------
 	//  ----------- OTROS METODOS --------------
-	public function alta($conex)
-	{
+	public function alta($conex){
 		$pp=new PersistenciaPregunta;
 		return ($pp->agregar($this, $conex));
 	}
-	public function baja($conex)
-	{
+	public function baja($conex){
 		$pp=new PersistenciaPregunta;
 		return($pp->eliminar($this, $conex));
 	}
-	public function modificacion($conex)
-	{
+	public function modificacion($conex){
 		$pp=new PersistenciaPregunta;
 		return($pp->modificar($this, $conex));
 	}
 	//
-	public function consultaTodos($conex)
-	{
+	public function consultaTodos($conex){
 		$pp=new PersistenciaPregunta;
 		$datos= $pp->consTodos($this,$conex);
 		return $datos;
 	}
 
-	public function consultaUno($conex)
-	{
+	public function consultaUno($conex){
 		$pp=new PersistenciaPregunta;
 		$datos= $pp->consUno($this,$conex);
 		return $datos;
 	}
 	//Devuelve true si el Login y el Password coinciden
-	public function coincideLoginPassword($conex)
-	{
+	public function coincideLoginPassword($conex){
 		$pp= new PersistenciaPregunta;
 		return $pp->verificarLoginPassword($this, $conex);
 
 	}
-	public function consultaCantidadaPreguntas($conex)
-	{
+	public function consultaCantidadaPreguntas($conex){
 		$pp=new PersistenciaPregunta;
 		$datos= $pp->consCantPreg($this,$conex);
 		return $datos;
 	}
-	public function consultaPreguntasPublicacion($conex)
-	{
+	public function consultaPreguntasPublicacion($conex){
 		$pp=new PersistenciaPregunta;
 		$datos= $pp->consultaPregPublicacion($this,$conex);
 		return $datos;
 	}
-	public function consultaPregUsuarioPublicacion($conex)
-	{
+	public function consultaPregUsuarioPublicacion($conex){
 		$pp=new PersistenciaPregunta;
 		$datos= $pp->consultaPregUsuPublicacion($this,$conex);
 		return $datos;
 	}
-	public function consultaPregUsuarioVentas($conex)
-	{
+	public function consultaPregUsuarioVentas($conex){
 		$pp=new PersistenciaPregunta;
 		$datos= $pp->consultaPregUsuVentas($this,$conex);
 		return $datos;
 	}
-	public function consultaPregUsuarioCompras($conex)
-	{
+	public function consultaPregUsuarioCompras($conex){
 		$pp=new PersistenciaPregunta;
 		$datos= $pp->consultaPregUsuCompras($this,$conex);
 		return $datos;
 	}
+	public function consultaTodosEstado($conex){
+		$pp=new PersistenciaPregunta;
+		$datos= $pp->consTodosEstado($this,$conex);
+		return $datos;
+	}
+	public function consultaTodosPublicacion($conex){
+		$pp=new PersistenciaPregunta;
+		$datos= $pp->consTodosPublicacion($conex);
+		return $datos;
+	}
+	public function baneo($conex){
+		$ppi=new PersistenciaPregunta;
+		return ($ppi->baneoMen($this, $conex));
+	}
 }
-
 ?>

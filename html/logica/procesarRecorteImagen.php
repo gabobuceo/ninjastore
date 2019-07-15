@@ -2364,7 +2364,7 @@ class imageLib
     # 
     {
     
-    if (!file_exists($file) && !$this->checkStringStartsWith('http://', $file)) { if ($this->debug) { die('NONO2found.'); }else{ die(); }};
+    if (!file_exists($file) && !$this->checkStringStartsWith('http://', $file)) { if ($this->debug) { die('Error al recortar la Imagen. El archivo no existe'); }else{ die(); }};
     
         // *** Get extension
         $extension = strrchr($file, '.');

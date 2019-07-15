@@ -95,7 +95,7 @@ class PersistenciaPregunta
     public function RespPregunta($obj, $conex){
         $id = $obj->getId();
         $respuesta = $obj->getRespuesta();
-        $sql = "UPDATE PREGUNTA SET RESPUESTA=:RESPUESTA WHERE ID=:ID";
+        $sql = "UPDATE PREGUNTA SET RESPUESTA=:RESPUESTA,FECHAR=NOW() WHERE ID=:ID";
         $result = $conex->prepare($sql);        
         $result->execute(array(":RESPUESTA" => $respuesta, 
                                 ":ID" => $id));

@@ -97,7 +97,7 @@ class Denuncia{
 	}
 	public function consultaTodos($conex){
 		$pu=new PersistenciaDenuncia;
-		$datos= $pu->consTodos($this,$conex);
+		$datos= $pu->consTodos($conex);
 		return $datos;
 	}
 	public function consultaUno($conex){
@@ -124,6 +124,14 @@ class Denuncia{
 		$pu=new PersistenciaDenuncia;
 		$datos= $pu->consMaxID($conex);
 		return $datos;
+	}
+		public function altaAsignacion($conex){
+		$pu=new PersistenciaDenuncia;
+		return ($pu->altaAsigna($this, $conex));
+	}
+		public function resolverIncidencia($conex){
+		$pu=new PersistenciaDenuncia;
+		return ($pu->resIncidencia($this, $conex));
 	}
 	
 }

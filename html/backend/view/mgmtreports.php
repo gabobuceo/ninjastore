@@ -4,7 +4,6 @@ if (!isset($_SESSION['idbk'])){
 	header('Location: ../view/login.php');
 }
 require('definitions.php');
-//require_once('../../logica/funciones.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -17,6 +16,7 @@ require('definitions.php');
 <script type="text/javascript" src="../../static/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$('#tablatodas').DataTable();
 		$('#tablaabiertas').DataTable();
 		$('#tablaasignadas').DataTable();
 		$('#tablacerradas').DataTable();
@@ -29,13 +29,11 @@ require('definitions.php');
 	margin: 1em 0;
 	padding: 0;
 }
-
 .thumbnails li {
 	display: inline-block;
 	width: 50px;
 	margin: 0 5px;
 }
-
 .thumbnails img {
 	display: block;
 	min-width: 100%;
@@ -49,19 +47,41 @@ require('definitions.php');
 /* Agregar todo control, puntual para esta pagina (Como la sesion).*/
 /*-----------------------------------------------------------------------------------------------------------*/
 require('header.php');
+$datos_denuncias = require_once('../logica/procesarListadoDenuncias.php');
 $datos_denuncias_abiertas = require_once('../logica/procesarListadoDenunciasAbiertas.php');
 $datos_denuncias_asignadas = require_once('../logica/procesarListadoDenunciasAsignadas.php');
 $datos_denuncias_cerradas = require_once('../logica/procesarListadoDenunciasCerradas.php');
+if (isset($_GET['id'])) {
+	$_SESSION['DenID']=$_GET['id'];
+	$datos_asignado = require_once('../logica/procesarCargaDenunciaAsignado.php');
+	if (isset($datos_asignado["this"])) {
+		$datos_asignado = require_once('../logica/procesarAsignarDenuncia.php');
+		header("Refresh:0");
+	}
+}
+/*-----------------------------------------------------------------------------------------------------------*/
+/* Debug de Datos.*/
+/*-----------------------------------------------------------------------------------------------------------*/
+/*
+var_dump($datos_denuncias);
+echo "<hr>";
 var_dump($datos_denuncias_abiertas);
 echo "<hr>";
 var_dump($datos_denuncias_asignadas);
 echo "<hr>";
 var_dump($datos_denuncias_cerradas);
 echo "<hr>";
+var_dump($datos_asignado);
+echo "<hr>";
 var_dump($_SESSION);
 echo "<hr>";
-/*$datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
-$datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');*/
+var_dump($_POST);
+echo "<hr>";
+var_dump($_GET);
+echo "<hr>";
+var_dump($_SERVER);
+echo "<hr>";
+*/
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -84,171 +104,154 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 						if (isset($_GET['id'])) {
 							$_SESSION['DenID']=$_GET['id'];
 							$datos_denuncia = require_once('../logica/procesarCargaDenuncia.php');
-							$datos_asignado = require_once('../logica/procesarCargaDenunciaAsignado.php');
-							/*
-							if datos_asignado==Vacio ->
-								Asignar al usuario actualmente logeado
-								cargar sus datos
-							fin if
-							*/
-							var_dump($datos_denuncia);
-							echo "<hr>";
-							var_dump($datos_asignado);
-							
+							//var_dump($datos_asignado);
 							unset($_SESSION['DenID']);
 							?>
 							<h3>Denuncia: </h3>
-							<form class="form-horizontal" action="../logica/procesarModificarUsuario.php" method="POST">
+							<form class="form-horizontal" action="../logica/procesarReasignarDenuncia.php" method="POST">
 								<fieldset>
-									<input name="idusumod" type="text" value="<?php echo $_GET['id'] ?>" hidden>
+									<input name="iddenuncia" type="text" value="<?php echo $_GET['id'] ?>" hidden>
+									<input name="idgestion" type="text" value="<?php echo $datos_asignado[0]['IDGESTIONA'] ?>" hidden>
 									<div class="form-group">
 										<label class="col-md-5 control-label">ID</label>  
-										<input name="cedula" type="hidden" class="form-control" value="<?php echo utf8_encode($datos_denuncia[0]['ID']) ?>" hidden >
 										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_denuncia[0]['ID']) ?></label>  
 									</div>
 									<div class="form-group">
 										<label class="col-md-5 control-label">FECHA</label>  
-										<input name="cedula" type="hidden" class="form-control" value="<?php echo utf8_encode($datos_denuncia[0]['FECHA']) ?>" hidden >
 										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_denuncia[0]['FECHA']) ?></label>  
 									</div>
 									<div class="form-group">
 										<label class="col-md-5 control-label">TIPO</label>  
-										<input name="cedula" type="hidden" class="form-control" value="<?php echo utf8_encode($datos_denuncia[0]['TIPO']) ?>" hidden >
 										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_denuncia[0]['TIPO']) ?></label>  
 									</div>
 									<div class="form-group">
 										<label class="col-md-5 control-label">IDOBJETO</label>  
-										<input name="cedula" type="hidden" class="form-control" value="<?php echo utf8_encode($datos_denuncia[0]['IDOBJETO']) ?>" hidden >
 										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_denuncia[0]['IDOBJETO']) ?></label>  
 									</div>
 									<div class="form-group">
 										<label class="col-md-5 control-label">COMENTARIO</label>  
-										<input name="cedula" type="hidden" class="form-control" value="<?php echo utf8_encode($datos_denuncia[0]['COMENTARIO']) ?>" hidden >
 										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_denuncia[0]['COMENTARIO']) ?></label>  
 									</div>
 									<div class="form-group">
 										<label class="col-md-5 control-label">ESTADO</label>  
-										<input name="cedula" type="hidden" class="form-control" value="<?php echo utf8_encode($datos_denuncia[0]['ESTADO']) ?>" hidden >
 										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_denuncia[0]['ESTADO']) ?></label>  
 									</div>
 									<div class="form-group">
-										<label class="col-md-5 control-label">BAJA</label>  
-										<input name="cedula" type="hidden" class="form-control" value="<?php echo utf8_encode($datos_denuncia[0]['BAJA']) ?>" hidden >
-										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_denuncia[0]['BAJA']) ?></label>  
+										<label class="col-md-5 control-label">Asignado a</label>  
+										<label class="col-md-5 control-label" style="text-align: left;"><?php echo utf8_encode($datos_asignado[0]['USUARIO']) ?></label>  
 									</div>
+									<?php
+									/*si sos admin*/
+									$datos_admins = require_once('../logica/procesarCargaUsuariosBackend.php');
+									//var_dump($datos_admins);
+									if ($_SESSION['rolbk']=="ADMINISTRADOR") {
+										?>
+										<div class="form-group">
+											<label class="col-md-5 control-label">Reasignar</label>  
+											<div class="col-md-5">
+												<div class="input-group">
+													<select class="selectpicker form-control" data-live-search="true" name="idadmin">
+														<?php
+														for ($i=0; $i < count($datos_admins); $i++) {
+															?>
+															<option value="<?php echo utf8_encode($datos_admins[$i]['ID']) ?>"><?php echo utf8_encode($datos_admins[$i]['USUARIO']) ?></option>
+															<?php
+														}
+														?>
+													</select>
+													<span class="input-group-btn">
+														<button type="submit" class="btn btn-success">
+															<span class="glyphicon glyphicon-thumbs-up"></span> Asignar
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+										<?php 
+									}
+									?>
 								</fieldset>
 							</form>
-							<h3>Historial asignaciones: </h3>
-							<?php				
-							if (isset($datos_asignado["this"])) {
-								?>
-								<p>Nunca fue asignada esta denuncia.</p>
-								<?php
-							}else{
-								?>
-								<div class="table-responsive">
-									<table id="tablahistorial" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
-										<thead>
-											<tr>
-												<td><strong>ID</strong></td>
-												<td class="text-center"><strong>IDUSUARIO</strong></td>
-												<td class="text-center"><strong>IDDENUNCIA</strong></td>
-												<td class="text-center"><strong>FECHA</strong></td>
-												<td class="text-center"><strong>DESCRIPCION</strong></td>
-												<td class="text-center"><strong>HTML</strong></td>
-												<td class="text-right"><strong>BAJA</strong></td>
-											</tr>
-										</thead>
-										<tbody>
-											<?php
-											for ($i=0; $i < count($datos_asignado); $i++) { 
-												/*DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA*/
-												?>
-												<tr>
-													<td><?php echo $datos_asignado[$i]['ID'] ?></td>
-													<td class="text-center"><?php echo $datos_asignado[$i]['IDUSUARIO'] ?></td>
-													<td class="text-center"><?php echo $datos_asignado[$i]['IDDENUNCIA'] ?></td>
-													<td class="text-center"><?php echo $datos_asignado[$i]['FECHA'] ?></td>
-													<td class="text-center"><?php echo $datos_asignado[$i]['DESCRIPCION'] ?></td>
-													<td class="text-center"><?php echo $datos_asignado[$i]['HTML'] ?></td>
-													<td class="text-right"><?php echo $datos_asignado[$i]['BAJA'] ?></td>
-												</tr>
-												<?php
-											}
-											?>
-										</tbody>
-									</table>
-								</div>
-								<?php
-							}
-							?>
+							
+
 							<h3>Objeto de Denuncia: </h3>
 							<?php
 							switch ($datos_denuncia[0]['TIPO']) {
 								case 'PUBLICACION':
-								$_SESSION['PubID']=$datos_denuncia[0]['IDOBJETO'];
-								$datos_publicacion = require_once('../logica/procesarCargaPublicacion.php');
-								$datos_publicacionimg = require_once('../logica/procesarCargaPublicacionImg.php');
-								$_SESSION['CatID']=$datos_publicacion[0]['IDCATEGORIA'];
-								$datos_categoria = require_once('../logica/procesarCargaCategoria.php');
-								unset($_SESSION['CatID']);
-								//var_dump($datos_publicacion);
-								?>
-								<form class="form-horizontal" action="../logica/procesarModificarPublicacion.php" method="POST">
-									<fieldset>
-										<input name="idpub" type="text" value="<?php echo $_GET['id'] ?>" hidden>
-										<div class="form-group">
-											<label class="col-md-5 control-label">Titulo</label>  
-											<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['TITULO']) ?></label>  
-										</div>
-										<div class="form-group">
-											<label class="col-md-5 control-label">Descripcion</label>  
-											<label class="col-md-7 control-label" style="text-align: left;"><?php echo htmlspecialchars_decode($datos_publicacion['0']['DESCRIPCION'], ENT_NOQUOTES); ?> </label>
-										</div>
-										<div class="form-group">
-											<label class="col-md-5 control-label">Precio</label>  
-											<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['PRECIO']) ?></label>  
-										</div>
-										<div class="form-group">
-											<label class="col-md-5 control-label">Cantidad</label>  
-											<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['CANTIDAD']) ?></label>  
-										</div>
-										<div class="form-group">
-											<label class="col-md-5 control-label">Categoria</label>
-											<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_categoria[0]['TITULO']) ?></label>  
-										</div>
-										<div class="form-group">
-											<label class="col-md-5 control-label">Estado Articulo</label> 
-											<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['ESTADOA']) ?></label>   
-										</div>
-										<div class="form-group">
-											<label class="col-md-5 control-label">Estado Publicacion</label>  
-											<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['ESTADOP']) ?></label>  
-										</div>
-									</fieldset>
-								</form>
-								<h3>Imagenes: </h3>
-								<ul class='thumbnails'>
-									<label class="col-md-12 control-label">
-										<?php
-										for ($i=0; $i < count($datos_publicacionimg); $i++) { 
-											?>
+									$_SESSION['PubID']=$datos_denuncia[0]['IDOBJETO'];
+									$datos_publicacion = require_once('../logica/procesarCargaPublicacion.php');
+									$datos_publicacionimg = require_once('../logica/procesarCargaPublicacionImg.php');
+									$_SESSION['CatID']=$datos_publicacion[0]['IDCATEGORIA'];
+									$datos_categoria = require_once('../logica/procesarCargaCategoria.php');
+									unset($_SESSION['CatID']);
+											//var_dump($datos_publicacion);
+									?>
+									<form class="form-horizontal" action="../view/mgmtpublicaciones.php" method="GET">
+										<fieldset>
+											<input name="id" type="text" value="<?php echo $datos_denuncia[0]['IDOBJETO'] ?>" hidden>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Titulo</label>  
+												<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['TITULO']) ?></label>  
+											</div>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Ver</label>  
+												<div class="col-md-5">
+													<a href="../view/mgmtpublicaciones.php?id=<?php echo $datos_denuncia[0]['IDOBJETO'] ?>">
+														<button class="btn btn-xs btn-info">
+															<i class="fa fa-external-link" aria-hidden="true"></i>
+														</button>
+													</a>
 
-
-											<li>
-												<a target="_blank" href='../../imagenes/<?php echo $datos_publicacionimg[$i]['IMAGENES'] ?>.webp' data-standard='../../imagenes/<?php echo $datos_publicacionimg[$i]['IMAGENES'] ?>.webp'>
-													<img src='../../imagenes/<?php echo $datos_publicacionimg[$i]['IMAGENES'] ?>_tn.webp' />
-												</a>
-											</li>
-
-											
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Descripcion</label>  
+												<label class="col-md-7 control-label" style="text-align: left;"><?php echo htmlspecialchars_decode($datos_publicacion['0']['DESCRIPCION'], ENT_NOQUOTES); ?> </label>
+											</div>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Precio</label>  
+												<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['PRECIO']) ?></label>  
+											</div>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Cantidad</label>  
+												<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['CANTIDAD']) ?></label>  
+											</div>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Categoria</label>
+												<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_categoria[0]['TITULO']) ?></label>  
+											</div>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Estado Articulo</label> 
+												<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['ESTADOA']) ?></label>   
+											</div>
+											<div class="form-group">
+												<label class="col-md-5 control-label">Estado Publicacion</label>  
+												<label class="col-md-7 control-label" style="text-align: left;"><?php echo utf8_encode($datos_publicacion[0]['ESTADOP']) ?></label>  
+											</div>
+										</fieldset>
+									</form>
+									<h3>Imagenes: </h3>
+									<ul class='thumbnails'>
+										<label class="col-md-12 control-label">
 											<?php
-										}
-										?>
-									</label> 
-								</ul>
-								<?php
-								unset($_SESSION['PubID']);
+											for ($i=0; $i < count($datos_publicacionimg); $i++) { 
+												?>
+
+
+												<li>
+													<a target="_blank" href='../../imagenes/<?php echo $datos_publicacionimg[$i]['IMAGENES'] ?>.webp' data-standard='../../imagenes/<?php echo $datos_publicacionimg[$i]['IMAGENES'] ?>.webp'>
+														<img src='../../imagenes/<?php echo $datos_publicacionimg[$i]['IMAGENES'] ?>_tn.webp' />
+													</a>
+												</li>
+
+
+												<?php
+											}
+											?>
+										</label> 
+									</ul>
+									<?php
+									unset($_SESSION['PubID']);
 								break;
 								case 'COMENTARIO':
 								$_SESSION['idmensaje']=$datos_denuncia[0]['IDOBJETO'];
@@ -272,11 +275,54 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 									# code...
 								break;
 							}
-							?>
-							<h3>Resolucion de incidencia: </h3>
-							Radio: Cancelar Denuncia / Banear
-							
-							<?php
+							if (($_SESSION['idbk']==$datos_asignado[0]['IDUSUARIOADMIN']) && ($datos_denuncia[0]['ESTADO']=='EN PROCESO')) {
+								?>
+								<h3>Resolucion de incidencia: </h3>
+								<form class="form-horizontal" action="../logica/procesarCerrarDenuncia.php" method="POST">
+									<fieldset>
+										<input name="iddenuncia" type="text" value="<?php echo $_GET['id'] ?>" hidden>
+										<input name="idgestion" type="text" value="<?php echo $datos_asignado[0]['IDGESTIONA'] ?>" hidden>
+										<!-- 
+											<input name="idobjeto" type="text" value="<?php echo $datos_denuncia[0]['IDOBJETO'] ?>" hidden>
+											<input name="tipo" type="text" value="<?php echo $datos_denuncia[0]['TIPO'] ?>" hidden>
+										-->
+										<div class="form-group">
+											<label class="col-md-5 control-label">Veredicto:</label>  
+											<div class="col-md-7">
+												<div class="input-group">
+													<label>
+														<input type="radio" class="radio-icon" name="options" value="no" id="option1" autocomplete="off" checked><label for="option1">Sin Efecto </label>
+													</label>
+													<br>
+													<label>
+														<input type="radio" class="radio-icon" name="options" value="si" id="option2" autocomplete="off"><label for="option2">Baneado</label>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-5 control-label">Comentario:</label>  
+											<div class="col-md-7">
+												<div class="input-group">
+													<textarea class="form-control" rows="5" name="comentario"></textarea>
+													<div class="space-ten"></div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-5">
+
+											</div>
+											<div class="col-md-5">
+												<button type="submit" class="btn btn-success">
+													<span class="glyphicon glyphicon-thumbs-up"></span> Guardar Cambios
+												</button> 
+											</div>
+										</div>
+									</fieldset>
+								</form>
+								<?php
+							}
 						}else{
 							?>
 							<div class="row">
@@ -292,6 +338,58 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 			</div>
 			<div class="col-md-5">
 				<div class="single-page main-grid-border">
+					<?php
+					if ($_SESSION['rolbk']=="ADMINISTRADOR") {
+						?>
+						<div class="rightcpanel">
+							<h4>Listado de Denuncias</h4>
+							<?php
+							if (isset($datos_denuncias["this"])) {
+								?>
+								<p>No existen denuncias abiertas.</p>
+								<?php
+							}else{
+								?>
+								<div class="table-responsive">
+									<table id="tablatodas" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<td><strong>ID</strong></td>
+												<td class="text-center"><strong>Tipo</strong></td>
+												<td class="text-center"><strong>Fecha</strong></td>
+												<td class="text-right"><strong>Ver</strong></td>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											for ($i=0; $i < count($datos_denuncias); $i++) { 
+												/*DATOS_PUBLICACIONES.ID,CATEGORIA.TITULO,DATOS_PUBLICACIONES.TITULO,DATOS_PUBLICACIONES.PRECIO, DATOS_PUBLICACIONES.OFERTA*/
+												?>
+												<tr>
+													<td><?php echo $datos_denuncias[$i]['IDDENUNCIA'] ?></td>
+													<td><?php echo utf8_encode($datos_denuncias[$i]['TIPO']) ?></td>
+													<td class="text-center"><?php echo date("d/m/Y", strtotime($datos_denuncias[$i]['FECHADENUNCIA'])) ?></td>
+													<td class="text-right">
+														<a href="../view/mgmtreports.php?id=<?php echo $datos_denuncias[$i]['IDDENUNCIA'] ?>">
+															<button class="btn btn-xs btn-info">
+																<i class="fa fa-external-link" aria-hidden="true"></i>
+															</button>
+														</a>
+													</td>
+												</tr>
+												<?php
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
 					<div class="rightcpanel">
 						<h4>Denuncias Abiertas</h4>
 						<?php				
@@ -436,6 +534,37 @@ $datos_publicacion = require_once('../logica/procesarListadoPublicaciones.php');
 	</div>
 </div>
 <script>
+	$('#tablatodas').DataTable( {
+		"language": {
+			"sProcessing":     "Procesando...",
+			"sLengthMenu":     "Mostrar _MENU_ registros",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sInfo":           "Total: _TOTAL_ registros",
+			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix":    "",
+			"sSearch":         "Buscar:",
+			"sUrl":            "",
+			"sInfoThousands":  ",",
+			"sLoadingRecords": "Cargando...",
+			"oPaginate": {
+				"sFirst":    "Primero",
+				"sLast":     "Último",
+				"sNext":     "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		},
+		"responsive": "true",
+		"select": "true",
+		"buttons": [
+		'copy', 'excel', 'pdf'
+		]
+	});
 	$('#tablaabiertas').DataTable( {
 		"language": {
 			"sProcessing":     "Procesando...",

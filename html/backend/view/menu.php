@@ -15,7 +15,7 @@
 				<li <?php if ($_SESSION['menu']==2) { echo "class='active'"; } ?>><a href="mgmtusers.php"><i class="fa fa-id-card" aria-hidden="true"></i> Gestion de Usuarios</a></li>
         		<li <?php if ($_SESSION['menu']==3) { echo "class='active'"; } ?>><a href="mgmtcategories.php"><i class="fa fa-id-card" aria-hidden="true"></i> Gestion de Categorias</a></li>
 				<li <?php if ($_SESSION['menu']==4) { echo "class='active'"; } ?>><a href="mgmtpublicaciones.php"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Gestion de Publicaciones</a></li>
-				<li <?php if ($_SESSION['menu']==5) { echo "class='active'"; } ?>><a href="mgmtsells.php"><i class="fa fa-usd" aria-hidden="true"></i> Gestion de Ventas</a></li>
+				<li <?php if ($_SESSION['menu']==5) { echo "class='active'"; } ?>><a href="mgmtmessages.php"><i class="fa fa-envelope" aria-hidden="true"></i> Gestion de Mensajes</a></li>
 				<li <?php if ($_SESSION['menu']==6) { echo "class='active'"; } ?>><a href="mgmtbuys.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Gestion de Compras</a></li>
 				<li <?php if ($_SESSION['menu']==7) { echo "class='active'"; } ?>><a href="mgmtbills.php"><i class="fa fa-money" aria-hidden="true"></i> Gestion de Facturas</a></li>
 				<li <?php if ($_SESSION['menu']==8) { echo "class='active'"; } ?>><a href="mgmtreports.php"><i class="fa fa-bug" aria-hidden="true"></i> Gestion de Denuncias</a></li>

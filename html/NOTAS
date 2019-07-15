@@ -1,41 +1,33 @@
 COMITEO:
 --------------------------------------
 FRONTEND
-Se editaron los valore de denuncia para que estos sean como solicita el Check
+
+Arreglo en INDEX ya que no mostraba tildes (encode)
 
 Backend
 
 Gestion de Denuncias
-	Derecha:
-		* Vista previa de Denuncias (Al verla se autoasigna / Si sos admin, podes cambiar su asignacion)
-	Izquierda:
-		* Listado de Denuncias --> 100%
-		* Listado de Denuncias asignadas a mi pendientes --> 100%
-		* Listado de Denuncias cerradas --> 100%
+	* Vista previa de Denuncias 
+		-> Publicaciones  Pronto
 
-CREATE TABLE GESTIONA(
-	ID				SERIAL			NOT NULL,
-	IDUSUARIO 		BIGINT(20)		UNSIGNED NOT NULL,
-	IDDENUNCIA 		BIGINT(20)		UNSIGNED NOT NULL,
-	FECHA 			TIMESTAMP 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	DESCRIPCION 	TEXT,
-	HTML 			TEXT,
-	BAJA			BOOLEAN			DEFAULT 0,
-	PRIMARY KEY		(ID,IDUSUARIO,IDDENUNCIA),
-	FOREIGN KEY		(IDUSUARIO) REFERENCES USUARIO(ID),
-	FOREIGN KEY		(IDDENUNCIA) REFERENCES DENUNCIA(ID)
-);
+Gestion de Mensajes: 0%
+	Derecha:
+		* Vista previa de Mensajes 100%
+	Izquierda:
+		* Listado de Mensajes (Ver / Banear)
+		* Mensaje de publicaciones (por id) (Ver)
+		* Listado de Mensajes baneadas (Ver / Desbanear)
+
+SQL:
+	Se agrega Estado a la vista DATOS_CHAT, se actualiza en el diccionario de datos y el archivo CreateTables.sql
+	Se agrega ID a Gestiona y se usa como primaria
+
 
 TRABAJANDO EN:
 --------------------------------------------
-
 	
 mgmtpublicaciones
-Falta agregar categoria
-Cargar solo hijas!
-
-Error en persistenciapublicacion al modificar el articulo
-Verificar
+	
 
 
 	Si un admin cancela una compra, se debe añadir un +1 de item
@@ -46,8 +38,14 @@ Detalles para hacer (que no se va a hacer):
 
 VIP Alerta control stock  -> 0%
 VIP Grafica de ventas menual 	-> 0%
-Baneado 		-> Sin hacer
----------------------------------------------------------------------
+--------------------------------------
+
+
+NOTA: INDEX -> Algunas publicaciones -> Muestra finalizados (como usuario Premium) / Posiblemente muestre Baja=1
+
+
+
+-------------------------------
 ESTADO DE FRONT END CPANEL: 90% aprox
 
 Resumen 100%
@@ -139,11 +137,10 @@ Pensar en un tipo de Strike por las denuncias y multas del moderador hacia el us
 ----------------------------------------------------------------------------------------------------------------------------
 Backend
 
-Resumen 
+Inicio 
 	??? NADA
 
-
-Gestion de Usuarios:
+Gestion de Usuarios: 100%
 		Derecha:
 			* Perfil completo del usuario 	-> 100%
 		Izquierda:
@@ -158,7 +155,7 @@ Gestion de Usuarios:
 				Tipo - Rol
 				Tipo - Eliminado
 				
-Gestion de Categorias:
+Gestion de Categorias: 100%
 	Derecha:
 		* Arbol de categorias -> 100%
 	Izquierda:
@@ -166,28 +163,29 @@ Gestion de Categorias:
 		* Alta / Baja / Modificar -> 100%
 
 
-Gestion de Publicaciones
+Gestion de Publicaciones: 100%
 	Derecha:
 		* Vista previa de Publicacion
 	Izquierda:
 		* Listado de publicaciones (Ver / Editar / Banear / Bajar)
 		* Listado de publicaciones baneadas (Ver / Editar / Banear / Bajar)
 
-Gestion de Ventas
+Gestion de Mensajes: 0%
 	Derecha:
-		* Vista previa de Ventas
+		* Vista previa de Mensajes
 	Izquierda:
-		* Listado de Ventas (Ver / Editar / Banear / Bajar)
-		* Listado de Ventas baneadas (Ver / Editar / Banear / Bajar)
+		* Listado de Mensajes (Ver / Editar / Banear)
+		* Mensaje de publicaciones (por id) (Ver)
+		* Listado de Mensajes baneadas (Ver / Editar)
 
-Gestion de Compras
+Gestion de Compras: 0%
 	Derecha:
 		* Vista previa de Compras
 	Izquierda:
 		* Listado de Compras (Ver / Editar / Banear / Bajar)
 		* Listado de Compras baneadas (Ver / Editar / Banear / Bajar)
 
-Gestion de Facturas
+Gestion de Facturas: 0%
 	Derecha:
 		* Vista previa de Facturas
 	Izquierda:
@@ -198,6 +196,10 @@ Gestion de Facturas
 Gestion de Denuncias
 	Derecha:
 		* Vista previa de Denuncias
+			PUBLICACION -> 100%
+			USUARIO 	-> 100%
+			COMPRA 		-> 100%
+			COMENTARIO 	-> 100%
 	Izquierda:
 		* Listado de Denuncias (Moderador Autoasignarse / Admin -> selecciona aquien asignar)
 		* Listado de Denuncias asignadas a mi pendientes
