@@ -35,7 +35,8 @@ class PersistenciaDenuncia{
     }
     public function consUno($obj, $conex){
         $id= trim($obj->getId());
-        $sql = "SELECT * FROM DENUNCIA WHERE BAJA=0 AND ID=:ID";
+        //$sql = "SELECT * FROM DENUNCIA WHERE BAJA=0 AND ID=:ID";
+        $sql = "SELECT * FROM (SELECT DATOS_DENUNCIA.*,GESTIONA.ID AS IDGESTION,GESTIONA.FECHA AS FECHAGESTION,GESTIONA.DESCRIPCION,GESTIONA.HTML FROM DATOS_DENUNCIA LEFT JOIN GESTIONA ON DATOS_DENUNCIA.IDDENUNCIA = GESTIONA.IDDENUNCIA) TT WHERE IDDENUNCIA=:ID";
         $result = $conex->prepare($sql);
         $result->execute(array(":ID" => $id));
         $resultados=$result->fetchAll();

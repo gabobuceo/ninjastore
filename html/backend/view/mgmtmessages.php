@@ -84,7 +84,7 @@ echo "<hr>";
 			<div class="col-md-7">
 				<div class="single-page main-grid-border">
 					<div class="leftcpanel">
-						<h4>Chat</h4>
+						<h4>Ver Mensajes</h4>
 						<?php
 						if (isset($_GET['id'])) {
 							$_SESSION['idmensaje']=$_GET['id'];

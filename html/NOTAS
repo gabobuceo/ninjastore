@@ -1,5 +1,26 @@
 COMITEO:
---------------------------------------
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+
+TRABAJANDO EN:
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+Denuncia de Mensajes	
+
+	Si un admin cancela una compra, se debe añadir un +1 de item
+Detalles para hacer (que no se va a hacer):
+	La factura genera hasta 18 items, a partir de ahi, se superpone. -> crear una nueva hoja
+
+
+
+VIP Alerta control stock  -> 0%
+VIP Grafica de ventas menual 	-> 0%
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+
+NOTA: INDEX -> Algunas publicaciones -> Muestra finalizados (como usuario Premium) / Posiblemente muestre Baja=1
+
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 FRONTEND
 
 Arreglo en INDEX ya que no mostraba tildes (encode)
@@ -10,7 +31,7 @@ Gestion de Denuncias
 	* Vista previa de Denuncias 
 		-> Publicaciones  Pronto
 
-Gestion de Mensajes: 0%
+Gestion de Mensajes: 100%
 	Derecha:
 		* Vista previa de Mensajes 100%
 	Izquierda:
@@ -21,31 +42,7 @@ Gestion de Mensajes: 0%
 SQL:
 	Se agrega Estado a la vista DATOS_CHAT, se actualiza en el diccionario de datos y el archivo CreateTables.sql
 	Se agrega ID a Gestiona y se usa como primaria
-
-
-TRABAJANDO EN:
---------------------------------------------
-	
-mgmtpublicaciones
-	
-
-
-	Si un admin cancela una compra, se debe añadir un +1 de item
-Detalles para hacer (que no se va a hacer):
-	La factura genera hasta 18 items, a partir de ahi, se superpone. -> crear una nueva hoja
-
-
-
-VIP Alerta control stock  -> 0%
-VIP Grafica de ventas menual 	-> 0%
---------------------------------------
-
-
-NOTA: INDEX -> Algunas publicaciones -> Muestra finalizados (como usuario Premium) / Posiblemente muestre Baja=1
-
-
-
--------------------------------
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 ESTADO DE FRONT END CPANEL: 90% aprox
 
 Resumen 100%
