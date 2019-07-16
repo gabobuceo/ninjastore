@@ -45,7 +45,7 @@ class PersistenciaPregunta{
     public function consultaPregUsuPublicacion($obj, $conex){
         $idUsuario= trim($obj->getIdUsuario());
         $idPublicacion= trim($obj->getIdPublicacion());
-        $SQL = "SELECT * FROM PREGUNTA WHERE IDPUBLICACION=:IDPUBLICACION AND IDUSUARIO=6";
+        $sql = "SELECT * FROM PREGUNTA WHERE IDPUBLICACION=:IDPUBLICACION AND IDUSUARIO=:IDUSUARIO";
         $result = $conex->prepare($sql);
         $result->execute(array(":IDPUBLICACION" => $idPublicacion,
             ":IDUSUARIO" => $idUsuario));

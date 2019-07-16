@@ -1,6 +1,5 @@
 <?php
 /*
------------------ METODOS SQL ----------------
 CREATE TABLE COMPRA(
 	ID 						SERIAL 			NOT NULL,
 	IDUSUARIO 				BIGINT(20)		UNSIGNED NOT NULL,
@@ -11,12 +10,14 @@ CREATE TABLE COMPRA(
 	COMPRACONCRETA 			BOOLEAN			DEFAULT 0,
 	FECHACOMPRACONCRETADO 	DATETIME,
 	CANTIDAD 				INT 			DEFAULT 1,
-	TOTAL 					DOUBLE(10,2)	NOT NULL,
-	COMISION 				DOUBLE(10,2)	NOT NULL,
+	TOTAL 					INT	NOT NULL,
+	COMISION 				INT	NOT NULL,
+	ESTADO					VARCHAR(15) 	DEFAULT 'ACTIVO',
 	BAJA					BOOLEAN			DEFAULT 0,
 	PRIMARY KEY		(ID,IDUSUARIO,IDPUBLICACION),
 	FOREIGN KEY		(IDUSUARIO) REFERENCES USUARIO(ID),
-	FOREIGN KEY		(IDPUBLICACION) REFERENCES PUBLICACION(ID)
+	FOREIGN KEY		(IDPUBLICACION) REFERENCES PUBLICACION(ID),
+	CHECK			(ESTADO='ACTIVO' AND ESTADO='BANEADO')
 );
 */
 
@@ -35,8 +36,9 @@ class Compra{
 	private $total;
 	private $comision;
 	private $baja;
+	private $estado;
 	
-	function __construct($i='', $iU='', $iP='', $fCom='', $vcon='', $fvCon='', $ccon='', $fcCon='', $can='',$t='',$com='',$ba=''){
+	function __construct($i='', $iU='', $iP='', $fCom='', $vcon='', $fvCon='', $ccon='', $fcCon='', $can='',$t='',$com='',$ba='',$es=''){
 		$this->id= $i;
 		$this->idUsuario= $iU;
 		$this->idPublicacion= $iP;
@@ -49,6 +51,7 @@ class Compra{
 		$this->total= $t;
 		$this->comision= $com;
 		$this->baja= $ba;
+		$this->estado= $es;
 	}
 	//----------------- METODOS SET ----------------
 	public function setId($i){
@@ -87,6 +90,9 @@ class Compra{
 	public function setBaja($ba){
 		$this->baja=$ba;
 	}
+	public function setEestado($es){
+		$this->estado=$es;
+	}
 	// -------------- METODOS GET ---------------
 	public function getId(){
 		return $this->id;
@@ -123,6 +129,9 @@ class Compra{
 	}
 	public function getBaja(){
 		return $this->baja;
+	}
+	public function getEstado(){
+		return $this->estado;
 	}
 	//  ----------- OTROS METODOS --------------
 	public function alta($conex){

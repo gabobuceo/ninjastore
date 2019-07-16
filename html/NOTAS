@@ -1,9 +1,30 @@
 COMITEO:
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-
+CREATE TABLE COMPRA(
+	ID 						SERIAL 			NOT NULL,
+	IDUSUARIO 				BIGINT(20)		UNSIGNED NOT NULL,
+	IDPUBLICACION 			BIGINT(20)		UNSIGNED NOT NULL,
+	FECHACOMPRA 			TIMESTAMP 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	VENTACONCRETA 			BOOLEAN			DEFAULT 0,
+	FECHAVENTACONCRETADO 	DATETIME,
+	COMPRACONCRETA 			BOOLEAN			DEFAULT 0,
+	FECHACOMPRACONCRETADO 	DATETIME,
+	CANTIDAD 				INT 			DEFAULT 1,
+	TOTAL 					INT	NOT NULL,
+	COMISION 				INT	NOT NULL,
+	ESTADO					VARCHAR(15) 	DEFAULT 'ACTIVO', ---_>
+	BAJA					BOOLEAN			DEFAULT 0,
+	PRIMARY KEY		(ID,IDUSUARIO,IDPUBLICACION),
+	FOREIGN KEY		(IDUSUARIO) REFERENCES USUARIO(ID),
+	FOREIGN KEY		(IDPUBLICACION) REFERENCES PUBLICACION(ID),
+	CHECK			(ESTADO='ACTIVO' AND ESTADO='BANEADO')
+);
 
 TRABAJANDO EN:
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+PERSISTENCIA COMPRA YA QUE NO EXISTIA ESTADO EN COMPRA!!!!
+
+
 
 Denuncia de Mensajes	
 
@@ -167,7 +188,7 @@ Gestion de Publicaciones: 100%
 		* Listado de publicaciones (Ver / Editar / Banear / Bajar)
 		* Listado de publicaciones baneadas (Ver / Editar / Banear / Bajar)
 
-Gestion de Mensajes: 0%
+Gestion de Mensajes: 100%
 	Derecha:
 		* Vista previa de Mensajes
 	Izquierda:

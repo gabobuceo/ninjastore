@@ -1,7 +1,6 @@
 <?php
 
-class PersistenciaCompra
-{
+class PersistenciaCompra{
 	public function agregar($obj, $conex){
 		$idUsuario=trim($obj->getIdUsuario());
 		$idPublicacion=trim($obj->getIdPublicacion());
@@ -21,50 +20,153 @@ class PersistenciaCompra
           return(false);
         }
 	}
-
-	public function consTodos( $conex){
-
+	/*public function consTodos( $conex){
 		$sql = "SELECT * FROM VWPUBLICACION";
-
 		$result = $conex->prepare($sql);
 		$result->execute();
 		$resultados=$result->fetchAll();
-		//Obtiene el registro de la tabla Usuario
 
 		return $resultados;
-	}
-	
+	}*/
 	public function consUno($obj, $conex){
 		$id= trim($obj->getId());
 		$sql = "SELECT * FROM DATOS_COMPRAS WHERE ID=:ID";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":ID" => $id));
 		$resultados=$result->fetchAll();
-		//Obtiene el registro de la tabla Usuario
-
 		return $resultados;
 	}
 	public function consVendidos($obj, $conex){
 		$idPublicacion= $obj->getIdPublicacion();
-		/*print_r($idPublicacion);*/
 		$sql = "SELECT * FROM DATOS_PRODUCTO WHERE ID=:IDPUBLICACION";
 		$result = $conex->prepare($sql);
 		$result->execute(array(":IDPUBLICACION" => $idPublicacion));
 		$resultados=$result->fetchAll();
-		//Obtiene el registro de la tabla Usuario
-
 		return $resultados;
 	}
-	public function consMaxID($conex)
-	{
+	public function consVentas($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE IDVENDEDOR=:IDVENDEDOR";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDVENDEDOR" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consMaxID($conex){
 		$sql = "SELECT MAX(ID) FROM COMPRA";
-
 		$result = $conex->prepare($sql);
 		$result->execute();
 		$resultados=$result->fetchAll();
-		
 		return $resultados;
 	}
+
+	public function consComprasSinConfirmar($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE COMPRACONCRETA='0' AND IDUSUARIO=:IDUSUARIO ORDER BY ID DESC";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDUSUARIO" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consComprasSinCalificar($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE COMPRACONCRETA='1' AND (IDCALVENDEDOR IS NULL OR IDCALCOMPRADOR IS NULL) AND IDUSUARIO=:IDUSUARIO ORDER BY ID DESC";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDUSUARIO" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consComprasCerradas($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE COMPRACONCRETA='1' AND IDCALVENDEDOR IS NOT NULL AND IDCALCOMPRADOR IS NOT NULL AND IDUSUARIO=:IDUSUARIO ORDER BY ID DESC";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDUSUARIO" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+
+	public function confCompra($obj, $conex){
+		$id=trim($obj->getId());
+		$sql = "UPDATE COMPRA SET COMPRACONCRETA='1', FECHACOMPRACONCRETADO=NOW() WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		if($result){
+          return(true);
+        }else{
+          return(false);
+        }
+	}
+
+	public function confVenta($obj, $conex){
+		$id=trim($obj->getId());
+		$sql = "UPDATE COMPRA SET VENTACONCRETA='1', FECHAVENTACONCRETADO=NOW() WHERE ID=:ID";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":ID" => $id));
+		if($result){
+          return(true);
+        }else{
+          return(false);
+        }
+	}
+	public function consVentasSinConfirmar($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE VENTACONCRETA='0' AND IDVENDEDOR=:IDVENDEDOR ORDER BY ID DESC";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDVENDEDOR" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consVentasSinCalificar($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE VENTACONCRETA='1' AND (IDCALVENDEDOR IS NULL OR IDCALCOMPRADOR IS NULL) AND IDVENDEDOR=:IDVENDEDOR ORDER BY ID DESC";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDVENDEDOR" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consVentasCerradas($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE VENTACONCRETA='1' AND IDCALVENDEDOR IS NOT NULL AND IDCALCOMPRADOR IS NOT NULL AND IDVENDEDOR=:IDVENDEDOR ORDER BY ID DESC";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDVENDEDOR" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consCompras($obj, $conex){
+		$idUsuario=trim($obj->getIdUsuario());
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE IDCOMPRADOR=:IDCOMPRADOR";
+		$result = $conex->prepare($sql);
+		$result->execute(array(":IDCOMPRADOR" => $idUsuario));
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consTodos($conex){
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE ESTADO='ACTIVO'";
+		$result = $conex->prepare($sql);
+		$result->execute();
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function consTodasBaneadas($conex){
+		$sql = "SELECT * FROM DATOS_COMPRAS WHERE ESTADO='BANEADO'";
+		$result = $conex->prepare($sql);
+		$result->execute();
+		$resultados=$result->fetchAll();
+		return $resultados;
+	}
+	public function baneoMen($obj, $conex) {
+        $id = $obj->getId();
+        $estado = $obj->getEstado();
+        $sql = "UPDATE COMPRA SET ESTADO=:ESTADO WHERE ID=:ID";
+        $result = $conex->prepare($sql);        
+        $result->execute(array(":ID" => $id,
+                                ":ESTADO" => $estado));
+        if($result) {
+            return(true);
+        }else{
+            return(false);
+        }
+    }
 }
 
 ?>
