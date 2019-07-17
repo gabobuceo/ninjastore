@@ -4,9 +4,9 @@ if (!isset($_GET['id'])){
 }
 require('definitions.php');
 ?>
-<link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
-<script type="text/javascript" src="../static/js/jquery.flexslider.js"></script>
-<script type="text/javascript" src="../static/js/jquery.flexisel.js"></script>
+<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/flexslider.css" type="text/css" media="screen" />
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexslider.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexisel.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript">
@@ -19,16 +19,16 @@ require('definitions.php');
 		});
 	});	
 </script>
-<link rel='stylesheet' href='../static/css/dataTables.bootstrap.min.css'>
-<script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../static/js/dataTables.bootstrap.min.js"></script>
+<link rel='stylesheet' href='<?php echo $staticsrv; ?>/css/dataTables.bootstrap.min.css'>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#listopen').DataTable();
 	} );
 </script>
-<script src="../static/EasyZoom/dist/easyzoom.js"></script>
-<link rel="stylesheet" href="../static/EasyZoom/css/easyzoom.css" />
+<script src="<?php echo $staticsrv; ?>/EasyZoom/dist/easyzoom.js"></script>
+<link rel="stylesheet" href="<?php echo $staticsrv; ?>/EasyZoom/css/easyzoom.css" />
 <style>
 .thumbnails {
 	overflow: hidden;
@@ -94,14 +94,14 @@ require('header.php');
 						for ($i=0; $i < count($datos_publicacionimg); $i++) { 
 							if ($start==0){
 								echo "
-								<a href='../imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp'>
-								<img src='../imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_di.webp' />
+								<a href='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp'>
+								<img src='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_di.webp' />
 								</a>
 								</div>
 								<ul class='thumbnails'>
 								<li>
-								<a href='../imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp' data-standard='../imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_di.webp'>
-								<img src='../imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_tn.webp' />
+								<a href='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp' data-standard='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_di.webp'>
+								<img src='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_tn.webp' />
 								</a>
 								</li>";
 								$start=1;
@@ -109,8 +109,8 @@ require('header.php');
 								if ($start==1){
 									echo "
 									<li>
-									<a href='../imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp' data-standard='../imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_di.webp'>
-									<img src='../imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_tn.webp' />
+									<a href='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES'].".webp' data-standard='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_di.webp'>
+									<img src='".$staticsrv."/imagenes/".$datos_publicacionimg[$i]['IMAGENES']."_tn.webp' />
 									</a>
 									</li>";
 								}			
@@ -143,7 +143,7 @@ require('header.php');
 						<div class="interested text-center" name="pachamama" >
 							<h4>Lo quieres?</h4>
 							<?php
-							echo "<img src='../imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' style='border: 1px black solid;' /><br />";
+							echo "<img src='".$staticsrv."/imagenes/".$datos_publicacion['0']['IMGDEFAULT']."_tn.webp' style='border: 1px black solid;' /><br />";
 							if ($datos_publicacion['0']['ESTADOP']!='PUBLICADA') {
 								echo "<h1>Publicación Finalizada</h1>";
 							}else{
@@ -398,7 +398,7 @@ require('header.php');
 									?>
 									<div class="col-md-3 biseller-column">
 										<a href="publication.php?id=<?php echo $datos_masproductosvendedor[$i]['ID']; ?>">
-											<img src="../imagenes/<?php echo $datos_masproductosvendedor[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
+											<img src="<?php echo $staticsrv; ?>/imagenes/<?php echo $datos_masproductosvendedor[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='<?php echo $staticsrv; ?>/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
 											<span class="price">&#36; <?php echo $datos_masproductosvendedor[$i]['PRECIO']; ?></span>
 										</a> 
 										<div class="ad-info">
@@ -472,7 +472,7 @@ require('header.php');
 								?>
 								<div class="col-md-3 biseller-column">
 									<a href="publication.php?id=<?php echo $datos_productossimilares[$i]['ID']; ?>">
-										<img src="../imagenes/<?php echo $datos_productossimilares[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
+										<img src="<?php echo $staticsrv; ?>/imagenes/<?php echo $datos_productossimilares[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='<?php echo $staticsrv; ?>/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
 										<span class="price">&#36; <?php echo $datos_productossimilares[$i]['PRECIO']; ?></span>
 									</a> 
 									<div class="ad-info">

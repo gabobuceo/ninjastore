@@ -5,8 +5,8 @@ require('definitions.php');
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
-<script type="text/javascript" src="../static/js/jquery.flexisel.js"></script>
+<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/flexslider.css" type="text/css" media="screen" />
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexisel.js"></script>
 <?php 
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin scripts de esta pagina.*/

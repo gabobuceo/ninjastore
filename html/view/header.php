@@ -5,7 +5,7 @@
 			<div class='row fila'>
 				<div class='col-sm-2'>
 					<a href='index.php'>
-						<img class='img-responsive logoempresa' src='../static/img/storefullsma.<?php echo $_SESSION['EXT']; ?>'>
+						<img class='img-responsive logoempresa' src='<?php echo $staticsrv; ?>/img/storefullsma.<?php echo $_SESSION['EXT']; ?>'>
 					</a>
 				</div>
 				<div class='store-navbar-search col-md-6 col-xs-11'>
@@ -83,7 +83,7 @@
 														<a href="../view/publication.php?id=<?php echo $datos_favoritos[$i]['IDPUBLICACION']; ?>">
 															<span class="item">
 																<span class="item-left">
-																	<img src="../imagenes/<?php echo $datos_favoritos_head[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																	<img src="../imagenes/<?php echo $datos_favoritos_head[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='<?php echo $staticsrv; ?>/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
 																	<span class="item-info">
 																		<span><?php echo $datos_favoritos_head[$i]['TITULO']; ?></span>
 																		<span>$ <?php echo $datos_favoritos_head[$i]['PRECIO']; ?></span>
@@ -148,7 +148,7 @@
 														<a href="../view/mynotifications.php?id=<?php echo $datos_notificaciones_leidas[$i]['ID']; ?>">
 															<span class="item">
 																<span class="item-left">
-																	<img src="../imagenes/<?php echo $datos_notificaciones_leidas[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
+																	<img src="../imagenes/<?php echo $datos_notificaciones_leidas[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='<?php echo $staticsrv; ?>/img/noimage_tn.<?php echo $_SESSION['EXT'];  ?>  alt="" />
 																	<span class="item-info">
 																		<span><?php echo $datos_notificaciones_leidas[$i]['TIPO']." (".date("d/m/Y", strtotime($datos_notificaciones_leidas[$i]['FECHA'])).")"; ?> </span>
 																		<span><?php echo $datos_notificaciones_leidas[$i]['DESCRIPCION']; ?></span>

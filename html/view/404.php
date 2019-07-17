@@ -22,7 +22,7 @@ require('header.php');
 				<div class="error-details">
 					<p>La pagina que quiere acceder no pudo ser encontrada, puede enviarnos un mensajo apretando <a href='javascript:void(0)'>aqui</a> o intentar luego más tarde</p>
 				</div>
-				<img class="img-responsive error-image" src='../static/img/404.gif' />
+				<img class="img-responsive error-image" src='<?php echo $staticsrv; ?>/img/404.gif' />
 				<div class="error-actions">
 					<div class="container">
 						<a href='../view/index.php' class="btn btn-primary btn-lg"><span class="fa fa-home"></span>

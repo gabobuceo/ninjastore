@@ -1,6 +1,6 @@
 <footer>
 	<div class='footer-left'>
-		<img class='img-responsive logoempresa' src='../static/img/storefullsmb.<?php echo $_SESSION['EXT']; ?>'>
+		<img class='img-responsive logoempresa' src='<?php echo $staticsrv; ?>/img/storefullsmb.<?php echo $_SESSION['EXT']; ?>'>
 		<p class='footer-company'>&trade;Copyright &copy; 2017 http://ninjastore.uy</p>
 	</div>
 	<div class='footer-center'>

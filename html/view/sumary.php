@@ -8,11 +8,11 @@ require('definitions.php');
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<script type="text/javascript" src="../static/js/canvasjs.min.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/canvasjs.min.js"></script>
 
-<link rel='stylesheet' href='../static/css/dataTables.bootstrap.min.css'>
-<script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../static/js/dataTables.bootstrap.min.js"></script>
+<link rel='stylesheet' href='<?php echo $staticsrv; ?>/css/dataTables.bootstrap.min.css'>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#tablapublicacionesActivas').DataTable();
@@ -259,7 +259,7 @@ $datos_abiertas = require_once('../logica/procesarListadoDenunciasAbiertas.php')
 						?>
 						<div class="rightcpanel">
 							<h4>Eres Premum</h4>
-							<img class="img-responsive" src="../static/img/premium.png" />
+							<img class="img-responsive" src="<?php echo $staticsrv; ?>/img/premium.png" />
 						</div>
 						<?php
 					}

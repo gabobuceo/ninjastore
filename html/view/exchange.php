@@ -1,4 +1,5 @@
 <?php 
+session_start();
 if (!isset($_GET['id'])){
 	header('Location: ../view/index.php');
 }
@@ -7,9 +8,9 @@ if (!isset($_SESSION['id'])){
 }
 require('definitions.php');
 ?>
-<link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
-<script type="text/javascript" src="../static/js/jquery.flexslider.js"></script>
-<script type="text/javascript" src="../static/js/jquery.flexisel.js"></script>
+<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/flexslider.css" type="text/css" media="screen" />
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexslider.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexisel.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript">
@@ -22,16 +23,16 @@ require('definitions.php');
 		});
 	});	
 </script>
-<link rel='stylesheet' href='../static/css/dataTables.bootstrap.min.css'>
-<script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../static/js/dataTables.bootstrap.min.js"></script>
+<link rel='stylesheet' href='<?php echo $staticsrv; ?>/css/dataTables.bootstrap.min.css'>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#listopen').DataTable();
 	} );
 </script>
-<script src="../static/EasyZoom/dist/easyzoom.js"></script>
-<link rel="stylesheet" href="../static/EasyZoom/css/easyzoom.css" />
+<script src="<?php echo $staticsrv; ?>/EasyZoom/dist/easyzoom.js"></script>
+<link rel="stylesheet" href="<?php echo $staticsrv; ?>/EasyZoom/css/easyzoom.css" />
 <style>
 .thumbnails {
 	overflow: hidden;

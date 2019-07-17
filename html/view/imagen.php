@@ -5,10 +5,10 @@ require('definitions.php');
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/flexslider.css" type="text/css" media="screen" />
 
-<script type="text/javascript" src="../static/js/jquery.flexslider.js"></script>
-<script type="text/javascript" src="../static/js/jquery.flexisel.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexslider.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexisel.js"></script>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -23,25 +23,25 @@ require('definitions.php');
 	});	
 </script>
 
-<link rel='stylesheet' href='../static/css/dataTables.bootstrap.min.css'>
-<script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../static/js/dataTables.bootstrap.min.js"></script>
+<link rel='stylesheet' href='<?php echo $staticsrv; ?>/css/dataTables.bootstrap.min.css'>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#listopen').DataTable();
 	} );
 </script>
-<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/ckeditor/ckeditor.js"></script>
 
 
-<link href="../static/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-<link href="../static/bootstrap-fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
-<script src="../static/bootstrap-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
-<script src="../static/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
-<script src="../static/bootstrap-fileinput/js/locales/fr.js" type="text/javascript"></script>
-<script src="../static/bootstrap-fileinput/js/locales/es.js" type="text/javascript"></script>
-<script src="../static/bootstrap-fileinput/themes/explorer-fa/theme.js" type="text/javascript"></script>
-<script src="../static/bootstrap-fileinput/themes/fa/theme.js" type="text/javascript"></script>
+<link href="<?php echo $staticsrv; ?>/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $staticsrv; ?>/bootstrap-fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
+<script src="<?php echo $staticsrv; ?>/bootstrap-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
+<script src="<?php echo $staticsrv; ?>/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="<?php echo $staticsrv; ?>/bootstrap-fileinput/js/locales/fr.js" type="text/javascript"></script>
+<script src="<?php echo $staticsrv; ?>/bootstrap-fileinput/js/locales/es.js" type="text/javascript"></script>
+<script src="<?php echo $staticsrv; ?>/bootstrap-fileinput/themes/explorer-fa/theme.js" type="text/javascript"></script>
+<script src="<?php echo $staticsrv; ?>/bootstrap-fileinput/themes/fa/theme.js" type="text/javascript"></script>
 
 <?php 
 /*-----------------------------------------------------------------------------------------------------------*/

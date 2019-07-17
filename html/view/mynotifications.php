@@ -9,9 +9,9 @@ require_once ('../logica/funciones.php');
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<link rel='stylesheet' href='../static/css/dataTables.bootstrap.min.css'>
-<script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../static/js/dataTables.bootstrap.min.js"></script>
+<link rel='stylesheet' href='<?php echo $staticsrv; ?>/css/dataTables.bootstrap.min.css'>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#tablanotificaciones').DataTable();

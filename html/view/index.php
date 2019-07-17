@@ -5,8 +5,8 @@ require('definitions.php');
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
 ?>
-<link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
-<script type="text/javascript" src="../static/js/jquery.flexisel.js"></script>
+<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/flexslider.css" type="text/css" media="screen" />
+<script type="text/javascript" src="<?php echo $staticsrv; ?>/js/jquery.flexisel.js"></script>
 <?php 
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin scripts de esta pagina.*/
@@ -31,12 +31,8 @@ require('header.php');
 <!-- ::::::::::::::  OFERTAS  :::::::::::::: -->
 <?php
 $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');		
-	/*var_dump($datos_ofertas);
-	echo "<br><br>";*/
-	$datos_publicaciones = require_once('../logica/procesarCargaPubliIndex.php');		
-	/*var_dump($datos_publicaciones);
-	echo "<br><br>";*/
-	?>
+$datos_publicaciones = require_once('../logica/procesarCargaPubliIndex.php');		
+?>
 </div>
 <!-- ::::::::::::::  FIN OFERTAS  :::::::::::::: -->
 
@@ -56,7 +52,7 @@ $datos_ofertas = require_once('../logica/procesarCargaOfertas.php');
 					?>
 					<div class="col-md-3 biseller-column <?php if($datos_publicaciones[$i]['TIPO']=='VIP'){ echo 'vip-pub'; } ?>">
 						<a href="publication.php?id=<?php echo $datos_publicaciones[$i]['ID']; ?>">
-							<img src="../imagenes/<?php echo $datos_publicaciones[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='../static/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
+							<img src="<?php echo $staticsrv; ?>/imagenes/<?php echo $datos_publicaciones[$i]['IMGDEFAULT']; ?>_tn.<?php echo $_SESSION['EXT']; ?>" onerror="this.onerror=null;this.src='<?php echo $staticsrv; ?>/img/noimage_tn.<?php echo $_SESSION['EXT']; ?>';"/>
 							<span class="price">&#36; <?php echo $datos_publicaciones[$i]['PRECIO']; ?></span>
 						</a> 
 						<div class="ad-info">

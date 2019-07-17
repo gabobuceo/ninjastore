@@ -4,15 +4,15 @@ require_once('../logica/funciones.php');
 require_once('../clases/Compra.class.php');
 require_once('../clases/Usuario.class.php');
 require_once('../clases/Publicacion.class.php');
-
+require_once('../clases/Factura.class.php');
 require_once('../clases/commit.class.php');
 require_once('../clases/Historial.class.php');
 require_once('../clases/Notificacion.class.php');
 // -------- Obtener la Info ----
-var_dump($_SESSION);
+/*var_dump($_SESSION);
 echo "<hr>";
 var_dump($_POST);
-//exit();
+//exit();*/
 
 $idusuario = $_SESSION['id'];
 $idpublicacion = 1;
@@ -27,7 +27,6 @@ if ($_POST['servicio']!=4) {
 $comision=0;
 
 // ----------- DEBUG -----------------
-
 /*var_dump($idusuario);
 echo "<br>";
 var_dump($idpublicacion);
@@ -42,7 +41,6 @@ var_dump($total);
 echo "<br>";
 var_dump($comision);
 exit();*/
-
 // ----------- PROCESO COMPRA --------------------
 try {          
   $fin=true;
@@ -119,13 +117,12 @@ try {
   print "Error: ".$e->getMessage();
   exit();
 }
-if ($fin){
-    header('Location: ../view/mybills.php');
-  }else{
-    $_SESSION['mobjetivo']="chat";
-    $_SESSION['mtipo']="alert-warning";
-    $_SESSION['mtexto']="<strong>!Problema! </strong>La pregunta no fue ingresada";
-    header('Location: ../view/mybills.php);
-  }
 
+if ($fin){
+  header('Location: ../view/mybills.php');
+}else{
+  $_SESSION['mobjetivo']="chat";
+  $_SESSION['mtipo']="alert-warning";
+  $_SESSION['mtexto']="<strong>!Problema! </strong>La pregunta no fue ingresada";
+  header('Location: ../view/mybills.php');
 }
