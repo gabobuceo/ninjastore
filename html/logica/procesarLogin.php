@@ -1,12 +1,14 @@
 <?php
-
+$config = include('../config/config.php');
 require_once('../clases/Usuario.class.php');
 require_once('funciones.php');
 session_start();
 //Obtiene los datos ingresados
 $usuario= strip_tags(trim($_POST['usuario']));
 $password = strip_tags(trim($_POST['password']));
-if (empty($_POST['g-recaptcha-response']) and $config->modotest=false) {
+/*var_dump($config);
+exit();*/
+if (empty($_POST['g-recaptcha-response']) and $config->modotest==false) {
 	$_SESSION['mobjetivo']="login.php";
 	$_SESSION['mtipo']="alert-warning";
 	$_SESSION['mtexto']="<strong>!Problema! </strong>No fue comprobado el capcha";

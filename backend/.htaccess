@@ -1,1 +1,1 @@
-ErrorDocument 404 /ninjastore/html/view//404.php
+ErrorDocument 404 /view/404.php

@@ -102,7 +102,7 @@ require('header.php');
 									}else{
 										?>
 										<h3>No se han encontrado articulos con la descripción</h3>
-										<img class="img-responsive error-image" src='<?php echo $staticsrv; ?>/img/404.gif' />
+										<!--<img class="img-responsive error-image" src='<?php echo $staticsrv; ?>/img/404.gif' />-->
 										<?php
 									}
 									?>

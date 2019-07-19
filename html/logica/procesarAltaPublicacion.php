@@ -77,7 +77,7 @@ else{
 } 
 
 //------------ D E B U G ------------------
-
+/*
 if ($debug==1){
 	$debugmsg ="DEBUG MODE ON <br />------------<br />titulo = $titulo<br />desc = $desc<br />precio = $precio<br />cantidad = $cantidad<br />optradio = $optradio<br />categoria = $categoria[0]<br />imgdef = $imagenes[0]<br />boton = $boton";
 	echo $debugmsg . "<br />";
@@ -88,11 +88,15 @@ if ($debug==1){
 	var_dump($_POST);
 	exit();
 }
-
+*/
 //------------ A C C I O N E S ------------------
 
-if ($error) {
-	echo "<script>alert(\"$debugmsg\"); console.log(".$mensaje.");</script>";
+if ($error==true){
+  session_start();
+  $_SESSION['mobjetivo']="sell.php";
+  $_SESSION['mtipo']="alert-warning";
+  $_SESSION['mtexto']="<strong>!Problema! </strong>".implode($mensaje);
+  header('Location: ../view/sell.php');
 }else{  
 	try {          
 		$conex = conectar();

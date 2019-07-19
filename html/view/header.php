@@ -5,7 +5,7 @@
 			<div class='row fila'>
 				<div class='col-sm-2'>
 					<a href='index.php'>
-						<img class='img-responsive logoempresa' src='<?php echo $staticsrv; ?>/img/storefullsma.<?php echo $_SESSION['EXT']; ?>'>
+						<img class='img-responsive logoempresa' src='<?php echo $staticsrv; ?>/img/storefullsma_front.<?php echo $_SESSION['EXT']; ?>'>
 					</a>
 				</div>
 				<div class='store-navbar-search col-md-6 col-xs-11'>

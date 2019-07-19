@@ -25,12 +25,12 @@ $file_ary = reArrayFiles($_FILES['imagen']);
 foreach ($file_ary as $file) {
     $ext = explode('.',$file['name']);
     $imgname=md5(uniqid());
-    $target = $config->staticsrv . "/" . $imgname . "." . $ext[count($ext)-1];
-    $targettn = $config->staticsrv . "/" . $imgname . "_tn." . $ext[count($ext)-1];
-    $targetdi = $config->staticsrv . "/" . $imgname . "_di." . $ext[count($ext)-1];
-    $webp = $config->staticsrv . "/" . $imgname . ".webp";
-    $webptn = $config->staticsrv . "/" . $imgname . "_tn.webp";
-    $webpdi = $config->staticsrv . "/" . $imgname . "_di.webp";
+    $target = "../imagenes/" . $imgname . "." . $ext[count($ext)-1];
+    $targettn = "../imagenes/" . $imgname . "_tn." . $ext[count($ext)-1];
+    $targetdi = "../imagenes/" . $imgname . "_di." . $ext[count($ext)-1];
+    $webp = "../imagenes/" . $imgname . ".webp";
+    $webptn = "../imagenes/" . $imgname . "_tn.webp";
+    $webpdi = "../imagenes/" . $imgname . "_di.webp";
     try {
         copy($file['tmp_name'], $targettn);
         copy($file['tmp_name'], $targetdi);
@@ -76,17 +76,17 @@ foreach ($file_ary as $file) {
         if ($file['type']=="image/png") {
             $image = imagecreatefrompng($target);
             $quality = 100;
-            $outputFile = $config->staticsrv . "/" . $imgname . ".jpg";
+            $outputFile = "../imagenes/" . $imgname . ".jpg";
             imagejpeg($image, $outputFile, $quality);
             imagedestroy($image);
             $image = imagecreatefrompng($targettn);
             $quality = 100;
-            $outputFile = $config->staticsrv . "/" . $imgname . "_tn.jpg";
+            $outputFile = "../imagenes/" . $imgname . "_tn.jpg";
             imagejpeg($image, $outputFile, $quality);
             imagedestroy($image);
             $image = imagecreatefrompng($targetdi);
             $quality = 100;
-            $outputFile = $config->staticsrv . "/" . $imgname . "_di.jpg";
+            $outputFile = "../imagenes/" . $imgname . "_di.jpg";
             imagejpeg($image, $outputFile, $quality);
             imagedestroy($image);
             unlink($target); //elimina imagen

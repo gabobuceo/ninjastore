@@ -13,7 +13,13 @@ if (empty($_POST['g-recaptcha-response'])) {
 }
 //VALIDO PRIMER NOMBRE
 if (isset($_POST['pNombre']) and !empty($_POST['pNombre'])){
-  $pNombre = strip_tags($_POST['pNombre']);
+  if(1 === preg_match('~[0-9]~', $_POST['pNombre'])){
+    $pNombre='';
+    $error=true;
+    $mensaje[] = "El Nombre no puede contener numeros"."<br/>";  
+  }else{
+    $pNombre = strip_tags($_POST['pNombre']);
+  }
 }else {
   $pNombre='';
   $error=true;
@@ -21,7 +27,13 @@ if (isset($_POST['pNombre']) and !empty($_POST['pNombre'])){
 }    
 //VALIDO PRIMER APELLIDO
 if (isset($_POST['pApellido']) and !empty($_POST['pApellido'])){
-  $pApellido= strip_tags($_POST['pApellido']);
+  if(1 === preg_match('~[0-9]~', $_POST['pApellido'])){
+    $pApellido='';
+    $error=true;
+    $mensaje[] = "El Apellido no puede contener numeros"."<br/>";  
+  }else{
+    $pApellido= strip_tags($_POST['pApellido']);
+  }
 }else {
   $pApellido='';
   $error=true;
@@ -57,7 +69,13 @@ if ($password!==$password2){
 }
 //VALIDO EMAIL
 if (isset($_POST['email']) and !empty($_POST['email'])){
-  $email= strip_tags($_POST['email']);
+  if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    $email= strip_tags($_POST['email']);
+  } else {
+    $email='';
+    $error=true;
+    $mensaje[] = "El email no es válido"."<br/>";
+  }
 }else {
   $email='';
   $error=true;
@@ -65,7 +83,14 @@ if (isset($_POST['email']) and !empty($_POST['email'])){
 }
 //VALIDO CI
 if (isset($_POST['cedula']) and !empty($_POST['cedula'])){
-  $cedula= strip_tags($_POST['cedula']);
+  if (is_numeric($_POST['cedula'])) {
+    $cedula= strip_tags($_POST['cedula']);
+  }else{
+    $cedula='';
+    $error=true;
+    $mensaje[] = "La cedula no es váloda"."<br/>";
+  }
+  
 }else {
   $cedula='';
   $error=true;
@@ -84,41 +109,41 @@ if (isset($_POST['fNacimiento']) and !empty($_POST['fNacimiento'])){
 }
 
 //-------------F I N    V  A  L  I  D  A  C  I  O  N  E  S ---------------
-// MODO DEBUG
+/* MODO DEBUG
 if ($debug==1){
   $debugmsg ="DEBUG MODE ON \\n------------\\npNombre = $pNombre \\npApellido = $pApellido \\nusuario = $usuario \\npassword = $password \\npassword2 = $password2 \\nemail = $email \\ncedula = $cedula \\nfNacimiento = $fNacimiento";
-}
+}*/
 if ($error==true){
   session_start();
-    $_SESSION['mobjetivo']="register.php";
-    $_SESSION['mtipo']="alert-warning";
-    $_SESSION['mtexto']="<strong>!Problema! </strong>".implode($mensaje);
-    header('Location: ../view/register.php');
+  $_SESSION['mobjetivo']="register.php";
+  $_SESSION['mtipo']="alert-warning";
+  $_SESSION['mtexto']="<strong>!Problema! </strong>".implode($mensaje);
+  header('Location: ../view/register.php');
 }else{
-try {          
-  $conex = conectar();			
-  $u = new Usuario('',$cedula,$usuario,$password,$pNombre,'',$pApellido,'',$fNacimiento,$email);
-  $ejecucionOK=$u->alta($conex);		
-  if ($ejecucionOK){
-    session_start();
-    $_SESSION['mobjetivo']="login.php";
-    $_SESSION['mtipo']="alert-success";
-    $_SESSION['mtexto']="<strong>!Felicidades! </strong>El usuario $usuario se ha creado con exito. Favor entre a su correo para confirmar su usuario";
-    header('Location: ../view/login.php');
-  }else{
+  try {          
+    $conex = conectar();			
+    $u = new Usuario('',$cedula,$usuario,$password,$pNombre,'',$pApellido,'',$fNacimiento,$email);
+    $ejecucionOK=$u->alta($conex);		
+    if ($ejecucionOK){
       session_start();
-    $_SESSION['mobjetivo']="register.php";
-    $_SESSION['mtipo']="alert-warning";
-    $_SESSION['mtexto']="<strong>!Problema! </strong>No se pudo crear el usuario, comuniquese con el centro de atención al usuario";
-    header('Location: ../view/register.php');
-  }
-  desconectar($conex);
-} catch (Exception $e) {
-  session_start();
+      $_SESSION['mobjetivo']="login.php";
+      $_SESSION['mtipo']="alert-success";
+      $_SESSION['mtexto']="<strong>!Felicidades! </strong>El usuario $usuario se ha creado con exito. Favor entre a su correo para confirmar su usuario";
+      header('Location: ../view/login.php');
+    }else{
+      session_start();
+      $_SESSION['mobjetivo']="register.php";
+      $_SESSION['mtipo']="alert-warning";
+      $_SESSION['mtexto']="<strong>!Problema! </strong>No se pudo crear el usuario, comuniquese con el centro de atención al usuario";
+      header('Location: ../view/register.php');
+    }
+    desconectar($conex);
+  } catch (Exception $e) {
+    session_start();
     $_SESSION['mobjetivo']="register.php";
     $_SESSION['mtipo']="alert-danger";
     $_SESSION['mtexto']="<strong>!Error! </strong>".$e->getMessage();
     header('Location: ../view/register.php');
-}
+  }
 }
 ?>

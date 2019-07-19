@@ -14,6 +14,7 @@ require('definitions.php');
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Fin scripts de esta pagina.*/
 require('header.php');
+//var_dump($_SESSION);
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo el contenido de esta pagina aqui.*/
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -25,6 +26,16 @@ require('header.php');
 			<div class="sign-up">
 				<h1>Crear una cuenta</h1>
 				<p class="creating">Create ahora mismo una cuenta y vive una experiencia inolvidable</p>
+				<?php
+				if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="register.php"){
+					echo "<div class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+					unset($_SESSION['mobjetivo']);
+					unset($_SESSION['mtipo']);
+					unset($_SESSION['mtexto']);	
+					unset($_SESSION['debugeame']);				
+				}
+				?>
 				<h2>Información necesaria</h2>
 				<form action="../logica/procesarAltaUsuario.php" method="POST">
 					<div class="sign-u">
@@ -50,7 +61,7 @@ require('header.php');
 							<h4>Cédula:</h4>
 						</div>
 						<div class="sign-up2">
-							<input type="text" name="cedula" placeholder=" " required=" "/>
+							<input type="number" name="cedula" placeholder=" " required=" "/>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
@@ -119,7 +130,7 @@ require('header.php');
 					<div class="sub_home">
 						<div class="sub_home_left">
 							<input type="submit" value="Registrarse"> 
-							</div>
+						</div>
 						<div class="sub_home_right">
 							<p>Regresar a <a href="index.php">Inicio</a></p>
 						</div>

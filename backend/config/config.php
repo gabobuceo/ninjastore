@@ -9,10 +9,13 @@ return (object) array(
     'bdhost' => 'localhost',
     'bduser' => 'root',
     'bdpass' => '',
+    'staticsrv' => 'http://localhost:50105',
+    /**/
     /* CENTOS + MARIADB 
     'bdhost' => '192.168.88.112',
     'bduser' => 'root',
     'bdpass' => 'ninja1234',
+    'staticsrv' => 'http://static.ninjastore.uy',
     /**/
     'bdport' => '',
     'bdname' => 'NINJADATOS',
@@ -29,7 +32,6 @@ return (object) array(
     ),
     'ipserver' => '192.168.1.25',
     'dnsserver' => 'https://www.ninjastore.uy',
-    'staticsrv' => 'http://localhost:50105',
     'mailHost' => 'smtp.gmail.com',
     'mailSMTPAuth' => 'true',
     'mailUsername' => 'emgabo@gmail.com',

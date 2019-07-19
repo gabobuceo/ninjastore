@@ -253,8 +253,9 @@ require('header.php');
 								</div>
 								<div class="col-xs-6">
 									<p>
-										<b><?php echo utf8_encode( $datos_vendedor['0']['PNOMBRE'].' '.$datos_vendedor['0']['PAPELLIDO']) ?></b><br />
+										<b><?php echo utf8_encode( $datos_vendedor['0']['PNOMBRE'].' '.$datos_vendedor['0']['PAPELLIDO']) ?></b>
 										<?php
+										/*
 										for ($i=0; $i < 5; $i++) { 
 											if ($i<$datos_vendedor['0']['NOTA']) {
 												echo "<i class='fa fa-star' aria-hidden='true'></i>";
@@ -262,6 +263,7 @@ require('header.php');
 												echo "<i class='fa fa-star-o' aria-hidden='true'></i>";
 											}
 										}
+										*/
 										?>
 									</p>
 								</div>

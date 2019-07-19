@@ -62,7 +62,7 @@ class PersistenciaUsuario
   public function verificarLoginPassword($obj, $conex){
     $usuario= trim($obj->getUsuario());
     $password= sha1(trim($obj->getPassword())); 
-    $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password AND ROL='CLIENTE' AND BAJA='0'";
+    $sql = "SELECT * FROM USUARIO WHERE USUARIO=:usuario AND PASSWORD=:password AND ROL='CLIENTE' AND BAJA='0' AND ESTADO='ACTIVADO'";
     $consulta = $conex->prepare($sql);
     $consulta->execute(array(":usuario" => $usuario, ":password" => $password));
     $result = $consulta->fetchAll();

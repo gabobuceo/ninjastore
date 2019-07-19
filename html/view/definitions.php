@@ -1,5 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 if(session_id() == '') { 
 	session_start(); 
 }
@@ -29,13 +28,13 @@ $staticsrv=$config->staticsrv;
 <!DOCTYPE html>
 <html lang="es" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Ninja Store 2017</title>
+	<title>Ninja Store 2019</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Tienda online responsiva, estore, Ninja Store" />
 
 	<!-- CSS del sitio Ninja Store -->
-	<link rel="icon" href="<?php echo $staticsrv; ?>img/ico.<?php echo $_SESSION['EXT']; ?>" />
+	<link rel="icon" href="<?php echo $staticsrv; ?>/img/ico.<?php echo $_SESSION['EXT']; ?>" />
 	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/bootstrap-select.css" />
 	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/font-awesome.css" />

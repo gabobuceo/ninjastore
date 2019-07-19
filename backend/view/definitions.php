@@ -23,11 +23,12 @@ $config = include('../config/config.php');
 $staticsrv=$config->staticsrv;
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Ninja Store 2017</title>
 
+
+<!DOCTYPE html>
+<html lang="es" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Ninja Store 2019</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Tienda online responsiva, estore, Ninja Store" />
@@ -37,7 +38,7 @@ $staticsrv=$config->staticsrv;
 	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/bootstrap-select.css" />
 	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/font-awesome.css" />
-	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/style.css"/>
+	<link rel="stylesheet" href="<?php echo $staticsrv; ?>/css/backend.css"/>
 
 	<!-- FONTS del sitio Ninja Store -->
 	<link href='//fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>

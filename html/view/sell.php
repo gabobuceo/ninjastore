@@ -1,6 +1,8 @@
 <?php 
 session_start();
 require('definitions.php');
+//var_dump($_SESSION);
+
 /*-----------------------------------------------------------------------------------------------------------*/
 /* Agregar todo script, puntual para esta pagina.*/
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -315,6 +317,16 @@ if (isset($_GET['edit']) && ($_GET['edit']=='y')) {
 			<div class="single-page main-grid-border">
 				<div class="container">
 					<h1>Publicar un producto</h1>
+					<?php
+					if (isset($_SESSION['mobjetivo']) && $_SESSION['mobjetivo']=="sell.php"){
+						echo "<div class='alert ".$_SESSION['mtipo']." alert-dismissable'>
+						<button type='button' class='close' data-dismiss='alert'>&times;</button>".$_SESSION['mtexto']."</div>";
+						unset($_SESSION['mobjetivo']);
+						unset($_SESSION['mtipo']);
+						unset($_SESSION['mtexto']);	
+						unset($_SESSION['debugeame']);				
+					}
+					?>
 					<div class="product-desc">
 						<form action="../logica/procesarAltaPublicacion.php" method="POST">
 							<div class="col-md-7 product-view" style="border-width: 3px;">
